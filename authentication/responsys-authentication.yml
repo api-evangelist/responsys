@@ -1,0 +1,32 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+docs: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/Authentication.html
+summary:
+  types: [token]
+  api_key_in: [header]
+  oauth2_flows: []
+  notes: >-
+    Responsys REST API uses a two-step token flow: authenticate against the
+    auth/token endpoint to obtain a short-lived authToken and the pod endPoint,
+    then pass the token on subsequent requests in the Authorization header.
+schemes:
+- name: ResponsysAuthToken
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: >-
+    Session auth token obtained from POST /rest/api/v1.3/auth/token and sent in
+    the Authorization header on every subsequent REST call. Tokens are short-lived
+    and can be refreshed via the auth/token endpoint.
+  token_endpoint: /rest/api/v1.3/auth/token
+  auth_types:
+  - password        # user_name + password
+  - token           # refresh an existing authToken
+  - certificate     # server-side certificate (OAuth-like signed assertion)
+  sources: [docs]
+login_hosts:
+- pattern: https://<login>.responsys.net/rest/api/v1.3
+  note: Interactive/login host used to obtain the initial token (e.g. login2/login5.responsys.net).
+- pattern: https://<pod>.responsys.ocs.oraclecloud.com/rest/api/v1.3
+  note: Oracle Cloud pod endpoint returned as endPoint after successful auth; used for data calls.

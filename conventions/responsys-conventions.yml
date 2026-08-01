@@ -1,0 +1,38 @@
+generated: '2026-07-20'
+method: derived
+source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+authentication:
+  style: token
+  header: Authorization
+  detail: >-
+    Session authToken from POST /rest/api/v1.3/auth/token, sent in the
+    Authorization header. See authentication/responsys-authentication.yml.
+base_path: /rest/api/v1.3
+resource_style: >-
+  Named-resource paths keyed by human-readable names (listName, campaignName,
+  programName, folderName, petName, tableName) rather than opaque numeric ids;
+  individual recipients are addressed by RIID (Recipient ID).
+idempotency:
+  supported: false
+  note: Responsys does not document an idempotency-key mechanism for the REST API.
+pagination:
+  style: query-params
+  note: >-
+    List/member retrieval endpoints support query parameters to page and limit
+    records (e.g. limit/offset-style paging over profile list members).
+error_envelope:
+  format: proprietary
+  note: >-
+    Errors return a Responsys JSON error structure (statusCode, title/errorCode,
+    detail) rather than RFC 9457 problem+json. See errors/ if captured.
+versioning:
+  style: uri-path
+  current: v1.3
+rate_limits:
+  note: >-
+    Concurrency and throughput are governed per Oracle Cloud pod/account;
+    limits are contractual rather than published as response headers.
+cross_links:
+  authentication: authentication/responsys-authentication.yml
+  lifecycle: lifecycle/responsys-lifecycle.yml
+  conformance: conformance/responsys-conformance.yml

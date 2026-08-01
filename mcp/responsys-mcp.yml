@@ -1,0 +1,60 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+note: >-
+  No official hosted/remote MCP server was found for Oracle Responsys. This is a
+  candidate tool surface derived from the documented Responsys REST API v1.3
+  endpoint catalog. Not an authoritative provider claim.
+server:
+  name: responsys
+  transport: http
+tools:
+- name: authenticate
+  description: Obtain a session authToken and pod endPoint.
+  source_operation: POST /rest/api/v1.3/auth/token
+- name: list_profile_lists
+  description: List profile lists in the account.
+  source_operation: GET /rest/api/v1.3/lists
+- name: get_list_members
+  description: Retrieve members (recipients) of a profile list.
+  source_operation: GET /rest/api/v1.3/lists/{listName}/members
+- name: merge_list_members
+  description: Create or update recipients in a profile list.
+  source_operation: POST /rest/api/v1.3/lists/{listName}/members
+- name: manage_profile_extension_members
+  description: Read/write recipients of a profile extension table (PET).
+  source_operation: /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members
+- name: manage_supplemental_table
+  description: Read/write members of a supplemental data table.
+  source_operation: /rest/api/v1.3/folders/{folderName}/suppData/{tableName}/members
+- name: list_campaigns
+  description: List email/push campaigns.
+  source_operation: GET /rest/api/v1.3/campaigns
+- name: get_campaign
+  description: Retrieve a campaign by name.
+  source_operation: GET /rest/api/v1.3/campaigns/{campaignName}
+- name: search_campaigns
+  description: Search campaigns.
+  source_operation: POST /rest/api/v1.3/campaigns/actions/search
+- name: schedule_campaign
+  description: Schedule a campaign launch.
+  source_operation: POST /rest/api/v1.3/campaigns/{campaignName}/schedule
+- name: trigger_email
+  description: Send a triggered (merge/trigger) email message.
+  source_operation: POST /rest/api/v1.3/campaigns/{campaignName}/email
+- name: trigger_sms
+  description: Send a triggered SMS message.
+  source_operation: POST /rest/api/v1.3/campaigns/{campaignName}/sms/trigger
+- name: trigger_push
+  description: Send a triggered push message.
+  source_operation: POST /rest/api/v1.3/campaigns/{campaignName}/push
+- name: trigger_custom_event
+  description: Trigger a custom event (Responsys Event Interface).
+  source_operation: POST /rest/api/v1.3/events/{eventName}
+- name: manage_programs
+  description: List and manage orchestration programs.
+  source_operation: /rest/api/v1.3/programs
+- name: manage_content_library
+  description: Manage content library documents, folders, and media items.
+  source_operation: /rest/api/v1.3/clDocs

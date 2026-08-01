@@ -1,0 +1,22 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+versioning:
+  scheme: uri-path
+  current: v1.3
+  docs: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  note: Version carried in the path segment (/rest/api/v1.3).
+deprecation:
+  note: >-
+    The legacy SOAP API is documented alongside the REST API; Oracle steers new
+    integrations to the REST API v1.3. No dated Sunset/Deprecation header policy
+    (RFC 8594) is published for the REST surface.
+  legacy_surfaces:
+  - SOAP API (https://docs.oracle.com/en/cloud/saas/marketing/responsys-soap-api/index.html)
+sla:
+  note: Governed by the customer's Oracle Cloud subscription/CSA; no public per-endpoint SLA page.
+status_page:
+  note: >-
+    No dedicated public Responsys status page was found; operational status is
+    handled through Oracle Cloud/My Oracle Support for subscribed customers.
+deprecated_operations: []

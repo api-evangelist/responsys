@@ -1,0 +1,33 @@
+# Oracle Responsys
+
+> Oracle Responsys (Responsys Campaign Management) is a B2C cross-channel marketing
+> orchestration platform — email, mobile push, SMS, display, and web — that unifies
+> customer data into targeted audiences and delivers personalized messages in near
+> real-time. Originally Responsys, acquired by Oracle in 2014 and now part of Oracle
+> Marketing. It exposes a REST API (v1.3) and a legacy SOAP API.
+
+## APIs
+
+- [Oracle Responsys REST API (v1.3)](https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html): Manage profile lists, recipients, profile extension and supplemental tables, campaigns, programs, folders, content library, triggered email/SMS/push, and events.
+
+## Docs
+
+- [REST API Reference / Endpoints](https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html): Full endpoint catalog for v1.3.
+- [Developer Documentation](https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/index.html): Developer guides and resources.
+- [SOAP API (legacy)](https://docs.oracle.com/en/cloud/saas/marketing/responsys-soap-api/index.html): Legacy SOAP interface.
+- [Product Documentation Home](https://docs.oracle.com/en/cloud/saas/marketing/responsys.html): All Responsys guides.
+
+## Authentication
+
+- Token-based: POST /rest/api/v1.3/auth/token to obtain a session authToken and pod endPoint; send the token in the Authorization header on subsequent calls (auth_type: password | token | certificate).
+
+## Key resources
+
+- Profile Lists & Recipients: /rest/api/v1.3/lists, /rest/api/v1.3/lists/{listName}/members
+- Profile Extension Tables (PET): /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members
+- Supplemental Tables: /rest/api/v1.3/folders/{folderName}/suppData/{tableName}/members
+- Campaigns & Schedules: /rest/api/v1.3/campaigns, /rest/api/v1.3/campaigns/{campaignName}/schedule
+- Triggered Messages: /rest/api/v1.3/campaigns/{campaignName}/email | /sms/trigger | /push
+- Programs: /rest/api/v1.3/programs
+- Events: /rest/api/v1.3/events/{eventName}
+- Content Library: /rest/api/v1.3/clDocs, /clFolders, /clItems

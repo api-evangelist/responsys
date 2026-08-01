@@ -1,8 +1,17 @@
 aid: responsys
 name: Responsys
-description: Responsys is a company surfaced as a portfolio company of accel, redpoint-ventures and added
-  to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: >-
+  Oracle Responsys (Oracle Responsys Campaign Management) is a B2C cross-channel
+  marketing orchestration platform, originally founded as Responsys and acquired by
+  Oracle in 2014, now part of Oracle Marketing. It lets marketing teams design and
+  deliver targeted, personalized customer experiences across email, mobile push, SMS,
+  display, and web channels, unifying data from disparate sources into precisely
+  targeted audiences delivered in near real-time. Responsys exposes a REST API
+  (v1.3) and a legacy SOAP API for managing profile lists and recipients, profile
+  extension tables, supplemental tables, campaigns, programs, folders, the content
+  library, triggered email/SMS/push messages, events, and account settings. This
+  profile catalogs the public Oracle Responsys developer surface for the API
+  Evangelist network.
 url: https://raw.githubusercontent.com/api-evangelist/responsys/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -11,17 +20,84 @@ x-backed-by:
 - redpoint-ventures
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
+image: https://docs.oracle.com/en/cloud/saas/marketing/responsys.html
 tags:
 - Company
-apis: []
+- Marketing
+- Email Marketing
+- Marketing Automation
+- Campaign Management
+- Cross-Channel Marketing
+- Customer Engagement
+- Oracle
+- Martech
+apis:
+- name: Oracle Responsys REST API
+  description: >-
+    The Responsys REST API (v1.3) manages profile lists and recipients, profile
+    extension tables, supplemental data tables, campaigns and campaign schedules,
+    programs, folders, the content library, triggered email/SMS/push messages,
+    events, filters, and account settings. Authentication is token-based via the
+    auth/token endpoint; the returned token and pod endpoint are then used for
+    subsequent calls.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Marketing
+  - Email Marketing
+  - Campaign Management
+  properties:
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/responsys-domain-security.yml
 - type: Website
-  url: http://www.responsys.com
+  url: https://www.oracle.com/cx/marketing/campaign-management/
+- type: DeveloperPortal
+  url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/index.html
+- type: Documentation
+  url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+- type: APIReference
+  url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+- type: SOAP
+  url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-soap-api/index.html
+- type: Authentication
+  url: authentication/responsys-authentication.yml
+- type: MCPServer
+  url: mcp/responsys-mcp.yml
+- type: Conformance
+  url: conformance/responsys-conformance.yml
+- type: Lifecycle
+  url: lifecycle/responsys-lifecycle.yml
+- type: Conventions
+  url: conventions/responsys-conventions.yml
+- type: LLMsTxt
+  url: llms/responsys-llms.txt
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 7
+  pass: local-v1
