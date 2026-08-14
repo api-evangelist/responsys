@@ -5,13 +5,14 @@ description: >-
   marketing orchestration platform, originally founded as Responsys and acquired by
   Oracle in 2014, now part of Oracle Marketing. It lets marketing teams design and
   deliver targeted, personalized customer experiences across email, mobile push, SMS,
-  display, and web channels, unifying data from disparate sources into precisely
-  targeted audiences delivered in near real-time. Responsys exposes a REST API
-  (v1.3) and a legacy SOAP API for managing profile lists and recipients, profile
-  extension tables, supplemental tables, campaigns, programs, folders, the content
-  library, triggered email/SMS/push messages, events, and account settings. This
-  profile catalogs the public Oracle Responsys developer surface for the API
-  Evangelist network.
+  MMS, web push, display, and web channels, unifying data from disparate sources into
+  precisely targeted audiences delivered in near real-time. Responsys exposes a REST API
+  (v1.3, published as a Swagger 2.0 document with 88 operations), an asynchronous AFTM
+  API, an Event Notification webhook API covering 26 campaign event types, and a legacy
+  SOAP API — managing profile lists and recipients, profile extension tables,
+  supplemental tables, campaigns and schedules, programs, folders, the content library,
+  triggered email/SMS/push messages, events, and account settings. This profile catalogs
+  the public Oracle Responsys developer surface for the API Evangelist network.
 url: https://raw.githubusercontent.com/api-evangelist/responsys/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -34,8 +35,8 @@ accessModel:
   method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-20'
-image: https://docs.oracle.com/en/cloud/saas/marketing/responsys.html
+modified: '2026-08-13'
+image: https://www.oracle.com/asset/web/favicons/favicon-192.png
 tags:
 - Company
 - Marketing
@@ -44,6 +45,9 @@ tags:
 - Campaign Management
 - Cross-Channel Marketing
 - Customer Engagement
+- Push Notifications
+- SMS
+- Webhooks
 - Oracle
 - Martech
 apis:
@@ -54,7 +58,8 @@ apis:
     programs, folders, the content library, triggered email/SMS/push messages,
     events, filters, and account settings. Authentication is token-based via the
     auth/token endpoint; the returned token and pod endpoint are then used for
-    subsequent calls.
+    subsequent calls. Oracle publishes a Swagger 2.0 description of this surface
+    (63 paths, 88 operations, 100 definitions).
   humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
   baseURL: https://login5.responsys.net/rest/api/v1.3
   tags:
@@ -66,6 +71,61 @@ apis:
     url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
   - type: APIReference
     url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: OpenAPI
+    url: openapi/responsys-openapi.yml
+  - type: Overlay
+    url: overlays/responsys-openapi-overlay.yaml
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- name: Oracle Responsys Event Notification API
+  description: >-
+    The Event Notification API pushes real-time campaign event data to a customer-owned
+    callback URL. Register a callback, verify it, then subscribe it to any of the 26
+    supported event types across email, SMS, MMS, mobile push and web push — delivery
+    failures, clicks, and opt-in/opt-out consent changes — delivered in configurable
+    batches. It is the only feedback channel for a triggered send. Controlled
+    Availability; access requires a My Oracle Support service request and the Events
+    tier requires an additional SKU.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/EventNotification/rest-event-notifications.htm
+  baseURL: https://login5.responsys.net/rest/api/v1.3/notifications
+  tags:
+  - Webhooks
+  - Events
+  - Marketing
+  properties:
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/EventNotification/rest-event-notifications.htm
+  - type: Webhooks
+    url: asyncapi/responsys-event-notification-webhooks.yml
+- name: Oracle Responsys AFTM / Asynchronous API
+  description: >-
+    The AFTM (Automatic Failover for Transactional Messaging) REST API provides
+    asynchronous, high-availability alternatives to the synchronous merge and trigger
+    operations — HA Merge List Members, HA Merge Trigger Email (with and without
+    attachments), HA Merge Trigger SMS, HA Trigger Push Message, and HA Retrieve List
+    Members. Requests are queued and acknowledged immediately; a request carrying more
+    than 200 recipients is rejected outright. Controlled Availability, and it requires
+    an additional SKU.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/GetStarted/Overview/rest-aftm.htm
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Marketing
+  - Transactional Messaging
+  properties:
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/GetStarted/Overview/rest-aftm.htm
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -82,22 +142,99 @@ common:
   url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
 - type: APIReference
   url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+- type: GettingStarted
+  url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/api.htm
+- type: Support
+  url: https://support.oracle.com/
+- type: GitHubOrganization
+  url: https://github.com/oracle
+- type: TermsOfService
+  url: https://www.oracle.com/legal/terms.html
+- type: PrivacyPolicy
+  url: https://www.oracle.com/legal/privacy/
 - type: SOAP
   url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-soap-api/index.html
+- type: OpenAPI
+  url: openapi/responsys-openapi.yml
+- type: Overlay
+  url: overlays/responsys-openapi-overlay.yaml
 - type: Authentication
   url: authentication/responsys-authentication.yml
-- type: MCPServer
-  url: mcp/responsys-mcp.yml
 - type: Conformance
   url: conformance/responsys-conformance.yml
+- type: Compliance
+  url: https://www.oracle.com/corporate/cloud-compliance/
+- type: TrustCenter
+  url: security/responsys-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/responsys-vulnerability-disclosure.yml
+- type: Security
+  url: https://www.oracle.com/corporate/security-practices/assurance/vulnerability/reporting.html
 - type: Lifecycle
   url: lifecycle/responsys-lifecycle.yml
+- type: ChangeLog
+  url: changelog/responsys-changelog.yml
 - type: Conventions
   url: conventions/responsys-conventions.yml
+- type: ErrorCatalog
+  url: errors/responsys-problem-types.yml
+- type: DataModel
+  url: data-model/responsys-data-model.yml
+- type: RateLimits
+  url: rate-limits/responsys-rate-limits.yml
+- type: Plans
+  url: plans/responsys-plans-pricing.yml
+- type: Packages
+  url: packages/responsys-packages.yml
+- type: SDKs
+  url: packages/responsys-packages.yml
+- type: Webhooks
+  url: asyncapi/responsys-event-notification-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
 - type: LLMsTxt
   url: llms/responsys-llms.txt
+x-pointer-notes:
+  omitted_deliberately:
+  - type: MCPServer
+    reason: >-
+      Removed 2026-08-13. mcp/responsys-mcp.yml is a DERIVED candidate tool list with
+      deployment.mode = none — no hosted endpoint, no stdio package, nothing an agent can
+      reach. The pointer asserted an MCP server Oracle does not ship. The artifact stays;
+      the pointer does not.
+  - type: WellKnown
+    reason: >-
+      well-known/responsys-well-known.yml records an absence — every /.well-known/ path
+      404s on docs.oracle.com, 403s on www.oracle.com, and the responsys.net API hosts
+      refuse TCP 443 from the public internet.
+  - type: AgentCard
+    reason: No agent card served on any host; probed both /.well-known/agent-card.json and /.well-known/agent.json.
+  - type: Idempotency
+    reason: >-
+      Responsys documents no idempotency key and no retry-safety contract. See
+      conventions/responsys-conventions.yml.
+  - type: StatusPage
+    reason: >-
+      No public Responsys status page. ocistatus.oraclecloud.com covers Oracle Cloud
+      Infrastructure, a different service, and is not recorded as one.
+  - type: Deprecation
+    reason: No published deprecation policy and no RFC 8594 Sunset/Deprecation header support for the REST API.
+  - type: Pricing
+    reason: No pricing page — https://www.oracle.com/cx/marketing/campaign-management/pricing/ returns 404. Recorded as plan_count 0 in plans/.
+x-coverage:
+  state: covered
+  note: >-
+    Round 2 found the machine-readable contract round 1 missed — a genuine Swagger 2.0
+    (63 paths, 88 operations) served at
+    https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/swagger.json — plus
+    a real webhook surface (Event Notification API, 26 event types). Two walls remain and
+    are recorded rather than guessed: the Responsys API hosts refuse TCP 443 from the
+    public internet, so nothing on them can be probed live; and docs.oracle.com serves a
+    24,349-byte soft-404 shell with HTTP 200 for every missing path, so path probes there
+    must be verified by body, never by status.
+  checked: '2026-08-13'
 x-enrichment:
-  date: '2026-07-20'
+  date: '2026-08-13'
   status: enriched
-  artifacts_added: 7
+  artifacts_added: 18
   pass: local-v1
