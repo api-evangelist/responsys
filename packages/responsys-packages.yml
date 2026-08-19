@@ -1,0 +1,114 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop-mobile/ +
+  registry.npmjs.org + api.github.com + pypi.org
+note: >-
+  Oracle publishes NO first-party server-side client library (no npm/PyPI/Maven/NuGet
+  package) for the Responsys REST API v1.3 — integrators call the REST surface directly.
+  The first-party packages Oracle does ship are all for the Responsys Mobile App Platform
+  (the PushIOManager SDK) and its cross-platform wrappers. The two Python "Responsys"
+  libraries on PyPI are community projects, both long abandoned.
+packages:
+- language: javascript
+  registry: npm
+  name: "@oracle/react-native-pushiomanager"
+  url: https://www.npmjs.com/package/@oracle/react-native-pushiomanager
+  install: yarn add @oracle/react-native-pushiomanager
+  official: true
+  version: 7.0.2
+  published: '2026-04-23'
+  repository: https://github.com/oracle/pushiomanager-react-native
+  scope: mobile-sdk
+  note: React Native module wrapping the Responsys Mobile SDK (push/in-app messaging), not the REST API.
+- language: dart
+  registry: github
+  name: pushiomanager-flutter
+  url: https://github.com/oracle-samples/pushiomanager-flutter
+  install: "git dependency on https://github.com/oracle-samples/pushiomanager-flutter"
+  official: true
+  version: 7.0.1
+  published: '2026-07-30'
+  repository: https://github.com/oracle-samples/pushiomanager-flutter
+  scope: mobile-sdk
+  note: >-
+    Flutter plugin for the Responsys Mobile SDK. Distributed from GitHub only — not
+    published to pub.dev, so there is no package-registry metadata endpoint to query;
+    version/date read from the repository's latest release tag.
+- language: javascript
+  registry: github
+  name: pushiomanager-cordova-plugin
+  url: https://github.com/oracle/pushiomanager-cordova-plugin
+  install: "cordova plugin add https://github.com/oracle/pushiomanager-cordova-plugin"
+  official: true
+  version: 7.0.1
+  published: '2025-04-07'
+  repository: https://github.com/oracle/pushiomanager-cordova-plugin
+  scope: mobile-sdk
+  note: >-
+    Cordova plugin for the Responsys Mobile SDK. Not published to npm under the @oracle
+    scope (probed 2026-08-13, 404); version/date read from the latest GitHub release.
+- language: java
+  registry: cdn
+  name: PushIOManager (Android)
+  url: https://www.oracle.com/downloads/applications/cx/responsys-mobile-sdk.html
+  install: "implementation fileTree(dir: 'libs', include: ['PushIOManager-6.49.1.aar'])"
+  official: true
+  version: 6.49.1
+  published: null
+  scope: mobile-sdk
+  note: >-
+    Distributed as a downloadable .aar from Oracle's downloads page, not from Maven
+    Central or any Gradle repository — there is no registry metadata endpoint, and the
+    download page publishes no release date. Version read verbatim from the Gradle
+    snippet in the Android setup guide
+    (https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop-mobile/android/step-by-step.htm).
+- language: swift
+  registry: cdn
+  name: PushIOManager.xcframework (iOS)
+  url: https://www.oracle.com/downloads/applications/cx/responsys-mobile-sdk.html
+  install: "Download PushIOManager.xcframework and drag into the Xcode project"
+  official: true
+  version: null
+  published: null
+  scope: mobile-sdk
+  note: >-
+    Distributed as a manually-downloaded XCFramework — no CocoaPods pod, no Swift Package
+    Manager URL, no registry. The download link is unpinned and floats to the current
+    build, so a consumer cannot tell from the URL which version they receive; the iOS
+    setup guide references "SDK 6.45.0 and later" without naming a current version.
+- language: python
+  registry: pypi
+  name: responsysrest
+  url: https://pypi.org/project/responsysrest/
+  install: pip install responsysrest
+  official: false
+  version: 0.1.12
+  published: '2019-05-01'
+  repository: https://github.com/dyspop/responsysrest
+  note: >-
+    Community Python wrapper for the Responsys REST API v1.3. Not Oracle-maintained;
+    last release 2019 — more than four years older than the current spec
+    (info.version 2023.03.03).
+- language: python
+  registry: pypi
+  name: responsys
+  url: https://pypi.org/project/responsys/
+  install: pip install responsys
+  official: false
+  version: 0.2.4
+  published: '2015-10-13'
+  repository: https://github.com/jslang/responsys
+  note: >-
+    Community Python client for the legacy Responsys Interact (SOAP) API. Not
+    Oracle-maintained; abandoned since 2015.
+summary:
+  official_count: 5
+  official_rest_client_count: 0
+  community_count: 2
+  registries_probed: [npm, pypi, github, pub.dev, maven-central]
+  finding: >-
+    Every first-party Oracle package is a mobile push SDK. The REST API v1.3 — the
+    surface this profile catalogs — ships no official SDK in any language, and the only
+    two REST-shaped clients on a public registry are community projects last released in
+    2019 and 2015.

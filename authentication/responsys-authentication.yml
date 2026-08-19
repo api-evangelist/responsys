@@ -1,7 +1,12 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: searched
-source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
-docs: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/Authentication.html
+source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/GetStarted/Authentication/auth-endpoints-rest.htm
+docs: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/GetStarted/Authentication/auth-endpoints-rest.htm
+spec_gap: >-
+  The harvested Swagger 2.0 (openapi/_original/responsys-openapi.json) declares NO
+  securityDefinitions and applies no security to any of its 88 operations, so the machine
+  contract reads as an unauthenticated API. It is not. Everything below was read from the
+  documentation, not derived from the spec.
 summary:
   types: [token]
   api_key_in: [header]
@@ -26,7 +31,31 @@ schemes:
   - certificate     # server-side certificate (OAuth-like signed assertion)
   sources: [docs]
 login_hosts:
-- pattern: https://<login>.responsys.net/rest/api/v1.3
-  note: Interactive/login host used to obtain the initial token (e.g. login2/login5.responsys.net).
-- pattern: https://<pod>.responsys.ocs.oraclecloud.com/rest/api/v1.3
-  note: Oracle Cloud pod endpoint returned as endPoint after successful auth; used for data calls.
+- url: https://login2.responsys.net
+  note: Responsys Interact 2 authentication host.
+- url: https://login5.responsys.net
+  note: Responsys Interact 5 authentication host.
+- url: https://login.rsys8.net
+  note: Responsys Interact 8 authentication host.
+- url: https://login.rsys9.net
+  note: Responsys Interact 9 authentication host.
+- pattern: https://{AccountToken}-api.responsys.ocs.oraclecloud.com
+  note: >-
+    Global Routing REST endpoint. The account's value is shown in the Responsys UI under
+    Account > Global settings > Account configuration, in the WS End Point field.
+- pattern: "{AccountToken}-aftm.responsys.ocs.oraclecloud.com"
+  note: Global Routing endpoint for the AFTM / asynchronous API.
+endpoint_discovery:
+  required: true
+  note: >-
+    Two hops by design. Authenticate against a login host, then use the endPoint URL
+    returned in the auth response as the base URL for every subsequent call. Continuing to
+    call the login host after authenticating is the most common integration error.
+network_reachability:
+  publicly_reachable: false
+  probed: '2026-08-13'
+  note: >-
+    TCP connect to port 443 on login5.responsys.net (162.223.232.188) and
+    login2.responsys.net times out from the public internet, so the auth endpoint cannot
+    be exercised — even anonymously — from an unprovisioned network. DNS resolves fine
+    (login5 -> oapi5.responsys.net). This is an access posture, not an outage.

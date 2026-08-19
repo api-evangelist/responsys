@@ -1,0 +1,59 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTP probes, 2026-08-13
+note: >-
+  No /.well-known/ document is served on any Responsys or Oracle host in this profile.
+  Two distinct walls: (1) the Responsys API hosts (login2/login5.responsys.net and the
+  interact hosts) do not accept connections from the public internet at all — TCP 443
+  times out, so nothing under /.well-known/ can be probed; (2) docs.oracle.com answers
+  404 and www.oracle.com answers 403 (bot management) for every well-known path. NO
+  WellKnown or SecurityTxt pointer is emitted: this file records an absence, not a
+  presence.
+hosts:
+- host: login5.responsys.net
+  reachable: false
+  transport_note: >-
+    DNS resolves (oapi5.responsys.net -> 162.223.232.188) but TCP connect to 443 times
+    out from the public internet. Responsys pods are reachable only from provisioned
+    customer networks.
+  documents:
+  - {path: /.well-known/security.txt, status: 0}
+  - {path: /.well-known/openid-configuration, status: 0}
+  - {path: /.well-known/oauth-authorization-server, status: 0}
+  - {path: /.well-known/api-catalog, status: 0}
+  - {path: /.well-known/ai-plugin.json, status: 0}
+  - {path: /.well-known/agent-card.json, status: 0}
+  - {path: /.well-known/agent.json, status: 0}
+- host: login2.responsys.net
+  reachable: false
+  transport_note: TCP connect to 443 times out (same posture as login5).
+  documents: []
+- host: docs.oracle.com
+  reachable: true
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: www.oracle.com
+  reachable: true
+  documents:
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/openid-configuration, status: 403}
+  - {path: /.well-known/oauth-authorization-server, status: 403}
+  - {path: /.well-known/api-catalog, status: 403}
+  - {path: /.well-known/ai-plugin.json, status: 403}
+  - {path: /.well-known/agent-card.json, status: 403}
+  - {path: /.well-known/agent.json, status: 403}
+  note: >-
+    www.oracle.com returns 403 for every /.well-known/ path via Akamai bot management,
+    including paths that certainly do not exist — so 403 here is an edge policy, not
+    evidence of a document.
+summary:
+  documents_found: 0
+  agent_card_found: false
+  security_txt_found: false
+  pointer_emitted: false

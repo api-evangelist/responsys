@@ -1,60 +1,125 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: derived
 status: candidate
-source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+source: openapi/_original/responsys-openapi.json
+supersedes: derived pass of 2026-07-20 (tools were derived from the HTML endpoint list; now grounded in the harvested Swagger)
 note: >-
-  No official hosted/remote MCP server was found for Oracle Responsys. This is a
-  candidate tool surface derived from the documented Responsys REST API v1.3
-  endpoint catalog. Not an authoritative provider claim.
+  No official hosted or local MCP server exists for Oracle Responsys. Searched the Oracle
+  and oracle-samples GitHub orgs, npm under the @oracle scope, and the Responsys developer
+  documentation — nothing. This is a CANDIDATE tool surface derived from the 88 operations
+  in the harvested Swagger 2.0. It is not a provider claim, and no endpoint has been
+  invented for it.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: derived
+  checked: '2026-08-13'
+  note: >-
+    Nothing to reach. Additionally, even a self-hosted server would need network access to
+    a provisioned Responsys pod: the API hosts (login2/login5.responsys.net) do not accept
+    connections from the public internet — TCP 443 times out.
 server:
   name: responsys
   transport: http
 tools:
-- name: authenticate
-  description: Obtain a session authToken and pod endPoint.
-  source_operation: POST /rest/api/v1.3/auth/token
 - name: list_profile_lists
-  description: List profile lists in the account.
-  source_operation: GET /rest/api/v1.3/lists
-- name: get_list_members
-  description: Retrieve members (recipients) of a profile list.
-  source_operation: GET /rest/api/v1.3/lists/{listName}/members
-- name: merge_list_members
-  description: Create or update recipients in a profile list.
-  source_operation: POST /rest/api/v1.3/lists/{listName}/members
-- name: manage_profile_extension_members
-  description: Read/write recipients of a profile extension table (PET).
-  source_operation: /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members
-- name: manage_supplemental_table
-  description: Read/write members of a supplemental data table.
-  source_operation: /rest/api/v1.3/folders/{folderName}/suppData/{tableName}/members
+  description: Fetch all profile lists in the account.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/lists'
+- name: create_profile_list
+  description: Create a profile list, with or without brand context.
+  source_operation: 'openapi/responsys-openapi.yml#POST /rest/api/v1.3/lists'
+- name: get_profile_list_fields
+  description: Retrieve the field definitions of a profile list.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/lists/{listName}/fields'
+- name: merge_list_recipients
+  description: Merge (upsert) recipients into a profile list.
+  source_operation: 'openapi/responsys-openapi.yml#POST /rest/api/v1.3/lists/{listName}/members'
+- name: get_list_recipient_by_riid
+  description: Retrieve a profile list recipient by RIID.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/lists/{listName}/members/{riid}'
+- name: find_list_recipients
+  description: Retrieve list recipients using a query attribute such as email address.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/lists/{listName}/members'
+- name: count_list_recipients
+  description: Retrieve the count of list recipients matching a query attribute.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/lists/{listName}/members/count'
+- name: delete_list_recipient
+  description: Delete a profile list recipient by RIID.
+  source_operation: 'openapi/responsys-openapi.yml#DELETE /rest/api/v1.3/lists/{listName}/members/{riid}'
+- name: list_profile_extensions
+  description: Fetch all profile extension tables (PETs) for a profile list.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/lists/{listName}/listExtensions'
+- name: merge_profile_extension_recipients
+  description: Merge recipients into a profile extension table.
+  source_operation: 'openapi/responsys-openapi.yml#POST /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members'
 - name: list_campaigns
-  description: List email/push campaigns.
-  source_operation: GET /rest/api/v1.3/campaigns
-- name: get_campaign
-  description: Retrieve a campaign by name.
-  source_operation: GET /rest/api/v1.3/campaigns/{campaignName}
+  description: Fetch all campaigns in the account.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/campaigns'
 - name: search_campaigns
-  description: Search campaigns.
-  source_operation: POST /rest/api/v1.3/campaigns/actions/search
+  description: Fetch campaigns using filters.
+  source_operation: 'openapi/responsys-openapi.yml#POST /rest/api/v1.3/campaigns/actions/search'
+- name: get_campaign
+  description: Fetch a single campaign by name.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/campaigns/{campaignName}'
+- name: preview_campaign
+  description: Preview a campaign's HTML and text rendering.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/campaigns/{campaignName}/preview'
 - name: schedule_campaign
-  description: Schedule a campaign launch.
-  source_operation: POST /rest/api/v1.3/campaigns/{campaignName}/schedule
+  description: Create an email or push campaign schedule.
+  source_operation: 'openapi/responsys-openapi.yml#POST /rest/api/v1.3/campaigns/{campaignName}/schedule'
 - name: trigger_email
-  description: Send a triggered (merge/trigger) email message.
-  source_operation: POST /rest/api/v1.3/campaigns/{campaignName}/email
+  description: Trigger an email message to recipients of a campaign.
+  source_operation: 'openapi/responsys-openapi.yml#POST /rest/api/v1.3/campaigns/{campaignName}/email'
+  consequence: sends real messages to real people
 - name: trigger_sms
-  description: Send a triggered SMS message.
-  source_operation: POST /rest/api/v1.3/campaigns/{campaignName}/sms/trigger
+  description: Trigger an SMS message.
+  source_operation: 'openapi/responsys-openapi.yml#POST /rest/api/v1.3/campaigns/{campaignName}/sms/trigger'
+  consequence: sends real messages to real people
 - name: trigger_push
-  description: Send a triggered push message.
-  source_operation: POST /rest/api/v1.3/campaigns/{campaignName}/push
+  description: Trigger a mobile push message.
+  source_operation: 'openapi/responsys-openapi.yml#POST /rest/api/v1.3/campaigns/{campaignName}/push'
+  consequence: sends real messages to real people
+- name: trigger_email_with_attachments
+  description: Trigger an email message carrying attachments.
+  source_operation: 'openapi/responsys-openapi.yml#POST /rest/api/v1.3/campaigns/{campaignName}/emailAttachments/actions/trigger'
+  consequence: sends real messages to real people
 - name: trigger_custom_event
-  description: Trigger a custom event (Responsys Event Interface).
-  source_operation: POST /rest/api/v1.3/events/{eventName}
-- name: manage_programs
-  description: List and manage orchestration programs.
-  source_operation: /rest/api/v1.3/programs
-- name: manage_content_library
-  description: Manage content library documents, folders, and media items.
-  source_operation: /rest/api/v1.3/clDocs
+  description: Trigger a custom event, entering recipients into a program.
+  source_operation: 'openapi/responsys-openapi.yml#POST /rest/api/v1.3/events/{eventName}'
+- name: list_custom_events
+  description: Fetch all custom events defined in the account.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/events'
+- name: list_programs
+  description: Fetch all orchestration programs.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/programs'
+- name: publish_program
+  description: Publish or unpublish a program.
+  source_operation: 'openapi/responsys-openapi.yml#PATCH /rest/api/v1.3/programs/{programName}'
+- name: exit_program_enactments
+  description: Exit recipients from in-flight program enactments.
+  source_operation: 'openapi/responsys-openapi.yml#POST /rest/api/v1.3/programs/enactments'
+- name: list_supplemental_tables
+  description: Fetch all supplemental data tables.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/suppData'
+- name: merge_supplemental_table_members
+  description: Merge records into a supplemental table.
+  source_operation: 'openapi/responsys-openapi.yml#POST /rest/api/v1.3/folders/{folderName}/suppData/{tableName}/members'
+- name: list_folders
+  description: Retrieve the account's folders.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/folders'
+- name: list_filters
+  description: Retrieve all saved audience filters.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/filters'
+- name: get_account_settings
+  description: Get account settings for the authenticated user.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/settings/account'
+- name: get_user_info
+  description: Get information about the authenticated user.
+  source_operation: 'openapi/responsys-openapi.yml#GET /rest/api/v1.3/user/info'
+summary:
+  tool_count: 30
+  rest_operations_available: 88
+  official_server: false

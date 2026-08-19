@@ -1,38 +1,119 @@
-generated: '2026-07-20'
-method: derived
-source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+generated: '2026-08-13'
+method: searched
+source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/api.htm
+derived_from: openapi/_original/responsys-openapi.json
+supersedes: derived pass of 2026-07-20 (no spec was in the repo then)
 authentication:
-  style: token
+  style: session-token
   header: Authorization
   detail: >-
-    Session authToken from POST /rest/api/v1.3/auth/token, sent in the
-    Authorization header. See authentication/responsys-authentication.yml.
+    POST /rest/api/v1.3/auth/token returns a short-lived authToken plus the pod endPoint
+    to use for all subsequent calls. The token goes in the Authorization header with no
+    scheme prefix. Three auth_type values are supported: password, token (refresh), and
+    certificate. See authentication/responsys-authentication.yml.
+  token_endpoint: /rest/api/v1.3/auth/token
+  endpoint_discovery: >-
+    Two-hop by design — authenticate against a login host (login2/login5.responsys.net,
+    login.rsys8.net, login.rsys9.net) or a global-routing host, then switch to the
+    endPoint URL returned in the auth response. An agent that keeps calling the login
+    host after authenticating is using the wrong base URL.
+  docs: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/GetStarted/Authentication/auth-endpoints-rest.htm
 base_path: /rest/api/v1.3
-resource_style: >-
-  Named-resource paths keyed by human-readable names (listName, campaignName,
-  programName, folderName, petName, tableName) rather than opaque numeric ids;
-  individual recipients are addressed by RIID (Recipient ID).
+exception_paths:
+- path: /rest/api/ratelimit
+  note: >-
+    Unversioned on purpose — served by the Oracle API Gateway, not the versioned Responsys
+    service. Inserting v1.3 returns 404.
+resource_style:
+  addressing: name-in-path
+  detail: >-
+    Resources are addressed by human-readable NAME (listName, campaignName, programName,
+    folderName, petName, tableName, docPath, itemPath), not by opaque ids. The single
+    opaque id in the model is RIID, the recipient identifier. Renaming an object in the
+    Responsys UI changes its API address.
+  action_sub_resources: >-
+    Non-CRUD verbs are modelled as /actions/ sub-resources —
+    POST /campaigns/actions/search, POST /campaigns/{campaignName}/emailAttachments/actions/trigger.
+  method_overloading: >-
+    Several paths overload POST with different request bodies for different intents. For
+    example POST /lists/{listName}/members serves merge, "retrieve multiple" AND "delete
+    multiple" recipients, distinguished by payload rather than by method or path. An agent
+    cannot choose the operation from the path alone.
 idempotency:
   supported: false
-  note: Responsys does not document an idempotency-key mechanism for the REST API.
+  header: null
+  detail: >-
+    Responsys documents NO idempotency key, no request-deduplication header, and no
+    safe-retry contract. Retrying a failed POST /campaigns/{campaignName}/email or a merge
+    into a profile list can duplicate the send or the record. The nearest thing to
+    idempotent semantics is the MERGE model itself — merging recipients upserts on the
+    list's match key rather than blindly inserting — but that is a property of the merge
+    operation, not a general retry guarantee, and it does not apply to triggered sends.
+  agent_guidance: >-
+    Treat every triggered-message operation as at-most-once. Do not auto-retry a send on
+    timeout without an application-side dedupe key of your own.
 pagination:
-  style: query-params
+  style: query-parameters
+  detail: >-
+    Collection reads take query parameters to window results (e.g. limit/offset-style
+    paging over profile list members and campaign collections). The harvested spec
+    declares the parameters per operation; there is no cursor token and no standard
+    envelope-level next-link across the API.
+  cursor: false
+field_selection:
+  supported: partial
+  detail: >-
+    Recipient reads take a fieldList parameter naming which profile fields to return;
+    supplemental table reads can request all fields or just primary-key fields. There is
+    no general sparse-fieldset or expansion grammar.
+metadata:
+  supported: false
+  note: No general customer-defined metadata bag on API objects.
+request_tracing:
+  request_id_header: not published
   note: >-
-    List/member retrieval endpoints support query parameters to page and limit
-    records (e.g. limit/offset-style paging over profile list members).
-error_envelope:
-  format: proprietary
-  note: >-
-    Errors return a Responsys JSON error structure (statusCode, title/errorCode,
-    detail) rather than RFC 9457 problem+json. See errors/ if captured.
+    No correlation/request-id header is documented on responses, so a failed call cannot
+    be quoted back to Oracle Support by id — support goes through My Oracle Support with
+    payload and timestamp instead.
 versioning:
   style: uri-path
   current: v1.3
-rate_limits:
+  release_scheme: >-
+    The path version has not moved; change is tracked by Oracle quarterly release
+    identifier (22B and earlier). See changelog/responsys-changelog.yml.
+error_envelope:
+  format: proprietary
+  rfc9457: false
+  shape: '{type, title, errorCode, detail, errorDetails[]}'
   note: >-
-    Concurrency and throughput are governed per Oracle Cloud pod/account;
-    limits are contractual rather than published as response headers.
+    Shaped like RFC 9457 but is not — `type` is documented as an empty string in every
+    example and there is no problem-type URI registry. Branch on errorCode. See
+    errors/responsys-problem-types.yml.
+rate_limit_signaling:
+  headers: none
+  detail: >-
+    No X-RateLimit-*, no RateLimit-*, no Retry-After. Quota is per API function per
+    account per minute and must be read ahead of time from GET /rest/api/ratelimit; the
+    only in-band signal is errorCode API_LIMIT_EXCEEDED. See
+    rate-limits/responsys-rate-limits.yml.
+events:
+  style: webhook-callback
+  detail: >-
+    Real-time event data is pushed by the Event Notification API to a customer-registered
+    and verified callback URL, batched. See
+    asyncapi/responsys-event-notification-webhooks.yml.
+asynchrony:
+  style: queued-request
+  detail: >-
+    The AFTM / Asynchronous API accepts a request onto a queue and returns immediately;
+    requests over 200 recipients are rejected outright, and a full queue returns
+    UNABLE_TO_SUBMIT_ASYNC_REQUEST.
+  docs: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/GetStarted/Overview/rest-aftm.htm
 cross_links:
   authentication: authentication/responsys-authentication.yml
+  errors: errors/responsys-problem-types.yml
+  rate_limits: rate-limits/responsys-rate-limits.yml
   lifecycle: lifecycle/responsys-lifecycle.yml
   conformance: conformance/responsys-conformance.yml
+  data_model: data-model/responsys-data-model.yml
+  webhooks: asyncapi/responsys-event-notification-webhooks.yml

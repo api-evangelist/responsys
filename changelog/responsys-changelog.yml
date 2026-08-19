@@ -1,0 +1,113 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+docs: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+title: Changes and Enhancements in Recent Releases
+scheme: oracle-quarterly-release
+scheme_note: >-
+  Entries are keyed by Oracle Cloud quarterly release (YYL — 22B = second quarter of 2022)
+  and carry NO publication dates. The REST API itself stays on v1.3 across every release;
+  the release identifier, not a version number, is what moves.
+current:
+  api_version: v1.3
+  spec_version: '2023.03.03'
+  spec_version_source: openapi/_original/responsys-openapi.json (info.version)
+currency_finding: >-
+  The most recent entry on the published changelog is 22B. The harvested Swagger carries
+  info.version 2023.03.03. Read together, the public REST API change record has not been
+  extended in roughly four years, while the spec itself was last stamped in March 2023 —
+  an agent has no published signal about anything that changed after that.
+entries:
+- release: 22B
+  date: null
+  breaking: false
+  highlights:
+  - No significant updates to the Standard REST API.
+  - Enhancements to the Advanced API, Asynchronous REST API, and AFTM REST API.
+- release: 22A
+  date: null
+  breaking: false
+  highlights:
+  - Responsys Advanced API (34 APIs) reached General Availability.
+  - Responsys Asynchronous Reporting API (4 APIs) reached General Availability.
+  - No updates to the Standard REST API.
+- release: 21D
+  date: null
+  breaking: false
+  highlights:
+  - Responsys APIs updated with a built-in Smart API Controller to manage internal capacity limits.
+  - No impact to existing API limits.
+- release: 21C
+  date: null
+  breaking: false
+  highlights:
+  - No significant updates to the Standard REST API.
+  - Updates to the Asynchronous REST API (Trigger Custom Event, Trigger Push Message).
+- release: 21B
+  date: null
+  breaking: false
+  highlights:
+  - Asynchronous REST API endpoints reached General Availability.
+- release: 21A
+  date: null
+  breaking: false
+  additions:
+  - Preview a campaign (HTML and text preview)
+  - Retrieve segment groups
+  - Get all data sources associated with a campaign
+  - Update a supplemental table
+  - Trigger Email Message with Attachments
+  highlights:
+  - Enhancements to the Events API, Advanced API, and Async API.
+- release: 20D
+  date: null
+  breaking: false
+  additions:
+  - Get a Campaign's Proof List
+  - Update a Campaign's Proof List
+  highlights:
+  - Hashed email support (MD5 and SHA256) for triggering email and SMS messages.
+- release: 20C
+  date: null
+  breaking: false
+  additions:
+  - Add Email Domain Rules
+  - Delete Email Domain Rules
+  - Fetch a Program by Name
+  - Fetch Programs for a Profile List
+  - Create a Folder
+  - Retrieve Proof Lists
+  - Fetch Campaigns Using Filters
+  highlights:
+  - Trigger REI Event updated for Web Push recipients.
+- release: 20B
+  date: null
+  breaking: false
+  additions:
+  - Exit Enactments
+  - Retrieve Profile List Fields
+  - Retrieve Profile List Recipients Count with query attribute
+  - Delete Profile List Recipients using query attribute
+  - Get all Filters
+  - Get Email Domain Rules
+  - Get Email Footer Contents
+  highlights:
+  - 'New campaigns property campaignStatus with values: NONE, DRAFT, ACTIVE, CLOSED.'
+- release: 20A
+  date: null
+  breaking: false
+  additions:
+  - Create a Profile List
+  - Trigger SMS Message
+  - Get Account Settings for a User
+  - Get User Information
+  - Get Endpoint URL for a User
+  - Retrieve Multiple Profile Extension Recipients
+  highlights:
+  - Trigger REI Event updated for mobile app channel users.
+  - Retrieve Profile Extension Recipient gained sdate/edate query parameters for date-range filtering.
+summary:
+  entry_count: 10
+  most_recent_release: 22B
+  entries_dated: 0
+  breaking_changes_recorded: 0

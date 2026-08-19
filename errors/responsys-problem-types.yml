@@ -1,0 +1,91 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/AFTM/errors-async.htm
+also_derived_from: openapi/_original/responsys-openapi.json
+format: proprietary
+note: >-
+  Responsys does NOT use RFC 9457 problem+json. It uses its own error envelope, which is
+  shaped like problem+json (it even carries a `type` member) but the `type` member is
+  documented as an empty string in every published example and no error-type URI registry
+  is published. Note also that the harvested Swagger 2.0 declares only a `default`
+  response on all 88 operations — it defines no 4xx/5xx responses at all — so the error
+  contract below could not be derived from the spec and was read from the documentation
+  instead.
+envelope:
+  content_type: application/json
+  members:
+  - {name: type, type: string, note: 'Documented as an empty string in every published example — not a resolvable problem-type URI.'}
+  - {name: title, type: string, note: Short human-readable summary.}
+  - {name: errorCode, type: string, note: The machine-readable code an agent should branch on.}
+  - {name: detail, type: string, note: Human-readable explanation, often naming the offending parameter.}
+  - {name: errorDetails, type: array, note: Per-item errors for batch/merge operations.}
+  example: |
+    {
+        "type": "",
+        "title": "Invalid request parameters",
+        "errorCode": "INVALID_PARAMETER",
+        "detail": "Invalid parameter 'mergeTriggerRecordData'",
+        "errorDetails": []
+    }
+problems:
+- errorCode: INVALID_PARAMETER
+  status: 400
+  title: Invalid request parameters
+  detail_example: "Invalid parameter 'mergeTriggerRecordData'"
+  remediation: >-
+    Verify the payload is well-formed JSON with no missing or misused punctuation, and
+    that every named parameter exists on the operation.
+  source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/AFTM/errors-async.htm
+- errorCode: RECIPIENT_LIMIT_EXCEEDED
+  status: 400
+  title: Recipient limit exceeded
+  detail_example: "Recipient limit exceeded, maximum of 200 recipients are allowed per each api call"
+  remediation: Split the batch into calls of 200 recipients or fewer. The request is rejected before queueing.
+  applies_to: Asynchronous (AFTM) API
+  source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/AFTM/errors-async.htm
+- errorCode: UNABLE_TO_SUBMIT_ASYNC_REQUEST
+  status: 500
+  title: Unable to submit Async request
+  detail_example: "Error in submitting async request"
+  remediation: The async queue is full. Retry later with backoff; this is transient.
+  applies_to: Asynchronous (AFTM) API
+  source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/AFTM/errors-async.htm
+- errorCode: API_LIMIT_EXCEEDED
+  status: not published
+  title: Rate limit exceeded for an API function
+  detail_example: >-
+    "You exceeded your allowable limit to call the <function_name> API function. Please
+    try again in a minute."
+  remediation: >-
+    Wait for the one-minute window to roll. Read the account's per-function ceilings from
+    GET /rest/api/ratelimit. See rate-limits/responsys-rate-limits.yml.
+  source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/Throttling.html
+- errorCode: API_BLOCKED
+  status: not published
+  title: API function not available to this user
+  detail_example: >-
+    "The <function_name> is currently not available to this user. Please contact tech
+    support."
+  remediation: >-
+    Not transient — the user is blocked from that function. Retrying will not clear it;
+    raise a My Oracle Support service request.
+  source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/Throttling.html
+- errorCode: UNEXPECTED_EXCEPTION
+  status: 500
+  title: Unexpected exception
+  detail_example: "Not a valid authentication token"
+  remediation: >-
+    Most commonly an expired or malformed session authToken — re-authenticate against
+    /rest/api/v1.3/auth/token. See authentication/responsys-authentication.yml.
+  source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/Throttling.html
+common_status_notes:
+- status: 404
+  note: >-
+    Documented gotcha — calling the rate-limit introspection endpoint as
+    /rest/api/v1.3/ratelimit returns 404. That endpoint is unversioned:
+    /rest/api/ratelimit.
+summary:
+  problem_count: 6
+  rfc9457: false
+  spec_declares_error_responses: false
+  spec_response_codes: [default]

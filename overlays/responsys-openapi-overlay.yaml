@@ -1,0 +1,134 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Oracle Responsys REST API
+  version: 1.0.0
+extends: openapi/responsys-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Enhancements derived from the Responsys developer documentation and the artifacts in
+  this repo. The harvested document is Swagger 2.0 and is never mutated — every gap Oracle
+  left in the spec is recorded here as an action instead.
+actions:
+- target: $.info
+  description: Provenance and the rating context for this profile.
+  update:
+    x-apievangelist-profile: https://apis.io/provider/responsys/
+    x-apievangelist-source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/swagger.json
+    x-apievangelist-harvested: '2026-08-13'
+    x-spec-version-note: >-
+      Published as Swagger 2.0 with info.version 2023.03.03 — two major versions behind
+      current OpenAPI, and last stamped in March 2023.
+- target: $.info
+  description: >-
+    The document declares no contact or documentation links; add the real ones Oracle
+    publishes elsewhere.
+  update:
+    contact:
+      name: Oracle Responsys Developer Documentation
+      url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/index.html
+    x-api-reference: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+- target: $
+  description: >-
+    GAP — the document declares no host, basePath or schemes, so no client can be
+    generated from it without external knowledge. Record the real host model: a login host
+    to authenticate, then the pod endPoint returned in the auth response.
+  update:
+    x-servers:
+    - url: https://login5.responsys.net
+      description: Responsys Interact 5 authentication host
+    - url: https://login2.responsys.net
+      description: Responsys Interact 2 authentication host
+    - url: https://login.rsys8.net
+      description: Responsys Interact 8 authentication host
+    - url: https://login.rsys9.net
+      description: Responsys Interact 9 authentication host
+    - url: https://{accountToken}-api.responsys.ocs.oraclecloud.com
+      description: Global-routing REST endpoint
+    x-server-note: >-
+      Authenticate against a login host, then switch to the endPoint URL returned by
+      /rest/api/v1.3/auth/token. All of these hosts refuse connections from the public
+      internet — TCP 443 times out from an unprovisioned network.
+    x-basePath: /rest/api/v1.3
+- target: $
+  description: >-
+    GAP — the document declares no securityDefinitions and applies no security to any of
+    its 88 operations, so the spec reads as an unauthenticated API. It is not.
+  update:
+    x-securityDefinitions:
+      ResponsysAuthToken:
+        type: apiKey
+        in: header
+        name: Authorization
+        description: >-
+          Session authToken obtained from POST /rest/api/v1.3/auth/token (auth_type
+          password | token | certificate). Sent with no scheme prefix. Short-lived.
+    x-security-note: See authentication/responsys-authentication.yml.
+- target: $
+  description: >-
+    GAP — every operation declares only a `default` response. Record the real error
+    contract so an agent can branch on it.
+  update:
+    x-error-envelope:
+      content_type: application/json
+      rfc9457: false
+      shape: '{type, title, errorCode, detail, errorDetails[]}'
+      branch_on: errorCode
+      catalog: errors/responsys-problem-types.yml
+- target: $
+  description: Runtime semantics the spec cannot express.
+  update:
+    x-rate-limits:
+      scope: per-account-per-function
+      window: 1 minute
+      default_limit: 200
+      introspection: GET /rest/api/ratelimit
+      response_headers: none
+      exhaustion_error: API_LIMIT_EXCEEDED
+      artifact: rate-limits/responsys-rate-limits.yml
+    x-idempotency:
+      supported: false
+      note: >-
+        No idempotency key. Treat triggered sends as at-most-once; do not auto-retry on
+        timeout.
+      artifact: conventions/responsys-conventions.yml
+    x-event-surface:
+      style: webhook-callback
+      events: 26
+      artifact: asyncapi/responsys-event-notification-webhooks.yml
+- target: $.paths['/rest/api/v1.3/campaigns/{campaignName}/email'].post
+  description: >-
+    Consequence marking — this operation dispatches real email to real people and is not
+    reversible.
+  update:
+    x-agentic-consequence: physical
+    x-agentic-guidance: >-
+      Requires explicit human confirmation. Not safe to retry on timeout — no idempotency
+      key exists.
+- target: $.paths['/rest/api/v1.3/campaigns/{campaignName}/sms/trigger '].post
+  description: Consequence marking — dispatches real SMS.
+  update:
+    x-agentic-consequence: physical
+    x-agentic-guidance: Requires explicit human confirmation. Not safe to retry on timeout.
+- target: $.paths['/rest/api/v1.3/campaigns/{campaignName}/push '].post
+  description: Consequence marking — dispatches real mobile push.
+  update:
+    x-agentic-consequence: physical
+    x-agentic-guidance: Requires explicit human confirmation. Not safe to retry on timeout.
+- target: $.paths
+  description: >-
+    DEFECT recorded, not repaired — several path keys in the harvested document carry a
+    TRAILING SPACE (for example '/rest/api/v1.3/campaigns/{campaignName}/push ',
+    '/rest/api/v1.3/events ', '/rest/api/v1.3/campaigns/{campaignName}/sms/trigger ').
+    Tooling that does not trim will request the wrong URL. Left verbatim in
+    openapi/_original/ so the provider's own artifact is preserved exactly as published.
+  update:
+    x-known-defects:
+    - kind: trailing-whitespace-in-path-keys
+      affects: 3 or more paths
+    - kind: duplicate-operationIds
+      note: >-
+        operationId values are generated from method+path (e.g. 'get /rest/api/v1.3/events')
+        and collide where one path serves several intents via overloaded POST bodies.
+    - kind: no-response-codes
+      note: All 88 operations declare only a `default` response — no 2xx, no 4xx, no 5xx.

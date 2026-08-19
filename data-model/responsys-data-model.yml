@@ -1,0 +1,146 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/responsys-openapi.json
+docs: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+derivation_note: >-
+  Derived from the harvested Swagger 2.0 (63 paths, 88 operations, 100 definitions). The
+  spec's $ref graph is almost entirely collection-wrapper -> item (e.g. lists-collection
+  has_many lists), so it carries little domain structure on its own; the real Responsys
+  entity graph is expressed by PATH HIERARCHY (a profile extension lives under a list, a
+  supplemental table lives under a folder) and by ID-REFERENCE FIELDS (riid, campaignId,
+  customerId). Both are recorded below and each relationship names the evidence it came
+  from. No relationship here was invented.
+identity:
+  primary_key: RIID
+  primary_key_note: >-
+    The Recipient ID (RIID) is the one opaque numeric identifier in the model. Nearly
+    every other entity is addressed by a human-readable NAME in the path — listName,
+    campaignName, programName, folderName, petName, tableName, docPath, itemPath — not by
+    an id. This is unusual and it is load-bearing for an agent: renaming an object in the
+    Responsys UI changes its API address.
+  secondary_keys: [campaignId, customerId, scheduleId]
+entities:
+- name: ProfileList
+  path: /rest/api/v1.3/lists
+  key: listName
+  description: The audience container. Holds recipients and their profile attributes.
+  operations: 6
+- name: ProfileListRecipient
+  path: /rest/api/v1.3/lists/{listName}/members
+  key: riid
+  description: A person on a profile list. Addressed by RIID or by a query attribute (e.g. email).
+  operations: 8
+- name: ProfileExtensionTable
+  path: /rest/api/v1.3/lists/{listName}/listExtensions
+  key: petName
+  description: A PET — extra attribute columns attached to a profile list.
+  operations: 2
+- name: ProfileExtensionRecipient
+  path: /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members
+  key: riid
+  description: A recipient's row in a profile extension table.
+  operations: 6
+- name: SupplementalTable
+  path: /rest/api/v1.3/folders/{folderName}/suppData
+  key: tableName
+  description: Non-audience relational data (catalog, transactions) used for personalization.
+  operations: 3
+- name: SupplementalTableMember
+  path: /rest/api/v1.3/folders/{folderName}/suppData/{tableName}/members
+  key: primary key fields of the table
+  description: A record in a supplemental table.
+  operations: 5
+- name: Campaign
+  path: /rest/api/v1.3/campaigns
+  key: campaignName
+  description: An email, SMS, MMS, push or web-push campaign. Carries campaignStatus (NONE/DRAFT/ACTIVE/CLOSED).
+  operations: 4
+- name: CampaignSchedule
+  path: /rest/api/v1.3/campaigns/{campaignName}/schedule
+  key: scheduleId
+  description: A launch schedule attached to an email or push campaign.
+  operations: 5
+- name: ProofList
+  path: /rest/api/v1.3/campaigns/{campaignName}/attributes/proofList
+  key: campaignName
+  description: The internal seed/proof audience for a campaign.
+  operations: 2
+- name: DataSource
+  path: /rest/api/v1.3/campaigns/{campaignName}/attributes/dataSources
+  key: campaignName
+  description: The tables and fields a campaign draws personalization data from.
+  operations: 1
+- name: Program
+  path: /rest/api/v1.3/programs
+  key: programName
+  description: An orchestration program. Enactments are individual runs through the program.
+  operations: 5
+- name: Folder
+  path: /rest/api/v1.3/folders
+  key: folderName
+  description: The account's organizing container for campaigns, tables and content.
+  operations: 3
+- name: Filter
+  path: /rest/api/v1.3/filters
+  key: filter name
+  description: A saved audience filter.
+  operations: 1
+- name: CustomEvent
+  path: /rest/api/v1.3/events
+  key: eventName
+  description: A custom event that can be triggered to enter recipients into a program.
+  operations: 3
+- name: ContentLibraryDocument
+  path: /rest/api/v1.3/clDocs
+  key: docPath
+  description: A content-library document (creative source).
+  operations: 5
+- name: ContentLibraryFolder
+  path: /rest/api/v1.3/clFolders
+  key: folderPath
+  description: A folder in the content library.
+  operations: 3
+- name: ContentLibraryMediaItem
+  path: /rest/api/v1.3/clItems
+  key: itemPath
+  description: A media file in the content library.
+  operations: 5
+- name: Organization
+  path: /rest/api/v1.3/attributes/organizations
+  key: organization attribute
+  description: Multi-brand / org hierarchy used to scope access to campaigns and programs.
+  operations: 5
+- name: AccountSettings
+  path: /rest/api/v1.3/settings/account
+  key: account
+  description: Account-level settings — endpoint URL, email footer, email domain rules.
+  operations: 6
+relationships:
+- {from: ProfileList, to: ProfileListRecipient, kind: has_many, via: 'path /lists/{listName}/members', evidence: path-hierarchy}
+- {from: ProfileList, to: ProfileExtensionTable, kind: has_many, via: 'path /lists/{listName}/listExtensions', evidence: path-hierarchy}
+- {from: ProfileExtensionTable, to: ProfileExtensionRecipient, kind: has_many, via: 'path /listExtensions/{petName}/members', evidence: path-hierarchy}
+- {from: ProfileExtensionRecipient, to: ProfileListRecipient, kind: belongs_to, via: riid, evidence: id-reference}
+- {from: Folder, to: SupplementalTable, kind: has_many, via: 'path /folders/{folderName}/suppData', evidence: path-hierarchy}
+- {from: SupplementalTable, to: SupplementalTableMember, kind: has_many, via: 'path /suppData/{tableName}/members', evidence: path-hierarchy}
+- {from: Campaign, to: CampaignSchedule, kind: has_many, via: 'path /campaigns/{campaignName}/schedule', evidence: path-hierarchy}
+- {from: Campaign, to: ProofList, kind: has_one, via: 'path /campaigns/{campaignName}/attributes/proofList', evidence: path-hierarchy}
+- {from: Campaign, to: DataSource, kind: has_many, via: 'path /campaigns/{campaignName}/attributes/dataSources', evidence: 'path-hierarchy + $ref campaignDataSourcesAttributeResponse.dataSources'}
+- {from: DataSource, to: Field, kind: has_many, via: 'fields', evidence: '$ref dataSource.fields'}
+- {from: Campaign, to: ProfileList, kind: belongs_to, via: 'campaign data source / list context', evidence: docs}
+- {from: Program, to: ProfileList, kind: belongs_to, via: 'path /programs/lists/{listName}', evidence: path-hierarchy}
+- {from: Program, to: Organization, kind: belongs_to, via: 'path /attributes/programs/{programName}', evidence: path-hierarchy}
+- {from: Campaign, to: Organization, kind: belongs_to, via: 'path /attributes/campaigns/{campaignName}', evidence: path-hierarchy}
+- {from: Organization, to: Organization, kind: has_many, via: 'children', evidence: '$ref attribute.children (self-referencing hierarchy)'}
+- {from: ProfileList, to: ProofList, kind: has_many, via: 'path /lists/proofLists/records', evidence: path-hierarchy}
+- {from: ProfileList, to: SegmentGroup, kind: has_many, via: 'path /lists/segmentGroups/records', evidence: path-hierarchy}
+- {from: ContentLibraryFolder, to: ContentLibraryDocument, kind: has_many, via: docPath, evidence: path-hierarchy}
+- {from: ContentLibraryFolder, to: ContentLibraryMediaItem, kind: has_many, via: itemPath, evidence: path-hierarchy}
+- {from: ContentLibraryDocument, to: ContentLibraryDocumentImage, kind: has_many, via: 'path /clDocImages/{documentPath}', evidence: path-hierarchy}
+- {from: CustomEvent, to: Program, kind: has_many, via: 'event triggers program enactment', evidence: docs}
+- {from: EventNotification, to: Campaign, kind: belongs_to, via: campaignId, evidence: 'id-reference in webhook payload (asyncapi/responsys-event-notification-webhooks.yml)'}
+- {from: EventNotification, to: ProfileListRecipient, kind: belongs_to, via: riid, evidence: 'id-reference in webhook payload'}
+summary:
+  entity_count: 19
+  relationship_count: 23
+  schema_definitions_in_spec: 100
+  addressing_style: name-in-path

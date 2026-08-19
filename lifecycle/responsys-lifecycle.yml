@@ -1,22 +1,59 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: searched
-source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
 versioning:
   scheme: uri-path
   current: v1.3
+  spec_version: '2023.03.03'
   docs: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
-  note: Version carried in the path segment (/rest/api/v1.3).
+  note: >-
+    Version carried in the path segment (/rest/api/v1.3) and unchanged across every
+    published release note. Change is tracked by Oracle quarterly release identifier
+    (20A through 22B), not by a version bump. One endpoint is deliberately unversioned:
+    /rest/api/ratelimit.
+change_record:
+  url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+  most_recent_release: 22B
+  entries_dated: false
+  artifact: changelog/responsys-changelog.yml
 deprecation:
+  policy_published: false
+  sunset_header: false
   note: >-
-    The legacy SOAP API is documented alongside the REST API; Oracle steers new
-    integrations to the REST API v1.3. No dated Sunset/Deprecation header policy
-    (RFC 8594) is published for the REST surface.
+    No dated deprecation policy and no RFC 8594 Sunset/Deprecation header support is
+    published for the REST API. The nearest published lifecycle commitment is availability
+    tiering: the SOAP API is Controlled Availability and restricted to existing customers,
+    which is a soft retirement stated in the docs rather than a policy with dates.
   legacy_surfaces:
-  - SOAP API (https://docs.oracle.com/en/cloud/saas/marketing/responsys-soap-api/index.html)
-sla:
-  note: Governed by the customer's Oracle Cloud subscription/CSA; no public per-endpoint SLA page.
-status_page:
+  - name: SOAP API
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-soap-api/index.html
+    status: controlled-availability, existing customers only
+sdk_support_policy:
+  url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop-mobile/support-policy/support-policy.htm
+  scope: Responsys Mobile App SDK (iOS and Android)
+  policy: >-
+    Oracle supports only the four most recent MAJOR SDK releases, for both iOS and
+    Android. This is the one dated-support commitment Responsys publishes anywhere in its
+    developer surface — and it covers the mobile SDK, not the REST API.
+availability_tiers:
+  source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-user/API.htm
   note: >-
-    No dedicated public Responsys status page was found; operational status is
-    handled through Oracle Cloud/My Oracle Support for subscribed customers.
+    Responsys gates APIs by availability rather than by version lifecycle. Standard REST
+    is generally available; Advanced, SOAP, Asynchronous, Asynchronous Reporting, Events
+    and AFTM are all Controlled Availability, reached by raising a My Oracle Support
+    service request (and, for Events and AFTM, buying an additional SKU).
+sla:
+  url: null
+  note: >-
+    Governed by the customer's Oracle Cloud subscription agreement; no public per-endpoint
+    SLA or uptime target is published for Responsys.
+status_page:
+  published: false
+  note: >-
+    No public Responsys status page exists. Operational status is delivered to subscribed
+    customers through My Oracle Support. ocistatus.oraclecloud.com covers Oracle Cloud
+    Infrastructure, which is a different service from the Responsys SaaS pods — it is NOT
+    recorded here as a Responsys status page, and no StatusPage pointer is emitted.
 deprecated_operations: []
+deprecated_operations_note: >-
+  The harvested Swagger declares no operation with deprecated: true.

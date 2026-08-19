@@ -1,0 +1,86 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/Throttling.html
+docs:
+- https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/Throttling.html
+- https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/GetStarted/Overview/get-throttling-limits.htm
+model: >-
+  Responsys throttles per API FUNCTION, per account, in a one-minute window. Each API
+  function carries its own requests-per-minute ceiling; the ceilings are account-specific
+  and are read at runtime from a dedicated, unversioned endpoint rather than published as
+  a fixed public table.
+introspection:
+  endpoint: GET /rest/api/ratelimit
+  auth: "Authorization: <AUTH_TOKEN>"
+  note: >-
+    The service URL deliberately omits the version segment — it is served by the Oracle
+    API Gateway, not the versioned Responsys REST service. Including "v1.3" in the path
+    returns 404. The response lists, per API function, the number of requests allowed per
+    minute for that account.
+limits:
+- scope: per-account-per-function
+  window: 1 minute
+  limit: 200
+  applies_to: >-
+    Default ceiling for high-volume API functions (documented examples: triggering email
+    messages, merging records into a profile list).
+  source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/Throttling.html
+- scope: per-account-per-function
+  function: Login
+  window: 1 minute
+  limit: 10
+  source: example response, Throttling.html
+- scope: per-account-per-function
+  function: Retrieve Profile Lists
+  window: 1 minute
+  limit: 100
+  source: example response, Throttling.html
+- scope: per-account-per-function
+  function: Merge List Recipients
+  window: 1 minute
+  limit: 1000
+  source: example response, Throttling.html
+- scope: per-account-per-function
+  function: Retrieve List Recipients
+  window: 1 minute
+  limit: 100
+  source: example response, Throttling.html
+- scope: per-account-per-function
+  function: HA Merge List Recipients
+  window: 1 minute
+  limit: 1000
+  source: example response, Throttling.html
+- scope: per-request
+  function: Asynchronous API (AFTM) requests
+  limit: 200
+  unit: recipients per API call
+  note: >-
+    An async request carrying more than 200 recipients is rejected immediately with
+    RECIPIENT_LIMIT_EXCEEDED and is never queued.
+  source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/AFTM/errors-async.htm
+response_headers:
+  published: false
+  note: >-
+    Responsys documents NO rate-limit response headers — no X-RateLimit-*, no RateLimit-*,
+    no Retry-After. An agent cannot read remaining quota or a reset time off a response;
+    the only runtime signals are the errorCode in the body and a prior call to
+    GET /rest/api/ratelimit. This is the material gap in the runtime contract.
+exhaustion:
+  error_code: API_LIMIT_EXCEEDED
+  message: >-
+    "You exceeded your allowable limit to call the <function_name> API function. Please
+    try again in a minute."
+  http_status: not published
+  recommended_action: Back off and retry after the one-minute window rolls.
+blocked:
+  error_code: API_BLOCKED
+  message: >-
+    "The <function_name> is currently not available to this user. Please contact tech
+    support."
+  note: >-
+    Distinct from throttling — API_BLOCKED means the account's user has been blocked from
+    that specific API function, and retrying will not clear it.
+summary:
+  limit_count: 7
+  headers_published: false
+  runtime_introspection_endpoint: /rest/api/ratelimit

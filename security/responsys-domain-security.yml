@@ -1,4 +1,4 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
@@ -19,9 +19,9 @@ domains:
 - domain: oracle.com
   dnssec: false
   caa:
+  - 0 issue "letsencrypt.org"
   - 0 issue "pki.goog"
   - 0 issue "digicert.com"
-  - 0 issue "letsencrypt.org"
   spf: true
   dmarc: true
   dmarc_policy: reject

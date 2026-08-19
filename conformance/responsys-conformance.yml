@@ -1,18 +1,61 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: derived
-source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+source: openapi/_original/responsys-openapi.json
+docs:
+- https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+- https://www.oracle.com/corporate/cloud-compliance/
+supersedes: derived pass of 2026-07-20 (re-derived against the harvested Swagger 2.0)
 standards:
+- id: openapi
+  conforms: partial
+  evidence: >-
+    Oracle publishes a Swagger 2.0 document (info.version 2023.03.03, 63 paths, 88
+    operations, 100 definitions) at
+    https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/swagger.json.
+    It is genuine and parses, but it is two major versions behind current OpenAPI, it
+    declares no host/basePath/schemes, no securityDefinitions, and only a `default`
+    response on every operation.
+- id: openapi-3
+  conforms: false
+  evidence: The published document is swagger 2.0; no OpenAPI 3.x is offered.
 - id: rest-json
   conforms: true
-  evidence: REST API v1.3 exposes JSON resources over HTTPS with standard HTTP verbs.
+  evidence: JSON resources over HTTPS with GET/POST/PUT/PATCH/DELETE across 88 operations.
 - id: oauth2
   conforms: false
-  evidence: Auth is a proprietary token flow (auth/token), not standard OAuth 2.0.
+  evidence: >-
+    Auth is a proprietary session-token flow against /rest/api/v1.3/auth/token, not
+    OAuth 2.0. No authorization or token endpoint in the RFC 6749 sense, no scopes.
 - id: oidc
   conforms: false
 - id: rfc9457-problem-details
   conforms: false
-  evidence: No application/problem+json error contract documented; Responsys uses its own error envelope.
+  evidence: >-
+    The error envelope {type,title,errorCode,detail,errorDetails} imitates the shape but
+    `type` is an empty string and no problem-type URIs are registered. Media type is
+    application/json, not application/problem+json.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: No /.well-known/security.txt served on any host (see well-known/).
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header policy is published.
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    A real webhook surface exists (Event Notification API, 26 event types) but no AsyncAPI
+    document is published for it.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency key or request-dedupe contract is documented.
+- id: pagination
+  conforms: partial
+  evidence: Query-parameter windowing per operation; no cursor and no uniform envelope.
+- id: rate-limit-headers
+  conforms: false
+  evidence: >-
+    No RateLimit-* / X-RateLimit-* / Retry-After headers. Quota is read out-of-band from
+    GET /rest/api/ratelimit.
 - id: fapi
   conforms: false
 - id: scim
@@ -21,3 +64,17 @@ standards:
   conforms: false
 - id: json-api
   conforms: false
+- id: fhir
+  conforms: false
+compliance_program:
+  published: true
+  scope: corporate
+  url: https://www.oracle.com/corporate/cloud-compliance/
+  certifications: [SOC 1, SOC 2, SOC 3, ISO/IEC 27001, PCI DSS, HIPAA, FedRAMP, GDPR, CSA STAR, FIPS 140, HITRUST, C5, IRAP]
+  note: >-
+    Published by Oracle at the corporate cloud level, not scoped to Responsys
+    specifically. See security/responsys-trust-center.yml.
+summary:
+  standards_asserted: 17
+  conforms_true: 1
+  conforms_partial: 3

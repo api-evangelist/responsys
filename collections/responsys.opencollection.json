@@ -1,0 +1,2120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "REST API for Oracle Responsys Marketing Cloud Service",
+    "version": "2023.03.03"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trigger SMS Message",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Trigger SMS Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/sms/trigger ",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Campaign Name"
+              }
+            ]
+          },
+          "docs": "Trigger SMS Message"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get User Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/user/info"
+          },
+          "docs": "Retrieves information for the user's account sending the request."
+        },
+        {
+          "info": {
+            "name": "Get Account Settings for a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/settings/account"
+          },
+          "docs": "Retrieves account settings for the user sending the request."
+        },
+        {
+          "info": {
+            "name": "Get Endpoint URL for a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/settings/account/endpoint"
+          },
+          "docs": "Retrieves the endpoint URL for the user sending the request. The response returns the API type and the endpoint URL used to send API requests."
+        },
+        {
+          "info": {
+            "name": "Get Email Footer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/settings/account/footer"
+          },
+          "docs": "Retrieves the account's Email Footer content. The response returns the footer's text and HTML content. <br> See the <a href='https://docs.oracle.com/en/cloud/saas/marketing/responsys-user/index.html#CSHID=SubAccountFooterFiles'>Oracle Responsys Help Center</a> for more information."
+        },
+        {
+          "info": {
+            "name": "Get Email Domain Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/settings/account/domains/email"
+          },
+          "docs": "Retrieves a list of Email domain rules for the account. Email domain rules are used when campaign messages are being sent out. <br> The response returns: <ul> <li>The domains to which campaign messages must not be sent at all</li><li>Domains to which HTML-format campaign mssages can be sent with confidence to recipients that will be able to read them</li><li>Domains to which only plain-text campaign messages should be sent because recipients cannot read messages in any other format</li></ul><br>"
+        },
+        {
+          "info": {
+            "name": "Add Email Domain Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/rest/api/v1.3/settings/account/domains/email"
+          },
+          "docs": "Adds new email domain rules to existing Email Domain Rules. Email Domain Rules are used during Campaign launch."
+        },
+        {
+          "info": {
+            "name": "Delete Email Domain Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/rest/api/v1.3/settings/account/domains/email/:domainRuleType/:domainName",
+            "params": [
+              {
+                "name": "domainRuleType",
+                "value": "",
+                "type": "path",
+                "description": "Domain rule type: avoidDomains, htmlDomains or txtDomains"
+              },
+              {
+                "name": "domainName",
+                "value": "",
+                "type": "path",
+                "description": "The domain name to be deleted."
+              }
+            ]
+          },
+          "docs": "Deletes Email Domain Rules."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Filters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve All Filters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/filters",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Specifies an offset that allows you to retrieve the next batch of records. Starts at 0 and indicates the record number for the response result set. Any positive integer. For example, if your limit is 200, specifying an offset of 0 will return records 0 through 200. To retrieve the next 200, set an offset of 200. If not specified, the default is 0."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of filters to return in the response (defaults to 200 and cannot exceed 200)"
+              }
+            ]
+          },
+          "docs": "Use this endpoint to retrieve all filters for an account. Both simple and classic filters are returned in the response.<br><br>For more information on filters, see the <a href='https://docs.oracle.com/en/cloud/saas/marketing/responsys-user/index.html#CSHID=FiltersAndSegmentGroupsLP'>Oracle Responsys Help Center</a>."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Trigger Custom Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/events/:eventName",
+            "params": [
+              {
+                "name": "eventName",
+                "value": "",
+                "type": "path",
+                "description": "Event Name"
+              }
+            ]
+          },
+          "docs": "Trigger Custom Event"
+        },
+        {
+          "info": {
+            "name": "Fetch All the Custom Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/events "
+          },
+          "docs": "Fetch All the Custom Events"
+        },
+        {
+          "info": {
+            "name": "Trigger REI Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/events/rei/:eventName",
+            "params": [
+              {
+                "name": "eventName",
+                "value": "",
+                "type": "path",
+                "description": "Event Name"
+              }
+            ]
+          },
+          "docs": "Triggers a REI Event for Profile List, App Channel List, and Web Push recipients. Enables developers to trigger REI events for users across email, print, and mobile app channels to begin Program Orchestration. This feature is only available if it is enabled for your account. To access this feature for existing accounts, please log in to <a href='https://support.oracle.com/portal/'>My Oracle Support</a> and create a service request."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Attachments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Merge Trigger Email With Attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/emailAttachments",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Campaign Name"
+              }
+            ]
+          },
+          "docs": "Merge Trigger Email With Attachments"
+        },
+        {
+          "info": {
+            "name": "Trigger Email Message with Attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/emailAttachments/actions/trigger",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Campaign Name"
+              }
+            ]
+          },
+          "docs": "Trigger Email Message with attachment data."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Trigger Push Message",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Trigger Push Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/push ",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Campaign Name"
+              }
+            ]
+          },
+          "docs": "Trigger Push Message"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Merge Trigger Email",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Merge Trigger Email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/email",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Campaign Name"
+              }
+            ]
+          },
+          "docs": "Merge Trigger Email"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch All Campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Starts at 0 and indicates the record number for the response result set"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of campaigns to return in the response (defaults to 200 and cannot exceed 200)"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The type of campaigns to return in the response (email, push, sms, mms or pushiocampaign, defaults to email)"
+              }
+            ]
+          },
+          "docs": "Obtain the campaign properties for all EMD Email, Push, Message Center, SMS, or MMS campaigns."
+        },
+        {
+          "info": {
+            "name": "Fetch Campaigns using filters",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/actions/search",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Starts at 0 and indicates the record number for the response result set"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of campaigns to return in the response (defaults to 20 and cannot exceed 20)"
+              }
+            ]
+          },
+          "docs": "Fetches Campaigns based on search and filter criterias. The results are sorted based on the search and filter criteria specified. A maximum of 20 records are returned."
+        },
+        {
+          "info": {
+            "name": "Fetch A Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the campaign to be fetched. "
+              }
+            ]
+          },
+          "docs": "Use this interface to get an existing EMD Email campaign object. The response returns the campaign object, which includes the campaign ID and the campaign's other properties. The links array contains the campaign object's related API operations, specific to the campaign name where applicable."
+        },
+        {
+          "info": {
+            "name": "Preview a Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/preview",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Campaign name for preview"
+              },
+              {
+                "name": "previewType",
+                "value": "",
+                "type": "query",
+                "description": "This allows you to output only one type of preview. Possible values are html or text. By default, both are output."
+              },
+              {
+                "name": "listType",
+                "value": "",
+                "type": "query",
+                "description": "The type of source list you wish to preview. Possible values are ProofList or ProfileList. Default value is ProofList."
+              },
+              {
+                "name": "riid",
+                "value": "",
+                "type": "query",
+                "description": "This allows you to preview based on a specific RIID."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to preview a campaign. The endpoint outputs the campaign in HTML and text."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Profile List Recipients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve List Recipient using query attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/members",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List Name"
+              },
+              {
+                "name": "qa",
+                "value": "",
+                "type": "query",
+                "description": "Query Attribute. Can be either 'r' (RIID_), 'e' (EMAIL_ADDRESS_), 'c' (CUSTOMER_ID_), or 'm' (MOBILE_NUMBER_), 'e_md5' (EMAIL_MD5_HASH_), 'e_sha256' (EMAIL_SHA256_HASH_)."
+              },
+              {
+                "name": "fs",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of fields to retrieve or 'all'"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "ID corresponding to the query attribute"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a count of profile list recipients in a profile list. You can use query attributes to filter the results by specifying a query attribute type and values. If no query attributes are specified, the total count of profile list recipients is returned. <br><br> The <code>count</code> property in the response determines the amount of matching profile list recipients."
+        },
+        {
+          "info": {
+            "name": "Merge List Recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/members",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List Name"
+              }
+            ]
+          },
+          "docs": "Merge List Recipients"
+        },
+        {
+          "info": {
+            "name": "Delete Profile List Recipients using query attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/members",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List Name"
+              },
+              {
+                "name": "qa",
+                "value": "",
+                "type": "query",
+                "description": "Query Attribute. Can be either 'r' (RIID_), 'e' (EMAIL_ADDRESS_), 'c' (CUSTOMER_ID_), or 'm' (MOBILE_NUMBER_)."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "ID corresponding to the query attribute"
+              }
+            ]
+          },
+          "docs": "Deletes profile list recipients for a profile list using query attributes. Using the query parameters specify a query attribute type to identify recipients, and the corresponding value. The response indicates how many matching records were deleted. <br> Up to 10 profile list recipients can be deleted in a single request."
+        },
+        {
+          "info": {
+            "name": "Retrieve List Recipient using RIID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/members/:riid",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List Name"
+              },
+              {
+                "name": "riid",
+                "value": "",
+                "type": "path",
+                "description": "RIID"
+              },
+              {
+                "name": "fs",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of fields to retrieve or 'all'"
+              }
+            ]
+          },
+          "docs": "Retrieve List Recipient using RIID"
+        },
+        {
+          "info": {
+            "name": "Delete List Recipients based on RIID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/members/:riid",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List Name"
+              },
+              {
+                "name": "riid",
+                "value": "",
+                "type": "path",
+                "description": "List Name"
+              }
+            ]
+          },
+          "docs": "Deletes List Recipients based on RIID"
+        },
+        {
+          "info": {
+            "name": "Delete multiple Profile List Recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/members ",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List Name"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "query",
+                "description": "**action** should have the value **delete**(action=delete)."
+              }
+            ]
+          },
+          "docs": "Delete multiple Profile List Recipients"
+        },
+        {
+          "info": {
+            "name": "Retrieve multiple Profile List Recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/members  ",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List Name"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "query",
+                "description": "**action** should have the value **get**(action=get)."
+              }
+            ]
+          },
+          "docs": "Retrieve multiple Profile List Recipients"
+        },
+        {
+          "info": {
+            "name": "Retrieve List Recipients Count using query attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/members/count",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List Name"
+              },
+              {
+                "name": "qa",
+                "value": "",
+                "type": "query",
+                "description": "Query Attribute. Can be one of: <ul><li>'r' (RIID_)</li><li>'e' (EMAIL_ADDRESS_)</li><li>'c' (CUSTOMER_ID_)</li><li>'m' (MOBILE_NUMBER_)</li><li>'e_md5' (EMAIL_MD5_HASH_)</li><li>'e_sha256' (EMAIL_SHA256_HASH_)</li></ul>"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "ID corresponding to the query attribute"
+              }
+            ]
+          },
+          "docs": "Retrieves a count of Profile List Recipients that match the query attributes. If no query attributes are specified, retrieves total count of the profile list recipients."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Profile Extension Recipients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Profile Extension Recipient using a query attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/listExtensions/:petName/members",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List name"
+              },
+              {
+                "name": "petName",
+                "value": "",
+                "type": "path",
+                "description": "Profile Extension Table (PET) name"
+              },
+              {
+                "name": "qa",
+                "value": "",
+                "type": "query",
+                "description": "Query attribute can be either 'r' (RIID_), 'e' (EMAIL_ADDRESS_), 'c' (CUSTOMER_ID_), 'm' (MOBILE_NUMBER_), or 'd' (MODIFIED_DATE_). The corresponding value passed must match what is in the parent Profile List. Note when using 'd' (MODIFIED_DATE_) the corresponding value passed as sdate and edate should match what is in the Profile Extension table."
+              },
+              {
+                "name": "fs",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of fields to retrieve or 'all'"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "ID corresponding to the query attribute, used to locate the record to retrieve"
+              },
+              {
+                "name": "sdate",
+                "value": "",
+                "type": "query",
+                "description": "Start date to retrieve modified records. When qa=d, start date should be in MM-DD-YYYY format. Retrieves the PET records whose modified date is between the start and the end date. Note that the Responsys servers follow Pacific Standard Time (PST) when using this parameter."
+              },
+              {
+                "name": "edate",
+                "value": "",
+                "type": "query",
+                "description": "End date to retrieve modified records. When qa=d, end date should be in MM-DD-YYYY format. Retrieves the PET records whose modified date is between the start and the end date. Note that the Responsys servers follow Pacific Standard Time (PST) when using this parameter."
+              }
+            ]
+          },
+          "docs": "Retrieve Profile Extension Table (PET) recipient data using a query attribute"
+        },
+        {
+          "info": {
+            "name": "Merge Profile Extension Recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/listExtensions/:petName/members",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List name"
+              },
+              {
+                "name": "petName",
+                "value": "",
+                "type": "path",
+                "description": "Profile Extension Table (PET) name"
+              }
+            ]
+          },
+          "docs": "Merge recipient data into a Profile Extension Table (PET)"
+        },
+        {
+          "info": {
+            "name": "Retrieve Profile Extension Recipient using an RIID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/listExtensions/:petName/members/:riid",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List name"
+              },
+              {
+                "name": "petName",
+                "value": "",
+                "type": "path",
+                "description": "Profile Extension Table (PET) name"
+              },
+              {
+                "name": "riid",
+                "value": "",
+                "type": "path",
+                "description": "RIID of the parent Profile List record, which is used to locate the corresponding PET record"
+              },
+              {
+                "name": "fs",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of fields to retrieve or 'all'"
+              }
+            ]
+          },
+          "docs": "Retrieve Profile Extension Table (PET) recipient data using the RIID of the parent Profile List record"
+        },
+        {
+          "info": {
+            "name": "Delete Profile Extension Recipient using an RIID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/listExtensions/:petName/members/:riid",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List name"
+              },
+              {
+                "name": "petName",
+                "value": "",
+                "type": "path",
+                "description": "Profile Extension Table (PET) name"
+              },
+              {
+                "name": "riid",
+                "value": "",
+                "type": "path",
+                "description": "RIID of the parent Profile List record, which is used to locate the corresponding PET record"
+              }
+            ]
+          },
+          "docs": "Delete Profile Extension Table (PET) recipient record using the RIID of the parent Profile List record"
+        },
+        {
+          "info": {
+            "name": "Delete multiple Profile Extension Recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/listExtensions/:petName/members ",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List name"
+              },
+              {
+                "name": "petName",
+                "value": "",
+                "type": "path",
+                "description": "Profile Extension Table (PET) name"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "query",
+                "description": "**action** must have the value **delete**(action=delete)."
+              }
+            ]
+          },
+          "docs": "Delete multiple Profile Extension Table (PET) recipient records"
+        },
+        {
+          "info": {
+            "name": "Retrieve Multiple Profile Extension Recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/listExtensions/:petName/members  ",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the parent profile list for the profile extension table."
+              },
+              {
+                "name": "petName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the profile extension table to retrieve recipients."
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "query",
+                "description": "<b>Required</b>. Must have the value get. For example: <code>?action=get</code>"
+              }
+            ]
+          },
+          "docs": "This endpoint is used to retrieve multiple profile extension recipients in an existing profile extension table. By supplying an ID for a recipient (for example email address) you can retrieve up to 200 recipients in a single request.<br>The request method for this API is <code>POST</code>, because the query parameters are passed in the request body. The ids array contains the identifier values for the recipients. Values passed in the <code>ids</code> array must correspond to the <code>queryAttri"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Trigger Email Message",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Trigger Email Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/email ",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Campaign Name"
+              }
+            ]
+          },
+          "docs": "Trigger Email Message"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Supplemental Tables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch All Supplemental Tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/suppData"
+          },
+          "docs": "Use this endpoint to get all Supplemental Tables for your account."
+        },
+        {
+          "info": {
+            "name": "Create Supplemental Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/folders/:folderName/suppData",
+            "params": [
+              {
+                "name": "folderName",
+                "value": "",
+                "type": "path",
+                "description": "Folder Name"
+              }
+            ]
+          },
+          "docs": "Use this endpoint to create a new supplemental table by providing its schema."
+        },
+        {
+          "info": {
+            "name": "Update Supplemental Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/rest/api/v1.3/folders/:folderName/suppData/:suppTableName",
+            "params": [
+              {
+                "name": "folderName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the folder where the supplemental table is located."
+              },
+              {
+                "name": "suppTableName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the supplemental table to update."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to update a supplemental table by providing the properties to update."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Folders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Account Folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/folders",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Starts at 0 and indicates the record number for the response result set"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of folders to return in the response (defaults to 200 and cannot exceed 200)"
+              }
+            ]
+          },
+          "docs": "Retrieves all folders in your account."
+        },
+        {
+          "info": {
+            "name": "Create a Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/folders"
+          },
+          "docs": "Creates a new folder in Oracle Responsys."
+        },
+        {
+          "info": {
+            "name": "Retrieve Folder Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/folders/:folderName/content",
+            "params": [
+              {
+                "name": "folderName",
+                "value": "",
+                "type": "path",
+                "description": "Folder Name"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Starts at 0 and indicates the record number for the response result set"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of objects to return in the response (defaults to 200 and cannot exceed 200)"
+              }
+            ]
+          },
+          "docs": "Retrieves the content in a specified folder."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Campaign Attributes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a Campaign's Proof List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/attributes/proofList",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Campaign"
+              }
+            ]
+          },
+          "docs": "Retrieves the Campaign Proof List associated with a specified Campaign."
+        },
+        {
+          "info": {
+            "name": "Update a Campaign's Proof List",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/attributes/proofList",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Campaign"
+              }
+            ]
+          },
+          "docs": "Updates the Proof List associated with a Campaign"
+        },
+        {
+          "info": {
+            "name": "Retrieve Campaign Data Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/attributes/dataSources",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Campaign"
+              }
+            ]
+          },
+          "docs": "Retrieves Data Sources associated with a Campaign"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "List Extensions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch All Profile Extensions for a Profile List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/listExtensions",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List Name"
+              }
+            ]
+          },
+          "docs": "Fetch All Profile Extensions for a Profile List"
+        },
+        {
+          "info": {
+            "name": "Create Profile Extension",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/listExtensions",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List Name"
+              }
+            ]
+          },
+          "docs": "Create Profile Extension"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Content Library Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Content Library Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/clDocs"
+          },
+          "docs": "Create a Content Library Document"
+        },
+        {
+          "info": {
+            "name": "Retrieve contents of a Content Library Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/clDocs/:docPath",
+            "params": [
+              {
+                "name": "docPath",
+                "value": "",
+                "type": "path",
+                "description": "The complete path of the document starting with '/contentlibrary'."
+              }
+            ]
+          },
+          "docs": "Retrieve contents of a Content Library Document"
+        },
+        {
+          "info": {
+            "name": "Update Contents of a Content Library Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/clDocs/:docPath",
+            "params": [
+              {
+                "name": "docPath",
+                "value": "",
+                "type": "path",
+                "description": "The complete path of the document starting with '/contentlibrary'."
+              }
+            ]
+          },
+          "docs": "Update Contents of a Content Library Document"
+        },
+        {
+          "info": {
+            "name": "Create a copy of a Content Library Document.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/rest/api/v1.3/clDocs/:docPath",
+            "params": [
+              {
+                "name": "docPath",
+                "value": "",
+                "type": "path",
+                "description": " Destination Document Path"
+              }
+            ]
+          },
+          "docs": "Create a copy of a Content Library Document."
+        },
+        {
+          "info": {
+            "name": "Delete a Content Library Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/rest/api/v1.3/clDocs/:docPath",
+            "params": [
+              {
+                "name": "docPath",
+                "value": "",
+                "type": "path",
+                "description": "The complete path of the document starting with '/contentlibrary'."
+              }
+            ]
+          },
+          "docs": "Delete a Content Library Document"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Programs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch All Programs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/programs",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Starts at 0 and indicates the record number for the response result set"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of programs to return in the response (defaults to 200 and cannot exceed 200)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of status of programs to be fetched. Allowed values are NOT_RUNNING,RUNNING,RUNNING_WITH_ERRORS"
+              }
+            ]
+          },
+          "docs": "Fetch All Programs"
+        },
+        {
+          "info": {
+            "name": "Fetch a Program by Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/programs/:programName",
+            "params": [
+              {
+                "name": "programName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Program to fetch the details"
+              }
+            ]
+          },
+          "docs": "Fetches a Program by program name."
+        },
+        {
+          "info": {
+            "name": "Publish or Unpublish a Program",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/rest/api/v1.3/programs/:programName",
+            "params": [
+              {
+                "name": "programName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Program to be published or unpublished"
+              }
+            ]
+          },
+          "docs": "Use this interface to publish a valid program or unpublish a program."
+        },
+        {
+          "info": {
+            "name": "Exit Enactments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/programs/enactments"
+          },
+          "docs": "Moves the enactments at a blocked stage out of a program. In the request body, specify the name of the program and the program action (exit).<br><br> In the case of a successful request, a success message is returned in the response body. Programs must be currently unpublished, but have been published at least once. If these requirements are not met, a 400 Bad Request error will be returned. <br> See the <a href='https://docs.oracle.com/en/cloud/saas/marketing/responsys-user/index.html#CSHID=Pro"
+        },
+        {
+          "info": {
+            "name": "Fetch Programs for a Profile List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/programs/lists/:listName",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "Profile list name, for which the programs should be fetched"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Starts at 0 and indicates the record number for the response result set"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of programs to return in the response (defaults to 200 and cannot exceed 200)"
+              }
+            ]
+          },
+          "docs": "Fetches all programs associated with the specified profile list. The response includes a list of all Programs associated with the Profile List, and information about the program such as the status of the program, and the program channels."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Merge Trigger SMS",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Merge Trigger SMS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/sms",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Campaign Name"
+              }
+            ]
+          },
+          "docs": "Merge Trigger SMS"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Supplemental Table Members",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Supplemental Table member based on a query attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/folders/:folderName/suppData/:tableName/members",
+            "params": [
+              {
+                "name": "folderName",
+                "value": "",
+                "type": "path",
+                "description": "Folder name"
+              },
+              {
+                "name": "tableName",
+                "value": "",
+                "type": "path",
+                "description": "Table name"
+              },
+              {
+                "name": "qa",
+                "value": "",
+                "type": "query",
+                "description": "Query attribute. All of the primary key values of the Supplemental Table must be specified by repeating this parameter."
+              },
+              {
+                "name": "fs",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of fields to retrieve or 'all'"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "IDs corresponding to the query attribute. All the primary key values of the Supplemental Table must be specified by repeating this parameter. The order of the values must match the order of the Primary Keys specified in the 'qa' parameter."
+              }
+            ]
+          },
+          "docs": "Retrieve Supplemental Table member based on a query attribute"
+        },
+        {
+          "info": {
+            "name": "Merge Supplemental Table members with PK",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/folders/:folderName/suppData/:tableName/members",
+            "params": [
+              {
+                "name": "folderName",
+                "value": "",
+                "type": "path",
+                "description": "Folder name"
+              },
+              {
+                "name": "tableName",
+                "value": "",
+                "type": "path",
+                "description": "Table Name"
+              }
+            ]
+          },
+          "docs": "Merge Supplemental Table members with PK"
+        },
+        {
+          "info": {
+            "name": "Delete Supplemental Table member based on a query attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/rest/api/v1.3/folders/:folderName/suppData/:tableName/members",
+            "params": [
+              {
+                "name": "folderName",
+                "value": "",
+                "type": "path",
+                "description": "Folder name"
+              },
+              {
+                "name": "tableName",
+                "value": "",
+                "type": "path",
+                "description": "Table name"
+              },
+              {
+                "name": "qa",
+                "value": "",
+                "type": "query",
+                "description": "Query attribute. All of the primary key fields of the Supplemental Table must be specified by repeating this parameter. Do not include other fields."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "IDs corresponding to the query attribute. All the primary key values of the Supplemental Table must be specified by repeating this parameter. The order of the values must match the order of the primary keys specified in the 'qa' parameter."
+              }
+            ]
+          },
+          "docs": "Deletes a Supplemental Table member based on a query attribute. A maximum of <b>one</b> record is deleted per request."
+        },
+        {
+          "info": {
+            "name": "Merge Table Records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/folders/:folderName/suppData/:tableName/members ",
+            "params": [
+              {
+                "name": "folderName",
+                "value": "",
+                "type": "path",
+                "description": "Folder name"
+              },
+              {
+                "name": "tableName",
+                "value": "",
+                "type": "path",
+                "description": "Table name"
+              }
+            ]
+          },
+          "docs": "This operation is used to merge (update) Supplemental Table records."
+        },
+        {
+          "info": {
+            "name": "Fetch all the fields or the primary key fields of the Supplemental Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/folder/:folderName/suppData/:suppTableName",
+            "params": [
+              {
+                "name": "folderName",
+                "value": "",
+                "type": "path",
+                "description": "Folder name"
+              },
+              {
+                "name": "suppTableName",
+                "value": "",
+                "type": "path",
+                "description": "Supplemental Table name"
+              },
+              {
+                "name": "ft",
+                "value": "",
+                "type": "query",
+                "description": "**ft=pk** returns only the primary key fields. **ft=all** returns all the fields. By default 'ft' is set to 'all'"
+              }
+            ]
+          },
+          "docs": "Fetch all the fields or the primary key fields of the Supplemental Table"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Email or Push Campaign Schedule",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch All Email or Push Campaign Schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/schedule",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Campaign Name"
+              }
+            ]
+          },
+          "docs": "Fetch All Email or Push Campaign Schedules"
+        },
+        {
+          "info": {
+            "name": "Create an Email or Push campaign schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/schedule",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Campaign Name"
+              }
+            ]
+          },
+          "docs": "Create an Email or Push campaign schedule"
+        },
+        {
+          "info": {
+            "name": "Retrieve an Email or Push campaign schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/schedule/:scheduleId",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Campaign Name"
+              },
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Schedule Id"
+              }
+            ]
+          },
+          "docs": "Retrieve an Email or Push campaign schedule"
+        },
+        {
+          "info": {
+            "name": "Update an Email or Push campaign schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/schedule/:scheduleId",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Campaign Name"
+              },
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Schedule Id"
+              }
+            ]
+          },
+          "docs": "Update an Email or Push campaign schedule"
+        },
+        {
+          "info": {
+            "name": "Delete an Email or Push campaign schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/rest/api/v1.3/campaigns/:campaignName/schedule/:scheduleId",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "Campaign Name"
+              },
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Schedule Id"
+              }
+            ]
+          },
+          "docs": "Delete an Email or Push campaign schedule"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch all organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/attributes/organizations"
+          },
+          "docs": "Fetch a list of all organizations within the account."
+        },
+        {
+          "info": {
+            "name": "Fetch a program's organization hierarchy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/attributes/programs/:programName",
+            "params": [
+              {
+                "name": "programName",
+                "value": "",
+                "type": "path",
+                "description": "The Program name"
+              }
+            ]
+          },
+          "docs": "Fetch a list of organizations that can access a program."
+        },
+        {
+          "info": {
+            "name": "Update a program's organizational access",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/attributes/programs/:programName",
+            "params": [
+              {
+                "name": "programName",
+                "value": "",
+                "type": "path",
+                "description": "The Program name"
+              }
+            ]
+          },
+          "docs": "Update the organizations that can access a program."
+        },
+        {
+          "info": {
+            "name": "Fetch a campaign's organization hierarchy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/attributes/campaigns/:campaignName",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "The Campaign name"
+              }
+            ]
+          },
+          "docs": "Fetch a list of organizations that can access a campaign."
+        },
+        {
+          "info": {
+            "name": "Update a campaign's organizational access",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/attributes/campaigns/:campaignName",
+            "params": [
+              {
+                "name": "campaignName",
+                "value": "",
+                "type": "path",
+                "description": "The Campaign name"
+              }
+            ]
+          },
+          "docs": "Update the organizations that can access a campaign."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Profile Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch All Profile Lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists"
+          },
+          "docs": "Fetch All Profile Lists"
+        },
+        {
+          "info": {
+            "name": "Create a Profile List with or without brand Context",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists"
+          },
+          "docs": "Create a Profile List with or without brand Context"
+        },
+        {
+          "info": {
+            "name": "Retrieve Profile List Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/fields",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List Name"
+              }
+            ]
+          },
+          "docs": "Retrieves the fields for the specified profile list. In the request URL, specify the name of the profile list to retrieve. A successful response returns a list of the standard and custom fields for the list. <br><br> Refer to the <a href='https://docs.oracle.com/en/cloud/saas/marketing/responsys-user/index.html#CSHID=List_SystemFields'>Oracle Responsys Help Center</a> for more information about the profile list fields returned in the response."
+        },
+        {
+          "info": {
+            "name": "Add or Update RIID in the Organizational Scope Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/:listName/orgListExtensions/members",
+            "params": [
+              {
+                "name": "listName",
+                "value": "",
+                "type": "path",
+                "description": "List name"
+              }
+            ]
+          },
+          "docs": "Adds or Updates profile list recipient's RIID in the Organizational Scope Mapping"
+        },
+        {
+          "info": {
+            "name": "Retrieve Proof Lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/proofLists/records",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "offset"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "limit"
+              }
+            ]
+          },
+          "docs": "Retrieves all Proof Lists for an account."
+        },
+        {
+          "info": {
+            "name": "Retrieve Segment Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/lists/segmentGroups/records",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "offset"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "limit"
+              }
+            ]
+          },
+          "docs": "Retrieves all Segment Groups for an Account"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Content Library Folders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Content Library Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/clFolders"
+          },
+          "docs": "Create Content Library Folder"
+        },
+        {
+          "info": {
+            "name": "List contents of a Content Library Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/clFolders/:folderPath",
+            "params": [
+              {
+                "name": "folderPath",
+                "value": "",
+                "type": "path",
+                "description": "The complete path of the folder starting with /contentlibrary."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Specify what content of a folder needs to be listed. Allowed values are 'all', 'folders', 'docs' or 'items'. Defaults to 'all'"
+              }
+            ]
+          },
+          "docs": "List contents of a Content Library Folder"
+        },
+        {
+          "info": {
+            "name": "Delete Content Library Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/rest/api/v1.3/clFolders/:folderPath",
+            "params": [
+              {
+                "name": "folderPath",
+                "value": "",
+                "type": "path",
+                "description": "The complete path of the folder starting with /contentlibrary."
+              }
+            ]
+          },
+          "docs": "Delete Content Library Folder"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Content Library Document Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve binary content of images in a Content Library Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/clDocImages/:documentPath",
+            "params": [
+              {
+                "name": "documentPath",
+                "value": "",
+                "type": "path",
+                "description": "The complete path of the document starting with '/contentlibrary'."
+              }
+            ]
+          },
+          "docs": "Retrieve binary content of images in a Content Library Document"
+        },
+        {
+          "info": {
+            "name": "Update content of images in a Content Library Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/clDocImages/:documentPath",
+            "params": [
+              {
+                "name": "documentPath",
+                "value": "",
+                "type": "path",
+                "description": "The complete path of the document starting with '/contentlibrary'."
+              }
+            ]
+          },
+          "docs": "Update content of images in a Content Library Document"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Content Library Media Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve contents of a Content Library Media File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rest/api/v1.3/clItems/:itemPath",
+            "params": [
+              {
+                "name": "itemPath",
+                "value": "",
+                "type": "path",
+                "description": "The complete path of the media file starting with /contentlibrary."
+              }
+            ]
+          },
+          "docs": "Retrieve contents of a Content Library Media File"
+        },
+        {
+          "info": {
+            "name": "Update a Content Library Media File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/clItems/:itemPath",
+            "params": [
+              {
+                "name": "itemPath",
+                "value": "",
+                "type": "path",
+                "description": "The complete path of the media file starting with /contentlibrary."
+              }
+            ]
+          },
+          "docs": "Update a Content Library Media File"
+        },
+        {
+          "info": {
+            "name": "Delete a Content Library Media File",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/rest/api/v1.3/clItems/:itemPath",
+            "params": [
+              {
+                "name": "itemPath",
+                "value": "",
+                "type": "path",
+                "description": "The complete path of the media file starting with /contentlibrary."
+              }
+            ]
+          },
+          "docs": "Delete a Content Library Media File"
+        },
+        {
+          "info": {
+            "name": "Create a Content Library Media File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rest/api/v1.3/clItems"
+          },
+          "docs": "This operation is used to create a content library media file."
+        },
+        {
+          "info": {
+            "name": "Create a copy of a Content Library Media file.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/rest/api/v1.3/clItems/:destinationItemPath ",
+            "params": [
+              {
+                "name": "destinationItemPath",
+                "value": "",
+                "type": "path",
+                "description": "The complete path of the media file starting with /contentlibrary."
+              }
+            ]
+          },
+          "docs": "This operation is used to create a copy of a Content Library Media file."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

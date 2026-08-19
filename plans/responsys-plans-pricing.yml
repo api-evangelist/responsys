@@ -1,0 +1,49 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.oracle.com/cx/marketing/campaign-management/
+note: >-
+  Oracle publishes no pricing for Responsys — no tiers, no list price, no per-message
+  rate card. The product page routes to "Contact sales" / "Request a demo". API access
+  itself is tiered by availability rather than by a purchasable plan: the Standard REST
+  API and SOAP API are described as complimentary with a Responsys subscription, several
+  APIs are "Controlled Availability" gated behind a My Oracle Support service request,
+  and two (the Events API and the AFTM API) are documented as requiring an additional
+  SKU whose price is not published.
+plans: []
+plan_count: 0
+pricing_model: enterprise-contact-sales
+evidence:
+- url: https://www.oracle.com/cx/marketing/campaign-management/pricing/
+  status: 404
+  note: No pricing page exists at the conventional path under the product.
+- url: https://www.oracle.com/cx/marketing/campaign-management/
+  status: 200
+  note: Product page; contact-sales call to action, no published price.
+- url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-user/API.htm
+  status: 200
+  note: >-
+    "Oracle Responsys APIs and SDKs" — the only published commercial gradation of the API
+    surface. Records which APIs are complimentary, which are Controlled Availability, and
+    which require an additional SKU.
+api_entitlements:
+- api: Standard REST API
+  availability: generally-available
+  cost: complimentary with a Responsys subscription
+- api: Advanced REST API
+  availability: controlled-availability
+  cost: complimentary; access via My Oracle Support service request
+- api: SOAP API
+  availability: controlled-availability
+  cost: complimentary; existing customers only
+- api: Asynchronous API
+  availability: controlled-availability
+  cost: complimentary; access via My Oracle Support service request
+- api: Asynchronous Reporting API
+  availability: controlled-availability
+  cost: complimentary; access via My Oracle Support service request
+- api: Events API
+  availability: controlled-availability
+  cost: requires an additional SKU (price not published)
+- api: AFTM API
+  availability: controlled-availability
+  cost: requires an additional SKU (price not published)

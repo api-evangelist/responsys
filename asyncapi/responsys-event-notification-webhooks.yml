@@ -1,0 +1,92 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/EventNotification/rest-event-notifications.htm
+spec_type: none
+note: >-
+  Oracle publishes NO AsyncAPI document for Responsys. It does publish a real, documented
+  webhook surface — the Responsys Event Notification API — which pushes campaign event
+  data to a customer-owned callback URL in near real time. This artifact captures that
+  webhook catalog verbatim from the Event Notification documentation. Nothing here is
+  inferred: every event type below is returned by the documented
+  GET /rest/api/v1.3/notifications/eventList endpoint.
+surface:
+  name: Responsys Event Notification API
+  style: webhook-callback
+  docs: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/EventNotification/rest-event-notifications.htm
+  pdf: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/pdf/responsys-event-notification-rest-api.pdf
+  availability: >-
+    Controlled Availability — access is requested through a My Oracle Support service
+    request; the Events API tier requires an additional SKU.
+  base_path: /rest/api/v1.3/notifications
+  auth: >-
+    The Responsys-side management endpoints use the same session authToken as the rest of
+    the REST API. Callback delivery to the subscriber supports HTTP Basic authentication
+    on the customer's endpoint.
+management_endpoints:
+- method: POST
+  path: /rest/api/v1.3/notifications/callbacks
+  summary: Register a callback URL to receive event notifications.
+- method: GET
+  path: /rest/api/v1.3/notifications/callbacks/{callbackName}?action=verify
+  summary: Verify a registered callback URL. Events are not delivered until verification succeeds.
+- method: POST
+  path: /rest/api/v1.3/notifications/subscriptions
+  summary: Subscribe a verified callback to one or more event types.
+- method: GET
+  path: /rest/api/v1.3/notifications/eventList
+  summary: Retrieve the list of event types available for subscription.
+  docs: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/EventNotification/api-v1.3-notifications-eventList-get.htm
+delivery:
+  mechanism: HTTPS POST to the subscriber's verified callback URL
+  batching: >-
+    Configurable batch size on the subscription (batchSize, e.g. 100) — notifications are
+    delivered in batches rather than strictly one request per event.
+  verification_required: true
+  retry_policy: not published
+  signature: >-
+    No message-signing scheme is documented; authenticity is established by the callback
+    verification handshake plus optional HTTP Basic credentials on the subscriber endpoint.
+events:
+- {name: EMAIL_BOUNCED, channel: email, class: delivery-failure}
+- {name: EMAIL_FAILED, channel: email, class: delivery-failure}
+- {name: EMAIL_SKIPPED, channel: email, class: delivery-failure}
+- {name: EMAIL_CLICKED, channel: email, class: engagement}
+- {name: EMAIL_OPTOUT, channel: email, class: consent}
+- {name: EMAIL_OPTIN, channel: email, class: consent}
+- {name: EMAIL_COMPLAINT, channel: email, class: consent}
+- {name: SMS_FAILED, channel: sms, class: delivery-failure}
+- {name: SMS_SKIPPED, channel: sms, class: delivery-failure}
+- {name: SMS_MO_FW_FAILED, channel: sms, class: delivery-failure}
+- {name: SMS_RECEIPT, channel: sms, class: delivery}
+- {name: SMS_OPT_IN, channel: sms, class: consent}
+- {name: SMS_OPT_OUT, channel: sms, class: consent}
+- {name: MMS_SKIPPED, channel: mms, class: delivery-failure}
+- {name: MMS_FAILED, channel: mms, class: delivery-failure}
+- {name: PUSH_SKIPPED, channel: mobile-push, class: delivery-failure}
+- {name: PUSH_FAILED, channel: mobile-push, class: delivery-failure}
+- {name: PUSH_BOUNCED, channel: mobile-push, class: delivery-failure}
+- {name: PUSH_OPT_IN, channel: mobile-push, class: consent}
+- {name: PUSH_OPT_OUT, channel: mobile-push, class: consent}
+- {name: WEBPUSH_FAILED, channel: web-push, class: delivery-failure}
+- {name: WEBPUSH_SKIPPED, channel: web-push, class: delivery-failure}
+- {name: WEBPUSH_BOUNCED, channel: web-push, class: delivery-failure}
+- {name: WEBPUSH_CLOSED, channel: web-push, class: engagement}
+- {name: WEBPUSH_OPTIN, channel: web-push, class: consent}
+- {name: WEBPUSH_OPTOUT, channel: web-push, class: consent}
+payload:
+  format: application/json
+  example_source: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/EventNotification/rest-event-notifications.htm
+  fields:
+  - {name: campaignId, type: string}
+  - {name: campaignName, type: string}
+  - {name: riid, type: string, note: Responsys Recipient ID}
+  - {name: customerId, type: string}
+  - {name: recipient, type: string, note: email address or device/MSISDN identifier}
+  - {name: channelType, type: string, note: 'e.g. Email'}
+  - {name: failureType, type: string, note: the event type, e.g. EMAIL_BOUNCED}
+  - {name: failureReason, type: string, note: 'e.g. MAILBOX_FULL'}
+summary:
+  event_count: 26
+  channels: [email, sms, mms, mobile-push, web-push]
+  asyncapi_published: false
+  webhooks_published: true

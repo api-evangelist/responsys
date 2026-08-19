@@ -1,0 +1,44 @@
+generated: '2026-08-13'
+method: searched
+probe: true
+url: https://www.oracle.com/corporate/cloud-compliance/
+also:
+- https://www.oracle.com/trust/
+scope_note: >-
+  Oracle publishes no Responsys-specific trust center. Compliance posture for Responsys
+  is covered by Oracle's corporate cloud compliance program, which is where the named
+  attestations are actually published. Recorded at the corporate level, and marked as
+  such — a reader should not assume every certification below is scoped to the Responsys
+  service without checking the per-service attestation.
+certifications:
+- SOC 1
+- SOC 2
+- SOC 3
+- ISO/IEC 27001
+- PCI DSS
+- HIPAA
+- FedRAMP
+- GDPR
+- CSA STAR
+- FIPS 140
+- HITRUST
+- C5
+- IRAP
+evidence:
+- source: https://www.oracle.com/corporate/cloud-compliance/
+  status: 200
+  fetched: '2026-08-13'
+  keywords: [SOC 1, SOC 2, SOC 3, ISO/IEC 27001, PCI DSS, HIPAA, FedRAMP, GDPR, CSA STAR, FIPS 140, HITRUST, C5, IRAP]
+  note: >-
+    Certification names extracted from the live page body. Oracle publishes per-service
+    and per-region attestation scope on the linked attestation pages; this artifact
+    records the program, not a claim that every listing applies to Responsys.
+- source: https://www.oracle.com/trust/
+  status: 200
+  fetched: '2026-08-13'
+machine_readable:
+  published: false
+  note: >-
+    No trust-center API, no /.well-known/ compliance document, no downloadable
+    machine-readable attestation index. Everything is HTML behind Akamai bot management
+    (www.oracle.com returns 403 to non-browser user agents).
