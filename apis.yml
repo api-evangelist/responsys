@@ -47,6 +47,19 @@ tags:
 - Customer Engagement
 - Push Notifications
 - SMS
+- Webhook
+- Oracle
+- MarTech
+tags_raw:
+- Company
+- Marketing
+- Email Marketing
+- Marketing Automation
+- Campaign Management
+- Cross-Channel Marketing
+- Customer Engagement
+- Push Notifications
+- SMS
 - Webhooks
 - Oracle
 - Martech
@@ -99,6 +112,10 @@ apis:
   humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/EventNotification/rest-event-notifications.htm
   baseURL: https://login5.responsys.net/rest/api/v1.3/notifications
   tags:
+  - Webhook
+  - Event
+  - Marketing
+  tags_raw:
   - Webhooks
   - Events
   - Marketing
