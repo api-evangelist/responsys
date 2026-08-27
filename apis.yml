@@ -60,27 +60,64 @@ tags_raw:
 - Oracle
 - Martech
 apis:
-- name: Oracle Responsys REST API
-  description: The Responsys REST API (v1.3) manages profile lists and recipients, profile extension tables, supplemental
-    data tables, campaigns and campaign schedules, programs, folders, the content library, triggered email/SMS/push
-    messages, events, filters, and account settings. Authentication is token-based via the auth/token endpoint;
-    the returned token and pod endpoint are then used for subsequent calls. Oracle publishes a Swagger 2.0 description
-    of this surface (63 paths, 88 operations, 100 definitions).
-  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+- name: Oracle Responsys Event Notification API
+  description: >-
+    The Event Notification API pushes real-time campaign event data to a customer-owned callback URL.
+    Register a callback, verify it, then subscribe it to any of the 26 supported event types across email,
+    SMS, MMS, mobile push and web push — delivery failures, clicks, and opt-in/opt-out consent changes
+    — delivered in configurable batches. It is the only feedback channel for a triggered send. Controlled
+    Availability; access requires a My Oracle Support service request and the Events tier requires an
+    additional SKU.
+  humanURL: >-
+    https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/EventNotification/rest-event-notifications.htm
+  baseURL: https://login5.responsys.net/rest/api/v1.3/notifications
+  tags:
+  - Webhook
+  - Event
+  - Marketing
+  tags_raw:
+  - Webhooks
+  - Events
+  - Marketing
+  properties:
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/EventNotification/rest-event-notifications.htm
+  - type: Webhooks
+    url: asyncapi/responsys-event-notification-webhooks.yml
+- name: Oracle Responsys AFTM / Asynchronous API
+  description: >-
+    The AFTM (Automatic Failover for Transactional Messaging) REST API provides asynchronous, high-availability
+    alternatives to the synchronous merge and trigger operations — HA Merge List Members, HA Merge Trigger
+    Email (with and without attachments), HA Merge Trigger SMS, HA Trigger Push Message, and HA Retrieve
+    List Members. Requests are queued and acknowledged immediately; a request carrying more than 200 recipients
+    is rejected outright. Controlled Availability, and it requires an additional SKU.
+  humanURL: >-
+    https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/GetStarted/Overview/rest-aftm.htm
   baseURL: https://login5.responsys.net/rest/api/v1.3
   tags:
   - Marketing
-  - Email Marketing
-  - Campaign Management
+  - Transactional Messaging
   properties:
+  - type: Documentation
+    url: >-
+      https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/GetStarted/Overview/rest-aftm.htm
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+- aid: responsys:responsys-account-api
+  name: Responsys Account API
+  description: API endpoints to enable managing your Responsys account.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Account
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-account-api-openapi.yml
   - type: Documentation
     url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
   - type: APIReference
     url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
-  - type: OpenAPI
-    url: openapi/responsys-openapi.yml
-  - type: Overlay
-    url: overlays/responsys-openapi-overlay.yaml
   - type: Authentication
     url: authentication/responsys-authentication.yml
   - type: Conventions
@@ -93,43 +130,630 @@ apis:
     url: rate-limits/responsys-rate-limits.yml
   - type: ChangeLog
     url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
-- name: Oracle Responsys Event Notification API
-  description: The Event Notification API pushes real-time campaign event data to a customer-owned callback URL.
-    Register a callback, verify it, then subscribe it to any of the 26 supported event types across email, SMS,
-    MMS, mobile push and web push — delivery failures, clicks, and opt-in/opt-out consent changes — delivered in
-    configurable batches. It is the only feedback channel for a triggered send. Controlled Availability; access
-    requires a My Oracle Support service request and the Events tier requires an additional SKU.
-  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/EventNotification/rest-event-notifications.htm
-  baseURL: https://login5.responsys.net/rest/api/v1.3/notifications
-  tags:
-  - Webhook
-  - Event
-  - Marketing
-  tags_raw:
-  - Webhooks
-  - Events
-  - Marketing
-  properties:
-  - type: Documentation
-    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/REST/EventNotification/rest-event-notifications.htm
-  - type: Webhooks
-    url: asyncapi/responsys-event-notification-webhooks.yml
-- name: Oracle Responsys AFTM / Asynchronous API
-  description: The AFTM (Automatic Failover for Transactional Messaging) REST API provides asynchronous, high-availability
-    alternatives to the synchronous merge and trigger operations — HA Merge List Members, HA Merge Trigger Email
-    (with and without attachments), HA Merge Trigger SMS, HA Trigger Push Message, and HA Retrieve List Members.
-    Requests are queued and acknowledged immediately; a request carrying more than 200 recipients is rejected outright.
-    Controlled Availability, and it requires an additional SKU.
-  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/GetStarted/Overview/rest-aftm.htm
+- aid: responsys:responsys-attachments-api
+  name: Responsys Attachments API
+  description: Send Responsys Email Campaigns with Attachments
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
   baseURL: https://login5.responsys.net/rest/api/v1.3
   tags:
-  - Marketing
-  - Transactional Messaging
+  - Attachments
   properties:
+  - type: OpenAPI
+    url: openapi/responsys-attachments-api-openapi.yml
   - type: Documentation
-    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/API/GetStarted/Overview/rest-aftm.htm
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
   - type: ErrorCatalog
     url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-campaign-attributes-api
+  name: Responsys Campaign Attributes API
+  description: Campaign Attributes API endpoints.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Campaign Attributes
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-campaign-attributes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-campaigns-api
+  name: Responsys Campaigns API
+  description: Responsys Campaign API Endpoints
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-content-library-document-images-api
+  name: Responsys Content Library Document Images API
+  description: Content Library Document Images
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Content Library Document Images
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-content-library-document-images-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-content-library-documents-api
+  name: Responsys Content Library Documents API
+  description: Documents in the Responsys Interact Suite Content Library.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Content Library Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-content-library-documents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-content-library-folders-api
+  name: Responsys Content Library Folders API
+  description: Content Library Folders in the Responsys Interact Suite Content Library.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Content Library Folders
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-content-library-folders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-content-library-media-items-api
+  name: Responsys Content Library Media Items API
+  description: Media Files in the Responsys Interact Suite Content Library.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Content Library Media Items
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-content-library-media-items-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-email-or-push-campaign-schedule-api
+  name: Responsys Email or Push Campaign Schedule API
+  description: Schedule an Email or a Push Campaign
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Email or Push Campaign Schedule
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-email-or-push-campaign-schedule-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-events-api
+  name: Responsys Events API
+  description: Raise Events for Cross-channel Marketing Programs.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-events-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-filters-api
+  name: Responsys Filters API
+  description: Filters in the Responsys Interact Suite
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Filters
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-filters-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-folders-api
+  name: Responsys Folders API
+  description: Responsys Account Folder API Endpoints
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Folders
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-folders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-list-extensions-api
+  name: Responsys List Extensions API
+  description: Profile Extensions for a Profile List in the Responsys Interact Suite
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - List Extensions
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-list-extensions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-merge-trigger-email-api
+  name: Responsys Merge Trigger Email API
+  description: Merge Members to a Profile List and Send Responsys Email Campaigns to them.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Merge Trigger Email
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-merge-trigger-email-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-merge-trigger-sms-api
+  name: Responsys Merge Trigger SMS API
+  description: Merge Members to a Profile List and Send Responsys SMS Campaigns to them
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Merge Trigger SMS
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-merge-trigger-sms-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-organizations-api
+  name: Responsys Organizations API
+  description: Responsys Organizations
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-profile-extension-recipients-api
+  name: Responsys Profile Extension Recipients API
+  description: One or more Recipients within a Profile Extension Table in the Responsys Interact Suite.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Profile Extension Recipients
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-profile-extension-recipients-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-profile-list-recipients-api
+  name: Responsys Profile List Recipients API
+  description: One or more Recipients within a Profile List in the Responsys Interact Suite.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Profile List Recipients
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-profile-list-recipients-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-profile-lists-api
+  name: Responsys Profile Lists API
+  description: Profile Lists in the Responsys Interact Suite
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Profile Lists
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-profile-lists-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-programs-api
+  name: Responsys Programs API
+  description: Responsys Program API Endpoints
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Programs
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-programs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-supplemental-table-members-api
+  name: Responsys Supplemental Table Members API
+  description: Members of a Supplemental Data Table in the Responsys Interact Suite.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Supplemental Table Members
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-supplemental-table-members-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-supplemental-tables-api
+  name: Responsys Supplemental Tables API
+  description: Supplemental table objects.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Supplemental Tables
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-supplemental-tables-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-trigger-email-message-api
+  name: Responsys Trigger Email Message API
+  description: Send Responsys Email Campaigns to existing members of a Profile List.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Trigger Email Message
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-trigger-email-message-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-trigger-push-message-api
+  name: Responsys Trigger Push Message API
+  description: Send Responsys Push Campaigns to existing members of a Profile List
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Trigger Push Message
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-trigger-push-message-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
+- aid: responsys:responsys-trigger-sms-message-api
+  name: Responsys Trigger SMS Message API
+  description: Trigger SMS messages to existing members of a profile list.
+  humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  baseURL: https://login5.responsys.net/rest/api/v1.3
+  tags:
+  - Trigger SMS Message
+  properties:
+  - type: OpenAPI
+    url: openapi/responsys-trigger-sms-message-api-openapi.yml
+  - type: Documentation
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/rest-endpoints.html
+  - type: Authentication
+    url: authentication/responsys-authentication.yml
+  - type: Conventions
+    url: conventions/responsys-conventions.yml
+  - type: ErrorCatalog
+    url: errors/responsys-problem-types.yml
+  - type: DataModel
+    url: data-model/responsys-data-model.yml
+  - type: RateLimits
+    url: rate-limits/responsys-rate-limits.yml
+  - type: ChangeLog
+    url: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/releaseChanges.html
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
