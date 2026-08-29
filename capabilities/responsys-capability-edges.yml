@@ -1,0 +1,125 @@
+slug: responsys
+provider: Responsys
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Telecommunications
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 11
+edges:
+- tag: Profile List Recipients
+  spec_file: responsys-profile-list-recipients-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.8
+  evidence: post /rest/api/v1.3/lists/{listName}/members  Merge List Recipients; Retrieve List Recipient
+    using RIID; Retrieve List Recipients Count
+  reason: Create/merge, retrieve and delete individual customer records (recipients) in the marketing
+    profile list, identified by RIID — maintenance of the customer/contact master data used for marketing.
+- tag: Merge Trigger Email
+  spec_file: responsys-merge-trigger-email-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.78
+  evidence: POST /rest/api/v1.3/campaigns/{campaignName}/email  Merge Trigger Email; schema mergeTriggerEmail
+  reason: Triggers a personalised campaign email send for a recipient on a B2C cross-channel marketing
+    orchestration platform — marketing automation execution. Digital Marketing Management is the closest
+    fit; could arguably be lifecycle/demand generation.
+- tag: Campaigns
+  spec_file: responsys-campaigns-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: GET /rest/api/v1.3/campaigns  Fetch All Campaigns; GET /rest/api/v1.3/campaigns/{campaignName}/preview  Preview
+    a Campaign
+  reason: Core campaign objects of a B2C cross-channel marketing orchestration platform (email, push,
+    SMS, web) — digital marketing / marketing automation campaign management.
+- tag: Email or Push Campaign Schedule
+  spec_file: responsys-email-or-push-campaign-schedule-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /rest/api/v1.3/campaigns/{campaignName}/schedule  Create an Email or Push campaign schedule
+  reason: Scheduling of email and mobile push marketing campaign launches — execution scheduling within
+    digital marketing automation.
+- tag: Merge Trigger SMS
+  spec_file: responsys-merge-trigger-sms-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /rest/api/v1.3/campaigns/{campaignName}/sms  Merge Trigger SMS; schema triggerSmsResponse
+  reason: 'Triggers a personalised campaign SMS message for a recipient — outbound marketing channel execution/automation
+    on a marketing orchestration platform. Note: this is marketing SMS, not telecom messaging service
+    delivery.'
+- tag: Trigger Email Message
+  spec_file: responsys-trigger-email-message-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /rest/api/v1.3/campaigns/{campaignName}/email — "Trigger Email Message"; schema "triggerEmailMessage"
+  reason: The single operation triggers an outbound campaign email message on a B2C cross-channel marketing
+    orchestration platform. That is marketing execution/automation, best matched by Digital Marketing
+    Management under Marketing Management; some ambiguity vs Demand Generation, hence moderate confidence.
+- tag: Trigger Push Message
+  spec_file: responsys-trigger-push-message-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /rest/api/v1.3/campaigns/{campaignName}/push — "Trigger Push Message"; schema "triggerPushMessage"
+  reason: Triggers mobile push campaign messages through the marketing platform — marketing automation
+    across digital channels, so Digital Marketing Management. Channel-level rather than a distinct business
+    capability, so not maximal confidence.
+- tag: Trigger SMS Message
+  spec_file: responsys-trigger-sms-message-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /rest/api/v1.3/campaigns/{campaignName}/sms/trigger — "Trigger SMS Message"
+  reason: Triggers SMS campaign sends from the marketing orchestration platform. This is marketing message
+    delivery/automation (Digital Marketing Management), not telecom messaging infrastructure — the vendor
+    is a campaign management tool.
+- tag: Profile Extension Recipients
+  spec_file: responsys-profile-extension-recipients-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.72
+  evidence: Merge Profile Extension Recipients; Retrieve Profile Extension Recipient using an RIID; Delete
+    Profile Extension Recipient using an RIID
+  reason: CRUD on individual customer/recipient attribute records keyed by recipient id (RIID) in the
+    marketing profile store — customer data/profile record management.
+- tag: Attachments
+  spec_file: responsys-attachments-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /rest/api/v1.3/campaigns/{campaignName}/emailAttachments/actions/trigger  Trigger Email
+    Message with Attachments
+  reason: Triggers execution of marketing email campaign messages with attachments — email/marketing-automation
+    execution within a B2C cross-channel campaign platform.
+- tag: Profile Lists
+  spec_file: responsys-profile-lists-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: post /rest/api/v1.3/lists  Create a Profile List with or without brand Context; Retrieve Profile
+    List Fields; Retrieve Segment Groups
+  reason: Manages the marketing customer profile list structures and their fields (the customer data store),
+    with segment group retrieval as a secondary concern; primarily customer data management rather than
+    segmentation design.
