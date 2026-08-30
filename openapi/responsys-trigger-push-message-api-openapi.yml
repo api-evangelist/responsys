@@ -1,0 +1,118 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Trigger Push Message API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Trigger Push Message
+  description: Send Responsys Push Campaigns to existing members of a Profile List
+paths:
+  '/rest/api/v1.3/campaigns/{campaignName}/push ':
+    post:
+      summary: Trigger Push Message
+      operationId: 'post /rest/api/v1.3/campaigns/{campaignName}/push '
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/triggerPush-response'
+      parameters:
+      - name: campaignName
+        in: path
+        description: Campaign Name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - triggerPushMessage
+      tags:
+      - Trigger Push Message
+      x-internal-id: rest-api-v1.3-campaigns-{campaignName}-push -post
+      x-filename-id: rest-api-v1.3-campaigns-campaignname-push-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/triggerPushMessage'
+        description: Request Body
+components:
+  schemas:
+    triggerPushMessage:
+      title: Trigger Push Message
+      type: object
+      properties:
+        recipientData:
+          description: Array of Recipients with Optional Data
+          type: array
+          items:
+            type: object
+            properties:
+              mobileNumber:
+                type: string
+                description: Recipient's Mobile Number.
+              emailSHA256Hash:
+                type: string
+                description: Recipient's emailSHA256Hash.
+              emailAddress:
+                type: string
+                description: Recipient's Email Address.
+              listType:
+                enum:
+                - PUSH
+                - PROFILE
+                description: Email Format.
+                type: string
+              optionalData:
+                type: array
+                description: Array of optional data containing name value pairs.
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+              customerId:
+                type: string
+                description: Recipient's Customer ID.
+              apiKey:
+                type: string
+                description: Recipient's apiKey.
+              emailMD5Hash:
+                type: string
+                description: Recipient's emailMD5Hash.
+              deviceId:
+                type: string
+                description: Recipient's deviceId.
+              recipientId:
+                type: number
+                description: Recipient's RIID.
+      required:
+      - recipientData
+    triggerPush-response:
+      title: Trigger Push Response
+      type: array
+      description: Array of Recipient Results.
+      items:
+        type: object
+        description: Response for individual recipient.
+        properties:
+          errorMessage:
+            type: string
+            description: Error Message, if any, that occurred during the trigger operation.
+          success:
+            type: boolean
+            description: Indicates success or failure.
+          recipientId:
+            type: number
+            description: The Responsys ID (RIID) of the recipient.

@@ -1,0 +1,196 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Supplemental Tables API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Supplemental Tables
+  description: Supplemental table objects.
+paths:
+  /rest/api/v1.3/suppData:
+    get:
+      summary: Fetch All Supplemental Tables
+      description: Use this endpoint to get all Supplemental Tables for your account.
+      operationId: get /rest/api/v1.3/suppData
+      responses:
+        default:
+          description: Supplemental Data Tables
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supp-tables'
+      tags:
+      - Supplemental Tables
+      x-internal-id: rest-api-v1.3-suppData-get
+      x-filename-id: rest-api-v1.3-suppdata-get
+  /rest/api/v1.3/folders/{folderName}/suppData:
+    post:
+      summary: Create Supplemental Table
+      description: Use this endpoint to create a new supplemental table by providing its schema.
+      operationId: post /rest/api/v1.3/folders/{folderName}/suppData
+      responses:
+        default:
+          description: true/false indicating success or failure.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplementalTableResponse'
+      parameters:
+      - name: folderName
+        in: path
+        description: Folder Name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - createSupplementalTable
+      tags:
+      - Supplemental Tables
+      x-internal-id: rest-api-v1.3-folders-{folderName}-suppData-post
+      x-filename-id: rest-api-v1.3-folders-foldername-suppdata-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/supplementalTable'
+        description: Request Body
+  /rest/api/v1.3/folders/{folderName}/suppData/{suppTableName}:
+    put:
+      summary: Update Supplemental Table
+      description: Use this endpoint to update a supplemental table by providing the properties to update.
+      operationId: PUT /rest/api/v1.3/folders/{folderName}/suppData/{suppTableName}
+      responses:
+        default:
+          description: Update Supplemental Data Table
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/update-supp-table'
+      parameters:
+      - name: folderName
+        in: path
+        description: The name of the folder where the supplemental table is located.
+        required: true
+        schema:
+          type: string
+      - name: suppTableName
+        in: path
+        description: The name of the supplemental table to update.
+        required: true
+        schema:
+          type: string
+      tags:
+      - Supplemental Tables
+      x-internal-id: rest-api-v1.3-folders-{folderName}-suppData-{suppTableName}-put
+      x-filename-id: rest-api-v1.3-folders-foldername-suppdata-supptablename-put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update-supp-request'
+        description: Request Body
+components:
+  schemas:
+    update-supp-table:
+      title: Update Supplemental Data Table Response
+      type: object
+      properties:
+        message:
+          description: 'Message: Supplemental Table has been updated will be displayed'
+          type: string
+        status:
+          description: true or false
+          type: boolean
+      required:
+      - message
+      - status
+    supp-tables:
+      title: Supplemental Data Tables
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/sup-table'
+    update-supp-request:
+      title: Update Supplemental Data Table Request
+      type: object
+      properties:
+        folderName:
+          description: The name of the folder where the supplemental table is located.
+          type: string
+        tableName:
+          description: The name of the supplemental table to update.
+          type: string
+      required:
+      - folderName
+      - tableName
+    supplementalTableResponse:
+      title: create supplemental table Response
+      type: boolean
+      description: true/false indicating success or failure.
+    supplementalTable:
+      title: create supplemental table Request
+      type: object
+      properties:
+        table:
+          description: Supplemental table name
+          type: object
+          properties:
+            objectName:
+              type: string
+              description: Name of the supplemental table
+        records:
+          description: 'Array of columns corresponding to the supplemental table. '
+          type: array
+          items:
+            type: object
+            properties:
+              fieldName:
+                type: string
+                description: The supplemental table Field Name
+              fieldType:
+                type: string
+                description: The supplemental table Field Type
+              dataExtractionKey:
+                type: boolean
+                description: Data Extraction Key column of the supplemental table
+        primaryKeys:
+          description: Array of primary keys corresponding to the supplemental table.
+          type: array
+          items:
+            type: string
+    sup-table:
+      title: Supplemental Data table
+      type: object
+      properties:
+        name:
+          description: The name of the Supplemental data table
+          type: string
+        folderName:
+          description: The name of the folder in which the Supplemental data table exists
+          type: string
+        fields:
+          description: The Supplemental data table Fields
+          type: array
+          items:
+            type: object
+            properties:
+              fieldName:
+                type: string
+                description: The Supplemental data Field Name
+              fieldType:
+                type: string
+                description: The Supplemental data Field Type
+      required:
+      - name
+      - folderName
+      - fields

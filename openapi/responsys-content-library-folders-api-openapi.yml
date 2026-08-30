@@ -1,0 +1,141 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Content Library Folders API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Content Library Folders
+  description: Content Library Folders in the Responsys Interact Suite Content Library.
+paths:
+  /rest/api/v1.3/clFolders:
+    post:
+      summary: Create Content Library Folder
+      operationId: post /rest/api/v1.3/clFolders
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clFolders'
+      x-relation:
+      - createContentLibraryFolder
+      tags:
+      - Content Library Folders
+      x-internal-id: rest-api-v1.3-clFolders-post
+      x-filename-id: rest-api-v1.3-clfolders-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/clFolders'
+        description: Request Body
+  /rest/api/v1.3/clFolders/{folderPath}:
+    delete:
+      summary: Delete Content Library Folder
+      operationId: delete /rest/api/v1.3/clFolders/{folderPath}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clFolders'
+      parameters:
+      - name: folderPath
+        in: path
+        description: The complete path of the folder starting with /contentlibrary.
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - deleteContentLibraryFolder
+      tags:
+      - Content Library Folders
+      x-internal-id: rest-api-v1.3-clFolders-{folderPath}-delete
+      x-filename-id: rest-api-v1.3-clfolders-folderpath-delete
+    get:
+      summary: List contents of a Content Library Folder
+      operationId: get /rest/api/v1.3/clFolders/{folderPath}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listClFoldersResponse'
+      parameters:
+      - name: folderPath
+        in: path
+        description: The complete path of the folder starting with /contentlibrary.
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: Specify what content of a folder needs to be listed. Allowed values are 'all', 'folders', 'docs' or 'items'. Defaults to 'all'
+        schema:
+          type: string
+      x-relation:
+      - listContentLibraryFolders
+      tags:
+      - Content Library Folders
+      x-internal-id: rest-api-v1.3-clFolders-{folderPath}-get
+      x-filename-id: rest-api-v1.3-clfolders-folderpath-get
+components:
+  schemas:
+    listClFoldersResponse:
+      title: List Content Library Folders Response
+      type: object
+      properties:
+        folders:
+          description: Folders within the Content Library Folder
+          type: array
+          items:
+            type: object
+            properties:
+              folderPath:
+                type: string
+                description: Full path of the Content Library folder
+        documents:
+          description: Content Library Documents within the Content Library Folder
+          type: array
+          items:
+            type: object
+            properties:
+              documentPath:
+                type: string
+                description: Full path of the Content Library Document
+              content:
+                type: string
+                description: Document content
+        items:
+          description: Media files within the Content Library Folder
+          type: array
+          items:
+            type: object
+            properties:
+              itemPath:
+                type: string
+                description: Full path of the Content Library media file
+              itemData:
+                type: string
+                format: byte
+                description: Base64 encoded binary string of the media file content.
+    clFolders:
+      title: Content Library Folders
+      type: object
+      properties:
+        folderPath:
+          description: The complete path of the folder starting with /contentlibrary.
+          type: string
+      required:
+      - folderPath

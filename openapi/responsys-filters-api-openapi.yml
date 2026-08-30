@@ -1,0 +1,100 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Filters API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Filters
+  description: Filters in the Responsys Interact Suite
+paths:
+  /rest/api/v1.3/filters:
+    get:
+      summary: Retrieve All Filters
+      description: Use this endpoint to retrieve all filters for an account. Both simple and classic filters are returned in the response.<br><br>For more information on filters, see the <a href='https://docs.oracle.com/en/cloud/saas/marketing/responsys-user/index.html#CSHID=FiltersAndSegmentGroupsLP'>Oracle Responsys Help Center</a>.
+      operationId: get /rest/api/v1.3/filters
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filters-collection'
+      parameters:
+      - name: offset
+        in: query
+        description: Specifies an offset that allows you to retrieve the next batch of records. Starts at 0 and indicates the record number for the response result set. Any positive integer. For example, if your limit is 200, specifying an offset of 0 will return records 0 through 200. To retrieve the next 200, set an offset of 200. If not specified, the default is 0.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number of filters to return in the response (defaults to 200 and cannot exceed 200)
+        schema:
+          type: integer
+      x-relation:
+      - instances
+      tags:
+      - Filters
+      x-internal-id: rest-api-v1.3-filters-get
+      x-filename-id: rest-api-v1.3-filters-get
+components:
+  schemas:
+    retrieve-filters-response:
+      type: object
+      title: filter
+      properties:
+        id:
+          description: ID of the filter.
+          type: integer
+        name:
+          description: Name of the filter.
+          type: string
+        folderName:
+          description: Folder name for the filter.
+          type: string
+        folderId:
+          description: ID of the folder containing the filter.
+          type: integer
+        listName:
+          description: Name of the list to which the filter is associated.
+          type: string
+        listId:
+          description: ID of the list to which the filter is associated.
+          type: integer
+        createdDate:
+          description: Creation date of the filter
+          type: string
+        modifiedDate:
+          description: Last Modified date of the filter
+          type: string
+        description:
+          description: Description of the filter
+          type: string
+        filterType:
+          description: Type of the filter
+          type: string
+        filterSubType:
+          description: Sub-Type of the filter
+          type: string
+        filterSource:
+          description: Filter source
+          enum:
+          - Profile
+          - AppChannel
+          - Enactment
+          type: string
+    filters-collection:
+      title: filters
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/retrieve-filters-response'

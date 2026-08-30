@@ -1,0 +1,95 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Content Library Document Images API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Content Library Document Images
+  description: Content Library Document Images
+paths:
+  /rest/api/v1.3/clDocImages/{documentPath}:
+    post:
+      summary: Update content of images in a Content Library Document
+      operationId: post /rest/api/v1.3/clDocImages/{documentPath}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clDocImages'
+      parameters:
+      - name: documentPath
+        in: path
+        description: The complete path of the document starting with '/contentlibrary'.
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - setDocumentImages
+      tags:
+      - Content Library Document Images
+      x-internal-id: rest-api-v1.3-clDocImages-{documentPath}-post
+      x-filename-id: rest-api-v1.3-cldocimages-documentpath-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/clDocImages'
+        description: Request Body
+    get:
+      summary: Retrieve binary content of images in a Content Library Document
+      operationId: get /rest/api/v1.3/clDocImages/{documentPath}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clDocImages'
+      parameters:
+      - name: documentPath
+        in: path
+        description: The complete path of the document starting with '/contentlibrary'.
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - getDocumentImages
+      tags:
+      - Content Library Document Images
+      x-internal-id: rest-api-v1.3-clDocImages-{documentPath}-get
+      x-filename-id: rest-api-v1.3-cldocimages-documentpath-get
+components:
+  schemas:
+    clDocImages:
+      title: Content Library Document Images
+      type: object
+      properties:
+        documentPath:
+          description: The complete path of the document starting with '/contentlibrary'.
+          type: string
+        imageData:
+          description: Images in the content library document.
+          type: array
+          items:
+            type: object
+            properties:
+              itemPath:
+                type: string
+                description: Name of the image in the content library document.
+              itemData:
+                type: string
+                format: byte
+                description: Base64 encoded binary string of the image content.
+      required:
+      - documentPath
+      - imageData

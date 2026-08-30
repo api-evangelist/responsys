@@ -1,0 +1,427 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Profile Lists API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Profile Lists
+  description: Profile Lists in the Responsys Interact Suite
+paths:
+  /rest/api/v1.3/lists:
+    get:
+      summary: Fetch All Profile Lists
+      operationId: get /rest/api/v1.3/lists
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/lists-collection'
+      x-relation:
+      - instances
+      tags:
+      - Profile Lists
+      x-internal-id: rest-api-v1.3-lists-get
+      x-filename-id: rest-api-v1.3-lists-get
+    post:
+      summary: Create a Profile List with or without brand Context
+      operationId: post /rest/api/v1.3/lists
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createProfileListResponse'
+      x-relation:
+      - instances
+      tags:
+      - Profile Lists
+      x-internal-id: rest-api-v1.3-lists-post
+      x-filename-id: rest-api-v1.3-lists-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createProfileListRequest'
+        description: Request Body
+  /rest/api/v1.3/lists/{listName}/fields:
+    get:
+      summary: Retrieve Profile List Fields
+      description: Retrieves the fields for the specified profile list. In the request URL, specify the name of the profile list to retrieve. A successful response returns a list of the standard and custom fields for the list. <br><br> Refer to the <a href='https://docs.oracle.com/en/cloud/saas/marketing/responsys-user/index.html#CSHID=List_SystemFields'>Oracle Responsys Help Center</a> for more information about the profile list fields returned in the response.
+      operationId: get /rest/api/v1.3/lists/{listName}/fields
+      responses:
+        default:
+          description: List Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileListFieldsResponse'
+      parameters:
+      - name: listName
+        in: path
+        description: List Name
+        required: true
+        schema:
+          type: string
+      tags:
+      - Profile Lists
+      x-internal-id: rest-api-v1.3-lists-{listName}-fields-get
+      x-filename-id: rest-api-v1.3-lists-listname-fields-get
+  /rest/api/v1.3/lists/{listName}/orgListExtensions/members:
+    put:
+      summary: Add or Update RIID in the Organizational Scope Mapping
+      description: Adds or Updates profile list recipient's RIID in the Organizational Scope Mapping
+      operationId: put /rest/api/v1.3/lists/{listName}/orgListExtensions/members
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mergeOrgListRecipients'
+      parameters:
+      - name: listName
+        in: path
+        description: List name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - mergeOrgListRecipients
+      tags:
+      - Profile Lists
+      x-internal-id: rest-api-v1.3-lists-{listName}-orgListExtensions-members-put
+      x-filename-id: rest-api-v1.3-lists-listname-orglistextensions-members-put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/mergeOrgListRecipients'
+        description: Request body
+  /rest/api/v1.3/lists/proofLists/records:
+    get:
+      summary: Retrieve Proof Lists
+      description: Retrieves all Proof Lists for an account.
+      operationId: get /rest/api/v1.3/lists/proofLists/records
+      responses:
+        default:
+          description: A list of all Proof Lists with their metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/proofListArray'
+      parameters:
+      - name: offset
+        in: query
+        description: offset
+        required: false
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: limit
+        required: false
+        schema:
+          type: integer
+      tags:
+      - Profile Lists
+      x-internal-id: rest-api-v1.3-lists-proofLists-records-get
+      x-filename-id: rest-api-v1.3-lists-prooflists-records-get
+  /rest/api/v1.3/lists/segmentGroups/records:
+    get:
+      summary: Retrieve Segment Groups
+      description: Retrieves all Segment Groups for an Account
+      operationId: get /rest/api/v1.3/lists/segmentGroups/records
+      responses:
+        default:
+          description: A list of all Segment Groups with their metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/segmentGroupArray'
+      parameters:
+      - name: offset
+        in: query
+        description: offset
+        required: false
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: limit
+        required: false
+        schema:
+          type: integer
+      tags:
+      - Profile Lists
+      x-internal-id: rest-api-v1.3-lists-segmentGroups-records-get
+      x-filename-id: rest-api-v1.3-lists-segmentgroups-records-get
+components:
+  schemas:
+    segmentGroup:
+      title: Segment Group
+      type: object
+      properties:
+        name:
+          description: Segment Group Name
+          type: string
+        description:
+          description: Segment Group description
+          type: string
+        profileExtensionName:
+          description: Profile Extension name associated with the segment group. If no Profile Extension is associated, then it is set to null.
+          type: string
+        listName:
+          description: Profile list name with which the Segment Group is associated
+          type: string
+        folderName:
+          description: Folder containing the Segment Group
+          type: string
+        createdBy:
+          description: User who created the Segment Group
+          type: string
+        createdDate:
+          description: Segment Group creation date
+          type: string
+          format: date
+        modifiedBy:
+          description: User who modified the Segment Group
+          type: string
+        modifiedDate:
+          description: Segment Group modification date
+          type: string
+          format: date
+      required:
+      - name
+      - description
+      - profileExtensionName
+      - listName
+      - folderName
+      - createdBy
+      - createdDate
+      - modifiedBy
+      - modifiedDate
+    mergeOrgListRecipients:
+      title: Merge Org List Recipients
+      type: object
+      properties:
+        recordData:
+          description: Record data that represents field names and corresponding values for the recipient.
+          required:
+          - fieldNames
+          - records
+          type: object
+          properties:
+            fieldNames:
+              type: array
+              description: Field names in the Profile List
+              items:
+                type: string
+            records:
+              type: array
+              description: Array of values corresponding to the fieldNames. Each element in the array represents a single recipient.
+              items:
+                type: array
+                description: Field Values for the recipient in the Profile List
+                items:
+                  type: string
+        matchColumnName1:
+          enum:
+          - RIID_
+          - CUSTOMER_ID_
+          - EMAIL_ADDRESS_
+          - MOBILE_NUMBER_
+          - EMAIL_MD5_HASH_
+          - EMAIL_SHA256_HASH_
+          type: string
+          description: First match column for determining whether an insert or update should occur.
+        insertOnNoMatch:
+          type: boolean
+          description: Indicates what should be done for records where a match is not found (true = insert / false = no insert).
+        updateOnMatch:
+          enum:
+          - REPLACE_ALL
+          - NO_UPDATE
+          type: string
+          description: Controls how the existing record should be updated.
+      required:
+      - recordData
+      - matchColumnName1
+    profileListFieldsResponse:
+      title: Profile List Fields Response Model
+      type: object
+      properties:
+        name:
+          description: The name of the Profile List
+          type: string
+        folderName:
+          description: The name of the folder in which the Profile List exists
+          type: string
+        fields:
+          description: The Profile List Fields
+          type: array
+          items:
+            type: object
+            properties:
+              fieldName:
+                type: string
+                description: The Profile List Field Name
+              fieldType:
+                type: string
+                description: The Profile List Field Type
+      required:
+      - name
+      - folderName
+      - fields
+    createProfileListResponse:
+      title: Create Profile List Response model
+      type: object
+      properties:
+        message:
+          type: string
+          enum:
+          - List has been created.
+          description: The List has been created
+        name:
+          type: string
+          description: The Profile list Name.
+      required:
+      - message
+      - name
+    lists-collection:
+      title: Profile Lists
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/lists'
+    proofList:
+      title: Proof List
+      type: object
+      properties:
+        name:
+          description: Proof List Name
+          type: string
+        description:
+          description: Proof List description
+          type: string
+        listName:
+          description: Profile list name for which the Proof List is associated
+          type: string
+        folderName:
+          description: Folder containing the Proof List
+          type: string
+        createdBy:
+          description: User who created the Proof List
+          type: string
+        createdDate:
+          description: Proof List creation date
+          type: string
+          format: date
+        modifiedBy:
+          description: User who modified the Proof List
+          type: string
+        modifiedDate:
+          description: Proof List modification date
+          type: string
+          format: date
+      required:
+      - name
+      - description
+      - listName
+      - folderName
+      - createdBy
+      - createdDate
+      - modifiedBy
+      - modifiedDate
+    lists:
+      title: Profile Lists
+      type: object
+      properties:
+        name:
+          description: The name of the Profile List
+          type: string
+        folderName:
+          description: The name of the folder in which the Profile List exists
+          type: string
+        fields:
+          description: The Profile List Fields
+          type: array
+          items:
+            type: object
+            properties:
+              fieldName:
+                type: string
+                description: The Profile List Field Name
+              fieldType:
+                type: string
+                description: The Profile List Field Type
+      required:
+      - name
+      - folderName
+      - fields
+    segmentGroupArray:
+      title: Segment Group Array
+      type: object
+      properties:
+        segmentGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/segmentGroup'
+      required:
+      - segmentGroups
+    createProfileListRequest:
+      title: Create Profile List Request model
+      type: object
+      properties:
+        listName:
+          description: The name of the Profile List
+          type: string
+        listFolderName:
+          description: The name of the folder in which the Profile List is to be created
+          type: string
+        description:
+          description: Description about the Profile list
+          type: string
+        brandName:
+          description: The name of the brand with which the profile list is associated. Required if account is brand-enabled.
+          type: string
+        fields:
+          description: The Profile List Fields
+          type: array
+          items:
+            type: object
+            properties:
+              fieldName:
+                type: string
+                description: The Profile List Field Name
+              fieldType:
+                type: string
+                description: The Profile List Field Type
+            required:
+            - fieldName
+            - fieldType
+      required:
+      - listName
+      - listFolderName
+    proofListArray:
+      title: Proof List Array
+      type: object
+      properties:
+        proofLists:
+          type: array
+          items:
+            $ref: '#/components/schemas/proofList'
+      required:
+      - proofLists

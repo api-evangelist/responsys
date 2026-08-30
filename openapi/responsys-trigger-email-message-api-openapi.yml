@@ -1,0 +1,135 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Trigger Email Message API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Trigger Email Message
+  description: Send Responsys Email Campaigns to existing members of a Profile List.
+paths:
+  '/rest/api/v1.3/campaigns/{campaignName}/email ':
+    post:
+      summary: Trigger Email Message
+      operationId: 'post /rest/api/v1.3/campaigns/{campaignName}/email '
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/triggerEmail-response'
+      parameters:
+      - name: campaignName
+        in: path
+        description: Campaign Name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - triggerEmailMessage
+      tags:
+      - Trigger Email Message
+      x-internal-id: rest-api-v1.3-campaigns-{campaignName}-email -post
+      x-filename-id: rest-api-v1.3-campaigns-campaignname-email-post-2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/triggerEmailMessage'
+        description: Request Body
+components:
+  schemas:
+    triggerEmailMessage:
+      title: Trigger Email Message
+      type: object
+      properties:
+        recipientData:
+          description: Array of Recipients with Optional Data
+          type: array
+          items:
+            type: object
+            properties:
+              recipient:
+                type: object
+                description: Information about the Recipient.
+                properties:
+                  customerId:
+                    type: string
+                    description: Recipient's Customer ID.
+                  emailAddress:
+                    type: string
+                    description: Recipient's Email Address.
+                  emailMD5Hash:
+                    type: string
+                    description: Recipient's MD5 Email Hash Value.
+                  emailSHA256Hash:
+                    type: string
+                    description: Recipient's SHA256 Email Hash Value.
+                  listName:
+                    type: object
+                    description: Profile List to which the Recipient belongs.
+                    properties:
+                      folderName:
+                        type: string
+                        description: Folder Name
+                      objectName:
+                        type: string
+                        description: Profile List Name.
+                  recipientId:
+                    type: number
+                    description: Recipient's RIID.
+                  mobileNumber:
+                    type: string
+                    description: Recipient's Mobile Number.
+                  emailFormat:
+                    enum:
+                    - HTML_FORMAT
+                    - TEXT_FORMAT
+                    type: string
+                    description: Email Format.
+                required:
+                - customerId
+                - emailAddress
+                - recipientId
+                - mobileNumber
+                - emailFormat
+              optionalData:
+                type: array
+                description: Array of optional data containing name value pairs.
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+            required:
+            - recipient
+            - optionalData
+      required:
+      - recipientData
+    triggerEmail-response:
+      title: Trigger Email Response
+      type: array
+      description: Array of Recipient Results.
+      items:
+        type: object
+        description: Response for individual recipient.
+        properties:
+          errorMessage:
+            type: string
+            description: Error Message, if any, that occurred during the trigger operation.
+          success:
+            type: boolean
+            description: Indicates success or failure.
+          recipientId:
+            type: number
+            description: The Responsys ID (RIID) of the recipient.

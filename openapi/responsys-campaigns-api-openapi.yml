@@ -1,0 +1,640 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Campaigns API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Campaigns
+  description: Responsys Campaign API Endpoints
+paths:
+  /rest/api/v1.3/campaigns:
+    get:
+      summary: Fetch All Campaigns
+      description: Obtain the campaign properties for all EMD Email, Push, Message Center, SMS, or MMS campaigns.
+      operationId: get /rest/api/v1.3/campaigns
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/campaigns-collection'
+      parameters:
+      - name: offset
+        in: query
+        description: Starts at 0 and indicates the record number for the response result set
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number of campaigns to return in the response (defaults to 200 and cannot exceed 200)
+        schema:
+          type: integer
+      - name: type
+        in: query
+        description: The type of campaigns to return in the response (email, push, sms, mms or pushiocampaign, defaults to email)
+        schema:
+          type: string
+      x-relation:
+      - instances
+      tags:
+      - Campaigns
+      x-internal-id: rest-api-v1.3-campaigns-get
+      x-filename-id: rest-api-v1.3-campaigns-get
+  /rest/api/v1.3/campaigns/actions/search:
+    post:
+      summary: Fetch Campaigns using filters
+      description: Fetches Campaigns based on search and filter criterias. The results are sorted based on the search and filter criteria specified. A maximum of 20 records are returned.
+      operationId: post /rest/api/v1.3/campaigns/actions/search
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchCampaigns-response'
+      parameters:
+      - name: offset
+        in: query
+        description: Starts at 0 and indicates the record number for the response result set
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number of campaigns to return in the response (defaults to 20 and cannot exceed 20)
+        schema:
+          type: integer
+      x-relation:
+      - instances
+      tags:
+      - Campaigns
+      x-internal-id: rest-api-v1.3-campaigns-actions-search-post
+      x-filename-id: rest-api-v1.3-campaigns-actions-search-post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/searchCampaigns-request-body'
+        description: Search campaign request body contains sections to pass search, filter and sort criterias
+  /rest/api/v1.3/campaigns/{campaignName}:
+    get:
+      summary: Fetch A Campaign
+      description: Use this interface to get an existing EMD Email campaign object. The response returns the campaign object, which includes the campaign ID and the campaign's other properties. The links array contains the campaign object's related API operations, specific to the campaign name where applicable.
+      operationId: get /rest/api/v1.3/campaigns/{campaignName}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/campaigns'
+      parameters:
+      - name: campaignName
+        in: path
+        description: 'Name of the campaign to be fetched. '
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - instances
+      tags:
+      - Campaigns
+      x-internal-id: rest-api-v1.3-campaigns-{campaignName}-get
+      x-filename-id: rest-api-v1.3-campaigns-campaignname-get
+  /rest/api/v1.3/campaigns/{campaignName}/preview:
+    get:
+      summary: Preview a Campaign
+      description: Use this endpoint to preview a campaign. The endpoint outputs the campaign in HTML and text.
+      operationId: get /rest/api/v1.3/campaigns/{campaignName}/preview
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/previewCampaign-response'
+      parameters:
+      - name: campaignName
+        in: path
+        required: true
+        description: Campaign name for preview
+        schema:
+          type: string
+      - name: previewType
+        in: query
+        description: This allows you to output only one type of preview. Possible values are html or text. By default, both are output.
+        schema:
+          type: string
+      - name: listType
+        in: query
+        description: The type of source list you wish to preview. Possible values are ProofList or ProfileList. Default value is ProofList.
+        schema:
+          type: string
+      - name: riid
+        in: query
+        description: This allows you to preview based on a specific RIID.
+        schema:
+          type: string
+      x-relation:
+      - instances
+      tags:
+      - Campaigns
+      x-internal-id: rest-api-v1.3-campaigns-{campaignName}-preview-get
+      x-filename-id: rest-api-v1.3-campaigns-campaignname-preview-get
+components:
+  schemas:
+    campaigns:
+      title: Campaign
+      type: object
+      properties:
+        autoCloseOption:
+          description: Auto close options for this campaign.
+          enum:
+          - NO_AUTO_CLOSE
+          - AUTO_CLOSE_X_DAYS_AFTER_LAUNCH
+          - AUTO_CLOSE_X_DAYS_AFTER_LAST_RESPONSE
+          - AUTO_CLOSE_ON_DATE
+          type: string
+        unsubscribeOption:
+          description: The unsubscribe option for this campaign.
+          enum:
+          - NO_OPTOUT_BUTTON
+          - OPTOUT_SINGLE_CLICK
+          - OPTOUT_FORM
+          type: string
+        bccEmail:
+          description: Bcc Email Address for the campaign.
+          type: string
+        linkTablePath:
+          description: Link table to be included in this campaign.
+          type: string
+        marketingProgram:
+          description: Type of marketing program. The values are defined by the Account Administrator.
+          type: string
+        segmentPaths:
+          description: Segmentations are used to divide a list into segments using attributes of a profile extension table or profile list.
+          type: array
+          items:
+            type: string
+        refiningDataSourcePath:
+          description: Path of additional data sources to be used for this campaign.
+          type: string
+        proofListPath:
+          description: Before sending the campaign to customers, send it to proof list for testing.
+          type: string
+        attachmentPaths:
+          description: Attachments for the campaign.
+          type: array
+          items:
+            type: string
+        htmlMessagePath:
+          description: HTML message folder and path for the campaign.
+          type: string
+        fromEmail:
+          description: From Email Address for the campaign.
+          type: string
+        listName:
+          description: Profile list name which contains the audience for this campaign.
+          type: string
+        channelList:
+          description: App channel list name which contains the audience for this campaign.
+          type: string
+        useUTF8:
+          description: Use UTF8 encoding for messages.
+          type: boolean
+        suppressionListPaths:
+          description: This is used to exclude recipients from data sources.
+          type: array
+          items:
+            type: string
+        replyToEmail:
+          description: Reply To Email Address for the campaign.
+          type: string
+        segmentTrackingColumnName:
+          description: Column name for tracking segments.
+          type: string
+        filterPaths:
+          description: Paths of filter to be used for this campaign. This can be used to select a group of customers to receive specific messages. Either standard filter or SQL View can be specified.
+          type: array
+          items:
+            type: string
+        name:
+          description: Name of the campaign.
+          type: string
+        locale:
+          description: The default recipient locale for this account.
+          type: string
+        supplementarySeedDataSourcePaths:
+          description: Supplementary seed data sources can be used for inclusions or exclusions from seed list.
+          type: array
+          items:
+            type: string
+        textMessagePath:
+          description: Text message folder and path for the campaign.
+          type: string
+        sendTextIfHTMLUnknown:
+          description: If HTML ability is unknown, this option allows sending MIME messages to ensure message text is displayed correctly.
+          type: boolean
+        subject:
+          description: Campaign Subject.
+          type: string
+        enableExternalTracking:
+          description: Enable to use third-party web analytics service that use tracking parameters appended to the URLs.
+          type: boolean
+        salesForceCampaignId:
+          description: Salesforce campaign id.
+          type: string
+        autoCloseValue:
+          description: This represents number of days if autoCloseOption is AUTO_CLOSE_X_DAYS_AFTER_LAUNCH or AUTO_CLOSE_X_DAYS_AFTER_LAST_RESPONSE.This represents date if autoCloseOption is AUTO_CLOSE_ON_DATE.
+          type: string
+        trackConversions:
+          description: This applies only when link tracking is enabled for the campaign. This option can be used to record conversion when clicking a link and following through a specific web page.
+          type: boolean
+        campaignVariables:
+          description: Map<String, String> of Name and value of campaign variables which are used as default values for text replacement.
+          type: object
+          additionalProperties:
+            type: string
+        type:
+          description: Type of the campaign.
+          enum:
+          - EMAIL
+          - PUSH
+          - SMS
+          - MMS
+          - PUSHIOCAMPAIGN
+          type: string
+        folderName:
+          description: Folder name for the campaign.
+          type: string
+        marketingStrategy:
+          description: Type of marketing strategy. The values are defined by the Account Administrator.
+          type: string
+        externalTrackingParams:
+          description: Map<String, String> of Name and value of external tracking parameters.
+          type: object
+          additionalProperties:
+            type: string
+        externalCampaignCode:
+          description: External campaign code.
+          type: string
+        unsubscribeFormName:
+          description: Form name to be used for unsubscribing..
+          type: string
+        seedListPath:
+          description: Seed lists recipients receive the campaign when it is launched but are excluded from live report.
+          type: string
+        supplementaryProofDataSourcePaths:
+          description: Supplementary proof data sources can be used for inclusions or exclusions from proof list.
+          type: array
+          items:
+            type: string
+        closedCampaignURL:
+          description: The URL to redirect to if a recipient clicks on a link of an already closed campaign.
+          type: string
+        description:
+          description: Description of the campaign.
+          type: string
+        enableLinkTracking:
+          description: Enable to track the links in a campaign.
+          type: boolean
+        supplementaryCampaignDataSourcePaths:
+          description: Supplementary data sources can be used for inclusions or exclusions of the audience.
+          type: array
+          items:
+            type: string
+        fromName:
+          description: From Name for the campaign.
+          type: string
+        purpose:
+          description: Purpose of the campaign.
+          enum:
+          - PROMOTIONAL
+          - TRANSACTIONAL
+          type: string
+        trackHTMLOpens:
+          description: Enable tracking when each recipient with HTML capability opened the email.
+          type: boolean
+      required:
+      - name
+      - folderName
+    preview-response:
+      title: preview-response
+      type: object
+      properties:
+        type:
+          description: Preview type (text or html)
+          type: string
+        data:
+          description: Preview data
+          type: string
+    searchCampaigns-request-body:
+      title: searchCampaigns-request
+      type: object
+      properties:
+        searchCriteria:
+          description: Search Criteria section.
+          type: object
+          properties:
+            keyword:
+              description: keyword contains the key-value pair for passing the keyword to be searched in all campaigns
+              type: object
+              properties:
+                key:
+                  description: The type of search has to be mentioned in the key. Currently the API supports campaignName.
+                  type: string
+                value:
+                  description: The keyword that needs to be matched in all campaigns and return all the campaigns whose name and description contains this keyword.
+                  type: string
+        filterCriteria:
+          description: Filter Criteria section. Maximum of 2 filter criterias can be passed per API call
+          type: object
+          properties:
+            campaignType:
+              description: Campaign Types. Allowed campaign types are email, sms, mms, inapp, push and webpush. Campaign Types will be allowed on the access to that particular account. Multiple campaigns types can be passed.
+              type: array
+              items:
+                type: string
+            campaignStatus:
+              description: Campaign Status. Allowed campaign status are active, closed, draft and scheduled. Multiple campaign types can be passed
+              type: array
+              items:
+                type: string
+            campaignPurpose:
+              description: Campaign Purpose. Allowed campaign purposed are Transactional and Promotional. Multiple campaign purposes can be passed
+              type: array
+              items:
+                type: string
+            createdBy:
+              description: Created By. A valid single user name should be passed. All the campaigns created by this user will be returned
+              type: string
+            createdOn:
+              description: Created On Date should be in MM-dd-yyyy format. Maximum limit  of 90 days. All the campaigns created from the given date till today's date range will be returned
+              type: string
+            modifiedBy:
+              description: Modified By. A valid single user name should be passed. All the campaigns modified by this user will be returned
+              type: string
+            modifiedOn:
+              description: Modified On Date should be in MM-dd-yyyy format. Maximum limit  of 90 days. All the campaigns modified from the given date till today's date range will be returned
+              type: string
+            folderName:
+              description: Folder name. A valid single folder name should be passed. All the campaigns part of this folder will be returned
+              type: string
+            profileList:
+              description: Profile List. A valid single profile list name should be passed. All the campaigns with this profile list will be returned
+              type: string
+            filter:
+              description: Filter. A valid single filter name should be passed. Filter is always associated with Profile List. So if the filter attribute is passed it is mandate to pass the profile list name as well
+              type: string
+            mobileCampaignTemplate:
+              description: Mobile Campaign Template. A valid single mobile template name should be passed. This attribute has to be passed along with the campaign Type as sms or mms. Allowed values are Broadcast, EmailAcquisition, Custom, SmsOptIn, SmsOptOut, TextForResponse, SmsNotification, TextForCustomerCare, DirectAPINotification, LMS
+              type: string
+            marketingStrategy:
+              description: Marketing Strategy. A valid single value must be passed. All the campaigns with this marketing strategy will be returned
+              type: string
+            marketingProgram:
+              description: Marketing Program. A valid single value must be passed. All the campaigns with this marketing program will be returned
+              type: string
+            shortCodeAndLongCode:
+              description: Short-Long code. A valid single value must be passed. This attribute has to be passed along with the campaign Type as sms or mms. All the campaigns with this short-long code will be returned
+              type: string
+        sortCriteria:
+          description: Sort Criteria section. This section is optional. If no sorting is provided, by default ModifiedOn and descending order will be considered
+          type: object
+          properties:
+            field:
+              description: Sorting field. Field on which sorting should be done. A single field value should be passed. Allowed values are campaignName,campaignType,campaignStatus,channelType,modifiedBy,modifiedOn,createdBy and  createdOn
+              type: string
+            order:
+              description: Sorting order. It can be asc for ascending or desc for descending
+              type: string
+    searchCampaigns-response:
+      type: object
+      title: searchCampaigns-response
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/searchCampaigns-response'
+    campaigns-collection:
+      title: EMD Campaigns
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/create-update-retrieve-campaign-response'
+    create-update-retrieve-campaign-response:
+      type: object
+      title: Campaign
+      properties:
+        autoCloseOption:
+          description: Auto close options for this campaign.
+          enum:
+          - NO_AUTO_CLOSE
+          - AUTO_CLOSE_X_DAYS_AFTER_LAUNCH
+          - AUTO_CLOSE_X_DAYS_AFTER_LAST_RESPONSE
+          - AUTO_CLOSE_ON_DATE
+          type: string
+        unsubscribeOption:
+          description: The unsubscribe option for this campaign.
+          enum:
+          - NO_OPTOUT_BUTTON
+          - OPTOUT_SINGLE_CLICK
+          - OPTOUT_FORM
+          type: string
+        campaignStatus:
+          description: Status of the campaign.
+          enum:
+          - NONE
+          - DRAFT
+          - ACTIVE
+          - CLOSED
+          type: string
+        bccEmail:
+          description: Bcc Email Address for the campaign.
+          type: string
+        linkTablePath:
+          description: Link table to be included in this campaign.
+          type: string
+        marketingProgram:
+          description: Type of marketing program. The values are defined by the Account Administrator.
+          type: string
+        segmentPaths:
+          description: Segmentations are used to divide a list into segments using attributes of a profile extension table or profile list.
+          type: array
+          items:
+            type: string
+        refiningDataSourcePath:
+          description: Path of additional data sources to be used for this campaign.
+          type: string
+        proofListPath:
+          description: Before sending the campaign to customers, send it to proof list for testing.
+          type: string
+        attachmentPaths:
+          description: Attachments for the campaign.
+          type: array
+          items:
+            type: string
+        htmlMessagePath:
+          description: HTML message folder and path for the campaign.
+          type: string
+        fromEmail:
+          description: From Email Address for the campaign.
+          type: string
+        id:
+          description: ID of the campaign.
+          type: string
+        listName:
+          description: Profile list name which contains the audience for this campaign.
+          type: string
+        useUTF8:
+          description: Use UTF8 encoding for messages.
+          type: boolean
+        suppressionListPaths:
+          description: This is used to exclude recipients from data sources.
+          type: array
+          items:
+            type: string
+        replyToEmail:
+          description: Reply To Email Address for the campaign.
+          type: string
+        segmentTrackingColumnName:
+          description: Column name for tracking segments.
+          type: string
+        filterPaths:
+          description: Paths of filter to be used for this campaign. This can be used to select a group of customers to receive specific messages. Either standard filter or SQL View can be specified.
+          type: array
+          items:
+            type: string
+        name:
+          description: Name of the campaign.
+          type: string
+        locale:
+          description: The default recipient locale for this account.
+          type: string
+        supplementarySeedDataSourcePaths:
+          description: Supplementary seed data sources can be used for inclusions or exclusions from seed list.
+          type: array
+          items:
+            type: string
+        textMessagePath:
+          description: Text message folder and path for the campaign.
+          type: string
+        sendTextIfHTMLUnknown:
+          description: If HTML ability is unknown, this option allows sending MIME messages to ensure message text is displayed correctly.
+          type: boolean
+        subject:
+          description: Campaign Subject.
+          type: string
+        enableExternalTracking:
+          description: Enable to use third-party web analytics service that use tracking parameters appended to the URLs.
+          type: boolean
+        salesForceCampaignId:
+          description: Salesforce campaign id.
+          type: string
+        autoCloseValue:
+          description: This represents number of days if autoCloseOption is AUTO_CLOSE_X_DAYS_AFTER_LAUNCH or AUTO_CLOSE_X_DAYS_AFTER_LAST_RESPONSE.This represents date if autoCloseOption is AUTO_CLOSE_ON_DATE.
+          type: string
+        trackConversions:
+          description: This applies only when link tracking is enabled for the campaign. This option can be used to record conversion when clicking a link and following through a specific web page.
+          type: boolean
+        campaignVariables:
+          description: Map<String, String> of Name and value of campaign variables which are used as default values for text replacement.
+          type: object
+          additionalProperties:
+            type: string
+        type:
+          description: 'Type of the campaign. It can be EMAIL or PUSH or SMS or MMS or PUSHIOCAMPAIGN. '
+          enum:
+          - EMAIL
+          - PUSH
+          - SMS
+          - MMS
+          - PUSHIOCAMPAIGN
+          type: string
+        folderName:
+          description: Folder name for the campaign.
+          type: string
+        marketingStrategy:
+          description: Type of marketing strategy. The values are defined by the Account Administrator.
+          type: string
+        externalTrackingParams:
+          description: Map<String, String> of Name and value of external tracking parameters.
+          type: object
+          additionalProperties:
+            type: string
+        externalCampaignCode:
+          description: External campaign code.
+          type: string
+        unsubscribeFormName:
+          description: Form name to be used for unsubscribing..
+          type: string
+        seedListPath:
+          description: Seed lists recipients receive the campaign when it is launched but are excluded from live report.
+          type: string
+        supplementaryProofDataSourcePaths:
+          description: Supplementary proof data sources can be used for inclusions or exclusions from proof list.
+          type: array
+          items:
+            type: string
+        closedCampaignURL:
+          description: The URL to redirect to if a recipient clicks on a link of an already closed campaign.
+          type: string
+        description:
+          description: Description of the campaign.
+          type: string
+        enableLinkTracking:
+          description: Enable to track the links in a campaign.
+          type: boolean
+        supplementaryCampaignDataSourcePaths:
+          description: Supplementary data sources can be used for inclusions or exclusions of the audience.
+          type: array
+          items:
+            type: string
+        fromName:
+          description: From Name for the campaign.
+          type: string
+        purpose:
+          description: Purpose of the campaign.
+          enum:
+          - PROMOTIONAL
+          - TRANSACTIONAL
+          type: string
+        trackHTMLOpens:
+          description: Enable tracking when each recipient with HTML capability opened the email.
+          type: boolean
+        appName:
+          description: Name of the app associated with the campaign. Only applicable to Message Center campaigns
+          type: string
+        destinationMessageCenter:
+          description: Destination Message Center for the campaign. Only applicable to Message Center campaigns
+          type: string
+    previewCampaign-response:
+      title: previewCampaign-response
+      type: object
+      properties:
+        campaignName:
+          description: Name of the campaign
+          type: string
+        listType:
+          description: List type (data source) used for preview. Can be either a Profile List or Proof List.
+          type: string
+        listName:
+          description: Data source name used for preview.
+          type: string
+        riid:
+          description: RIID used for preview.
+          type: string
+        preview:
+          type: array
+          items:
+            $ref: '#/components/schemas/preview-response'

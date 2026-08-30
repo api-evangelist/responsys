@@ -1,0 +1,197 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Folders API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Folders
+  description: Responsys Account Folder API Endpoints
+paths:
+  /rest/api/v1.3/folders:
+    get:
+      summary: Retrieve Account Folders
+      description: Retrieves all folders in your account.
+      operationId: get /rest/api/v1.3/folders
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getFolders-response'
+      parameters:
+      - name: offset
+        in: query
+        description: Starts at 0 and indicates the record number for the response result set
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number of folders to return in the response (defaults to 200 and cannot exceed 200)
+        schema:
+          type: integer
+      x-relation:
+      - getFolders
+      tags:
+      - Folders
+      x-internal-id: rest-api-v1.3-folders-get
+      x-filename-id: rest-api-v1.3-folders-get
+    post:
+      summary: Create a Folder
+      description: Creates a new folder in Oracle Responsys.
+      operationId: post /rest/api/v1.3/folders
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createFolderResponse'
+      x-relation:
+      - createFolder
+      tags:
+      - Folders
+      x-internal-id: rest-api-v1.3-folders-post
+      x-filename-id: rest-api-v1.3-folders-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createFolderRequest'
+        description: Request Body
+  /rest/api/v1.3/folders/{folderName}/content:
+    get:
+      summary: Retrieve Folder Content
+      description: Retrieves the content in a specified folder.
+      operationId: get /rest/api/v1.3/folders/{folderName}/content
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getFolderContent-response'
+      parameters:
+      - name: folderName
+        in: path
+        description: Folder Name
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Starts at 0 and indicates the record number for the response result set
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number of objects to return in the response (defaults to 200 and cannot exceed 200)
+        schema:
+          type: integer
+      x-relation:
+      - getFolderContent
+      tags:
+      - Folders
+      x-internal-id: rest-api-v1.3-folders-{folderName}-content-get
+      x-filename-id: rest-api-v1.3-folders-foldername-content-get
+components:
+  schemas:
+    createFolderResponse:
+      title: Create Folder Response
+      type: object
+      properties:
+        folderId:
+          type: string
+          description: ID of the new folder.
+        errorMessage:
+          type: string
+          description: Error message if folder creation fails.
+        success:
+          type: boolean
+          description: Returns <code>true</code> if folder created successfully, <code>false</code> otherwise
+    getFolderContent-response:
+      title: Retrieve Folder Content
+      type: object
+      properties:
+        riObjects:
+          description: Array of Objects in the given folder
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: ID of the Object.
+              name:
+                type: string
+                description: Name of the Object.
+              type:
+                type: string
+                description: Type of the Object.
+              subType:
+                type: string
+                description: SubType of the Object.
+              folderId:
+                type: string
+                description: Id of the Folder containing the object.
+    getFolders-response:
+      title: Retrieve Folders
+      type: object
+      properties:
+        folders:
+          description: Array of Folders in an Account
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: ID of the Folder.
+              name:
+                type: string
+                description: Name of the Folder.
+              subType:
+                type: string
+                description: SubType of the Folder.
+              objSource:
+                type: string
+                description: Folder Source.
+              accountId:
+                type: string
+                description: Account ID of the Folder.
+              status:
+                type: string
+                description: Status of the Folder(A or D).
+              createdBy:
+                type: string
+                description: Folder Created by.
+              modifiedBy:
+                type: string
+                description: Last Modified by.
+              createdDate:
+                type: string
+                description: Create Date of the Folder.
+              modifiedDate:
+                type: string
+                description: Last Modified Date.
+              objectType:
+                type: string
+                description: Type of the Object(Folder).
+              new:
+                type: boolean
+                description: Is the Folder a new Folder.
+    createFolderRequest:
+      title: Create Folder Request
+      type: object
+      properties:
+        folderName:
+          description: Name of the folder to create.
+          type: string

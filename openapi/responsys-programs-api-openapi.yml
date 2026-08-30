@@ -1,0 +1,354 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Programs API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Programs
+  description: Responsys Program API Endpoints
+paths:
+  /rest/api/v1.3/programs:
+    get:
+      summary: Fetch All Programs
+      operationId: get /rest/api/v1.3/programs
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/programs-collection'
+      parameters:
+      - name: offset
+        in: query
+        description: Starts at 0 and indicates the record number for the response result set
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number of programs to return in the response (defaults to 200 and cannot exceed 200)
+        schema:
+          type: integer
+      - name: status
+        in: query
+        description: Comma separated list of status of programs to be fetched. Allowed values are NOT_RUNNING,RUNNING,RUNNING_WITH_ERRORS
+        schema:
+          type: string
+      x-relation:
+      - instances
+      tags:
+      - Programs
+      x-internal-id: rest-api-v1.3-programs-get
+      x-filename-id: rest-api-v1.3-programs-get
+  /rest/api/v1.3/programs/{programName}:
+    get:
+      summary: Fetch a Program by Name
+      description: Fetches a Program by program name.
+      operationId: get /rest/api/v1.3/programs/{programName}
+      responses:
+        default:
+          description: Fetches details for the specified program name.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/programByName-response'
+      parameters:
+      - name: programName
+        in: path
+        description: Name of the Program to fetch the details
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - instances
+      tags:
+      - Programs
+      x-internal-id: rest-api-v1.3-programs-{programName}-get
+      x-filename-id: rest-api-v1.3-programs-programname-get
+    patch:
+      summary: Publish or Unpublish a Program
+      description: Use this interface to publish a valid program or unpublish a program.
+      operationId: patch /rest/api/v1.3/programs/{programName}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/update-program-response'
+      parameters:
+      - name: programName
+        in: path
+        description: Name of the Program to be published or unpublished
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - instances
+      tags:
+      - Programs
+      x-internal-id: rest-api-v1.3-programs-{programName}-patch
+      x-filename-id: rest-api-v1.3-programs-programname-patch
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/update-program-request'
+  /rest/api/v1.3/programs/enactments:
+    post:
+      summary: Exit Enactments
+      description: Moves the enactments at a blocked stage out of a program. In the request body, specify the name of the program and the program action (exit).<br><br> In the case of a successful request, a success message is returned in the response body. Programs must be currently unpublished, but have been published at least once. If these requirements are not met, a 400 Bad Request error will be returned. <br> See the <a href='https://docs.oracle.com/en/cloud/saas/marketing/responsys-user/index.html#CSHID=Programs_Analyze'>Oracle Responsys Help Center</a> for more information about resolving blocked program stages.
+      operationId: post /rest/api/v1.3/programs/enactments
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/exit-program-enactments-response'
+      x-relation:
+      - instances
+      tags:
+      - Programs
+      x-internal-id: rest-api-v1.3-programs-enactments-post
+      x-filename-id: rest-api-v1.3-programs-enactments-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/exit-program-enactments-request'
+  /rest/api/v1.3/programs/lists/{listName}:
+    get:
+      summary: Fetch Programs for a Profile List
+      description: Fetches all programs associated with the specified profile list. The response includes a list of all Programs associated with the Profile List, and information about the program such as the status of the program, and the program channels.
+      operationId: get /rest/api/v1.3/programs/lists/{listName}
+      responses:
+        default:
+          description: Fetches all programs for the specified Profile List name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/programs-collection'
+      parameters:
+      - name: listName
+        in: path
+        description: Profile list name, for which the programs should be fetched
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Starts at 0 and indicates the record number for the response result set
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number of programs to return in the response (defaults to 200 and cannot exceed 200)
+        schema:
+          type: integer
+      x-relation:
+      - instances
+      tags:
+      - Programs
+      x-internal-id: rest-api-v1.3-programs-lists-{listName}-get
+      x-filename-id: rest-api-v1.3-programs-lists-listname-get
+components:
+  schemas:
+    retrieve-program-response:
+      type: object
+      title: program
+      properties:
+        id:
+          description: ID of the program.
+          type: string
+        name:
+          description: Name of the program.
+          type: string
+        folderName:
+          description: Folder name for the program.
+          type: string
+        listName:
+          description: Name of the list associated with the program
+          type: string
+        channels:
+          description: List of channels for the program
+          type: array
+          items:
+            type: string
+        createdOn:
+          description: Creation date of the program
+          type: string
+        createdBy:
+          description: User that created the program
+          type: string
+        modifiedOn:
+          description: Last Modified date of the program
+          type: string
+        modifiedBy:
+          description: User that last modified the program
+          type: string
+        publishDate:
+          description: Last Publish date of the program
+          type: string
+        unpublishDate:
+          description: Unpublish date of the program. It is empty for a program in running state
+          type: string
+        status:
+          description: Status of the program
+          enum:
+          - NOT_RUNNING
+          - RUNNING
+          - RUNNING_WITH_ERRORS
+          type: string
+    exit-program-enactments-request:
+      title: exit-program-enactments-request
+      type: object
+      properties:
+        action:
+          description: Action to perform on program enactments. Must be exit.
+          enum:
+          - exit
+          type: string
+        programName:
+          description: Name of the program to exit enactments
+          type: string
+    exit-program-enactments-response:
+      title: exit-program-enactments-response
+      type: object
+      properties:
+        status:
+          description: SUCCESS if operation is successful otherwise FAILURE
+          enum:
+          - SUCCESS
+          - FAILURE
+          type: string
+        errorMsg:
+          description: Error messages when operation fails
+          type: string
+    programs-collection:
+      title: Programs
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/retrieve-program-response'
+    update-program-response:
+      title: update-program-response
+      type: object
+      properties:
+        status:
+          description: Returns SUCCESS if the publish or unpublish is successful. Returns FAILURE if action is not successful.
+          enum:
+          - SUCCESS
+          - FAILURE
+          type: string
+        errorMsg:
+          description: Error messages when publish or unpublish fails
+          type: string
+    update-program-request:
+      title: update-program-request
+      type: object
+      properties:
+        action:
+          description: Action to be performed on a given program
+          enum:
+          - publish
+          - unpublish
+          type: string
+        saveDraft:
+          description: Indicates whether to save the draft version or published version
+          enum:
+          - Y
+          - N
+          type: string
+    programByName-response:
+      type: object
+      title: programByName-response
+      properties:
+        id:
+          description: ID of the program.
+          type: string
+        name:
+          description: Name of the program.
+          type: string
+        folderName:
+          description: Folder name for the program.
+          type: string
+        channels:
+          description: List of channels for the program
+          type: array
+          items:
+            type: string
+        list:
+          description: List details associated with the program
+          type: object
+          properties:
+            id:
+              type: string
+              description: listId
+            name:
+              type: string
+              description: listname
+          required:
+          - id
+          - name
+        status:
+          description: Status of the program
+          enum:
+          - RUNNING
+          - NOT_RUNNING
+          - RUNNING_WITH_ERRORS
+          type: string
+        createdOn:
+          description: Creation date of the program
+          type: string
+        createdBy:
+          description: User that created the program
+          type: string
+        modifiedOn:
+          description: Last Modified date of the program
+          type: string
+        modifiedBy:
+          description: User that last modified the program
+          type: string
+        publishDate:
+          description: Last Publish date of the program
+          type: string
+        unpublishDate:
+          description: Unpublish date of the program. It is not displayed for a program in running state
+          type: string
+        links:
+          type: object
+          description: link URLs that represents next link table APIs
+          properties:
+            rel:
+              type: string
+              description: link table API name
+            href:
+              type: string
+              description: URI of link table API
+            method:
+              type: string
+              description: request method type
+      required:
+      - id
+      - links
+      - name
+      - folderName
+      - channels
+      - list
+      - status
+      - createdOn
+      - createdBy
+      - modifiedOn
+      - modifiedBy
+      - publishDate

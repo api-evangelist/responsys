@@ -1,0 +1,503 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Profile List Recipients API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Profile List Recipients
+  description: One or more Recipients within a Profile List in the Responsys Interact Suite.
+paths:
+  /rest/api/v1.3/lists/{listName}/members:
+    post:
+      summary: Merge List Recipients
+      operationId: post /rest/api/v1.3/lists/{listName}/members
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileListRecipients'
+      parameters:
+      - name: listName
+        in: path
+        description: List Name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - mergeListRecipients
+      tags:
+      - Profile List Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-members-post
+      x-filename-id: rest-api-v1.3-lists-listname-members-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/profileListRecipients'
+        description: Request Body
+    get:
+      summary: Retrieve List Recipient using query attribute
+      description: This endpoint retrieves a count of profile list recipients in a profile list. You can use query attributes to filter the results by specifying a query attribute type and values. If no query attributes are specified, the total count of profile list recipients is returned. <br><br> The <code>count</code> property in the response determines the amount of matching profile list recipients.
+      operationId: get /rest/api/v1.3/lists/{listName}/members
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileListRecipients'
+      parameters:
+      - name: listName
+        in: path
+        description: List Name
+        required: true
+        schema:
+          type: string
+      - name: qa
+        in: query
+        description: Query Attribute. Can be either 'r' (RIID_), 'e' (EMAIL_ADDRESS_), 'c' (CUSTOMER_ID_), or 'm' (MOBILE_NUMBER_), 'e_md5' (EMAIL_MD5_HASH_), 'e_sha256' (EMAIL_SHA256_HASH_).
+        schema:
+          type: string
+      - name: fs
+        in: query
+        description: Comma separated list of fields to retrieve or 'all'
+        schema:
+          type: string
+      - name: id
+        in: query
+        description: ID corresponding to the query attribute
+        schema:
+          type: string
+      x-relation:
+      - retrieveListRecipients
+      tags:
+      - Profile List Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-members-get
+      x-filename-id: rest-api-v1.3-lists-listname-members-get
+    delete:
+      summary: Delete Profile List Recipients using query attribute
+      description: Deletes profile list recipients for a profile list using query attributes. Using the query parameters specify a query attribute type to identify recipients, and the corresponding value. The response indicates how many matching records were deleted. <br> Up to 10 profile list recipients can be deleted in a single request.
+      operationId: delete /rest/api/v1.3/lists/{listName}/members
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteListRecipientsUsingQueryAttributes'
+      parameters:
+      - name: listName
+        in: path
+        description: List Name
+        required: true
+        schema:
+          type: string
+      - name: qa
+        in: query
+        description: Query Attribute. Can be either 'r' (RIID_), 'e' (EMAIL_ADDRESS_), 'c' (CUSTOMER_ID_), or 'm' (MOBILE_NUMBER_).
+        schema:
+          type: string
+      - name: id
+        in: query
+        description: ID corresponding to the query attribute
+        schema:
+          type: string
+      tags:
+      - Profile List Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-members-delete
+      x-filename-id: rest-api-v1.3-lists-listname-members-delete
+  /rest/api/v1.3/lists/{listName}/members/{riid}:
+    get:
+      summary: Retrieve List Recipient using RIID
+      operationId: get /rest/api/v1.3/lists/{listName}/members/{riid}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileListRecipients'
+      parameters:
+      - name: listName
+        in: path
+        description: List Name
+        required: true
+        schema:
+          type: string
+      - name: riid
+        in: path
+        description: RIID
+        required: true
+        schema:
+          type: string
+      - name: fs
+        in: query
+        description: Comma separated list of fields to retrieve or 'all'
+        schema:
+          type: string
+      x-relation:
+      - retrieveListRecipientsRIID
+      tags:
+      - Profile List Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-members-{riid}-get
+      x-filename-id: rest-api-v1.3-lists-listname-members-riid-get
+    delete:
+      summary: Delete List Recipients based on RIID
+      description: Deletes List Recipients based on RIID
+      operationId: delete /rest/api/v1.3/lists/{listName}/members/{riid}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileListRecipients'
+      parameters:
+      - name: listName
+        in: path
+        description: List Name
+        required: true
+        schema:
+          type: string
+      - name: riid
+        in: path
+        description: List Name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - mergeListRecipients
+      tags:
+      - Profile List Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-members-{riid}-delete
+      x-filename-id: rest-api-v1.3-lists-listname-members-riid-delete
+  '/rest/api/v1.3/lists/{listName}/members ':
+    post:
+      summary: Delete multiple Profile List Recipients
+      operationId: post /rest/api/v1.3/lists/{listName}/members?action=delete
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileListRecipients'
+      parameters:
+      - name: listName
+        in: path
+        description: List Name
+        required: true
+        schema:
+          type: string
+      - name: action
+        in: query
+        description: '**action** should have the value **delete**(action=delete).'
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - deleteListRecipients
+      tags:
+      - Profile List Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-members -post
+      x-filename-id: rest-api-v1.3-lists-listname-members-post-2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteListRecipientsRequest'
+        description: Request Body
+  '/rest/api/v1.3/lists/{listName}/members  ':
+    post:
+      summary: Retrieve multiple Profile List Recipients
+      operationId: post /rest/api/v1.3/lists/{listName}/members?action=get
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileListRecipients'
+      parameters:
+      - name: listName
+        in: path
+        description: List Name
+        required: true
+        schema:
+          type: string
+      - name: action
+        in: query
+        description: '**action** should have the value **get**(action=get).'
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - retrieveListRecipients
+      tags:
+      - Profile List Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-members  -post
+      x-filename-id: rest-api-v1.3-lists-listname-members-post-3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/retrieveListRecipientsRequest'
+        description: Request Body
+  /rest/api/v1.3/lists/{listName}/members/count:
+    get:
+      summary: Retrieve List Recipients Count using query attribute
+      description: Retrieves a count of Profile List Recipients that match the query attributes. If no query attributes are specified, retrieves total count of the profile list recipients.
+      operationId: get /rest/api/v1.3/lists/{listName}/members/count
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retrieveListRecipientCount'
+      parameters:
+      - name: listName
+        in: path
+        description: List Name
+        required: true
+        schema:
+          type: string
+      - name: qa
+        in: query
+        description: 'Query Attribute. Can be one of: <ul><li>''r'' (RIID_)</li><li>''e'' (EMAIL_ADDRESS_)</li><li>''c'' (CUSTOMER_ID_)</li><li>''m'' (MOBILE_NUMBER_)</li><li>''e_md5'' (EMAIL_MD5_HASH_)</li><li>''e_sha256'' (EMAIL_SHA256_HASH_)</li></ul>'
+        schema:
+          type: string
+      - name: id
+        in: query
+        description: ID corresponding to the query attribute
+        schema:
+          type: string
+      tags:
+      - Profile List Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-members-count-get
+      x-filename-id: rest-api-v1.3-lists-listname-members-count-get
+components:
+  schemas:
+    profileListRecipients:
+      title: Profile List Recipients
+      type: object
+      properties:
+        recordData:
+          description: Record data that represents Field Names and corresponding values for the recipient.
+          required:
+          - fieldNames
+          - records
+          type: object
+          properties:
+            fieldNames:
+              type: array
+              description: Field Names in the Profile List
+              items:
+                type: string
+            records:
+              type: array
+              description: Array of values corresponding to the fieldNames. Each element in the array represents a single recipient.
+              items:
+                type: array
+                description: Field Values for the recipient in the Profile List
+                items:
+                  type: string
+            mapTemplateName:
+              type: string
+              description: The Map Template in Responsys that can be used to map Field Names of the Profile List to Column Names.
+        mergeRule:
+          description: Merge rule used to merge recipient records in a Profile List. Only used during the merge operation.
+          type: object
+          properties:
+            rejectRecordIfChannelEmpty:
+              type: string
+              description: String containing comma-separated channel codes that if specified will result in record rejection when the channel address field is null. Channel codes are 'E' (Email), 'M' (Mobile), 'P' (Postal Code). For example 'E,M' would indicate that a record that has a null for Email or Mobile Number value should be rejected. This parameter can also be set to null or to an empty string, which will cause the validation to not be performed for any channel, except if the matchColumnName1 parameter is set to EMAIL_ADDRESS_ or MOBILE_NUMBER_. When matchColumnName1 is set to EMAIL_ADDRESS_ or MOBILE_NUMBER_, then the null or empty string setting is effectively ignored for that channel.
+            htmlValue:
+              type: string
+              description: Value of incoming preferred email format data. For example, 'H' may represent a preference for HTML formatted email.
+            textValue:
+              type: string
+              description: Value of incoming preferred email format data. For example, 'T' may represent a preference for Text formatted email.
+            matchColumnName1:
+              enum:
+              - RIID_
+              - CUSTOMER_ID_
+              - EMAIL_ADDRESS_
+              - MOBILE_NUMBER_
+              - EMAIL_MD5_HASH_
+              - EMAIL_SHA256_HASH_
+              type: string
+              description: First match column for determining whether an insert or update should occur.
+            insertOnNoMatch:
+              type: boolean
+              description: Indicates what should be done for records where a match is not found (true = insert / false = no insert).
+            optinValue:
+              type: string
+              description: Value of incoming opt-in status data that represents an opt-in status. For example, 'I' may represent an opt-in status.
+            defaultPermissionStatus:
+              enum:
+              - OPTIN
+              - OPTOUT
+              type: string
+              description: This value must be specified as either OPTIN or OPTOUT and would be applied to all of the records contained in the API call. If this value is not explicitly specified, then it is set to OPTOUT.
+            optoutValue:
+              type: string
+              description: Value of incoming opt-out status data that represents an optout status. For example, '0' may represent an opt-out status.
+            matchColumnName2:
+              enum:
+              - RIID_
+              - CUSTOMER_ID_
+              - EMAIL_ADDRESS_
+              - MOBILE_NUMBER_
+              - EMAIL_MD5_HASH_
+              - EMAIL_SHA256_HASH_
+              type: string
+              description: Second match column for determining whether an insert or update should occur. (optional).
+            updateOnMatch:
+              enum:
+              - REPLACE_ALL
+              - NO_UPDATE
+              type: string
+              description: Controls how the existing record should be updated.
+            matchOperator:
+              enum:
+              - NONE
+              - AND
+              type: string
+              description: Operator to join match column names
+      required:
+      - recordData
+      - mergeRule
+    retrieveListRecipientsRequest:
+      title: Retrieve List Recipients
+      type: object
+      properties:
+        queryAttribute:
+          description: Query Attribute based on which records will be retrieved. Can have the values r(RIID),e(email address),m(mobile number),c(customer id), e_md5(EMAIL_MD5_HASH_), e_sha256(EMAIL_SHA256_HASH_)
+          type: string
+        fieldList:
+          type: array
+          description: Array of field names to be retrieved
+          items:
+            type: array
+            description: Field Name in the Profile List
+            items:
+              type: string
+        ids:
+          type: array
+          description: Array of values corresponding to the fieldNames.
+          items:
+            type: array
+            description: Field Values for the recipient in the Profile List
+            items:
+              type: string
+      required:
+      - queryAttribute
+      - fieldList
+      - ids
+    retrieveListRecipientCount:
+      title: Retrieve List Recipients Count
+      type: object
+      properties:
+        count:
+          description: Count of list recipients that matches the query attribute passed or total count of list recipients when no query attributes are passed
+          type: integer
+        links:
+          type: object
+          description: link URLs that represents next link table APIs
+          properties:
+            rel:
+              type: string
+              description: link table API name
+            href:
+              type: string
+              description: URI of link table API
+            method:
+              type: string
+              description: request method type
+      required:
+      - count
+      - links
+    deleteListRecipientsUsingQueryAttributes:
+      title: Delete List Recipients Using Query Attributes
+      type: object
+      properties:
+        recordData:
+          description: Record data that represents Field Names and corresponding values for the recipient.
+          required:
+          - fieldNames
+          - records
+          type: object
+          properties:
+            fieldNames:
+              type: array
+              description: Field Names in the Profile List
+              items:
+                type: string
+            records:
+              type: array
+              description: Array of values corresponding to the fieldNames. Each element in the array represents a single recipient.
+              items:
+                type: array
+                description: Field Values for the recipient in the Profile List
+                items:
+                  type: string
+            mapTemplateName:
+              type: string
+              description: The Map Template in Responsys that can be used to map Field Names of the Profile List to Column Names.
+        totalMatchedRecords:
+          description: Total Count of Records that matches the query attribute value passed
+          type: integer
+        remainingRecordCount:
+          description: Remaining Records count after the deletion. Maximum of 10 records are deleted for the matched query attribute value passed
+          type: integer
+        hasMoreRecords:
+          description: True if the remainingRecordCount is not 0 or False if the remainingRecordCount is 0
+          type: boolean
+        links:
+          type: object
+          description: link URLs that represents next link table APIs
+          properties:
+            rel:
+              type: string
+              description: link table API name
+            href:
+              type: string
+              description: URI of link table API
+            method:
+              type: string
+              description: request method type
+      required:
+      - recordData
+      - links
+      - totalMatchedRecords
+      - remainingRecordCount
+      - hasMoreRecords
+    deleteListRecipientsRequest:
+      title: Delete List Recipients
+      type: object
+      properties:
+        queryAttribute:
+          description: Query Attribute based on which records will be deleted. Can have the values r(RIID),e(email address),m(mobile number),c(customer id)
+          type: string
+        ids:
+          type: array
+          description: Array of values corresponding to the fieldNames.
+          items:
+            type: array
+            description: Field Values for the recipient in the Profile List
+            items:
+              type: string
+      required:
+      - queryAttribute
+      - ids

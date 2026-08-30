@@ -1,0 +1,234 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Campaign Attributes API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Campaign Attributes
+  description: Campaign Attributes API endpoints.
+paths:
+  /rest/api/v1.3/campaigns/{campaignName}/attributes/proofList:
+    get:
+      summary: Retrieve a Campaign's Proof List
+      description: Retrieves the Campaign Proof List associated with a specified Campaign.
+      operationId: get /rest/api/v1.3/campaigns/{campaignName}/attributes/proofList
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/campaignProofListAttributeResponse'
+      parameters:
+      - name: campaignName
+        in: path
+        description: Name of the Campaign
+        required: true
+        schema:
+          type: string
+      tags:
+      - Campaign Attributes
+      x-internal-id: rest-api-v1.3-campaigns-{campaignName}-attributes-proofList-get
+      x-filename-id: rest-api-v1.3-campaigns-campaignname-attributes-prooflist-get
+    put:
+      summary: Update a Campaign's Proof List
+      description: Updates the Proof List associated with a Campaign
+      operationId: put /rest/api/v1.3/campaigns/{campaignName}/attributes/proofList
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/campaignProofListAttributeResponse'
+      parameters:
+      - name: campaignName
+        in: path
+        description: Name of the Campaign
+        required: true
+        schema:
+          type: string
+      tags:
+      - Campaign Attributes
+      x-internal-id: rest-api-v1.3-campaigns-{campaignName}-attributes-proofList-put
+      x-filename-id: rest-api-v1.3-campaigns-campaignname-attributes-prooflist-put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/campaignProofListAttributeRequest'
+        required: true
+  /rest/api/v1.3/campaigns/{campaignName}/attributes/dataSources:
+    get:
+      summary: Retrieve Campaign Data Sources
+      description: Retrieves Data Sources associated with a Campaign
+      operationId: get /rest/api/v1.3/campaigns/{campaignName}/attributes/dataSources
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/campaignDataSourcesAttributeResponse'
+      parameters:
+      - name: campaignName
+        in: path
+        description: Name of the Campaign
+        required: true
+        schema:
+          type: string
+      tags:
+      - Campaign Attributes
+      x-internal-id: rest-api-v1.3-campaigns-{campaignName}-attributes-dataSources-get
+      x-filename-id: rest-api-v1.3-campaigns-campaignname-attributes-datasources-get
+components:
+  schemas:
+    dataSource:
+      title: Campaign DataSource
+      type: object
+      properties:
+        path:
+          description: Path to dataSource
+          type: string
+        alias:
+          description: DataSource alias
+          type: string
+        fields:
+          description: An array of Fields of the particular dataSource.
+          type: array
+          items:
+            $ref: '#/components/schemas/field'
+        type:
+          description: DataSource type.
+          type: string
+        default:
+          description: Default value of the DataSource
+          type: string
+      required:
+      - path
+      - alias
+      - fields
+      - type
+      - default
+    campaignDataSourcesAttributeResponse:
+      title: Campaign Data Sources Response
+      type: object
+      properties:
+        attributeName:
+          description: the attribute of the campaign. "dataSources" in this scenario
+          type: string
+          enum:
+          - dataSources
+        attributeData:
+          description: Campaign attribute data
+          type: object
+          properties:
+            dataSources:
+              description: Array of Data Sources associated with the Campaign
+              type: array
+              items:
+                $ref: '#/components/schemas/dataSource'
+      required:
+      - attributeName
+      - attributeData
+    campaignProofListAttributeResponse:
+      title: Campaign Proof List Response
+      type: object
+      properties:
+        attributeName:
+          description: The attribute of the campaign. "ProofList" in this scenario
+          type: string
+          enum:
+          - proofList
+        attributeData:
+          $ref: '#/components/schemas/proofList'
+      required:
+      - attributeName
+      - attributeData
+    campaignProofListAttributeRequest:
+      title: Campaign Proof List Request
+      type: object
+      properties:
+        attributeName:
+          description: 'The attribute of the campaign. Should be "proofList" '
+          type: string
+          enum:
+          - proofList
+        attributeData:
+          description: Describes the attribute of the campaign to be updated
+          type: object
+          properties:
+            name:
+              description: The name of the Proof List to update
+              type: string
+      required:
+      - attributeName
+      - attributeData
+    proofList:
+      title: Proof List
+      type: object
+      properties:
+        name:
+          description: Proof List Name
+          type: string
+        description:
+          description: Proof List description
+          type: string
+        listName:
+          description: Profile list name for which the Proof List is associated
+          type: string
+        folderName:
+          description: Folder containing the Proof List
+          type: string
+        createdBy:
+          description: User who created the Proof List
+          type: string
+        createdDate:
+          description: Proof List creation date
+          type: string
+          format: date
+        modifiedBy:
+          description: User who modified the Proof List
+          type: string
+        modifiedDate:
+          description: Proof List modification date
+          type: string
+          format: date
+      required:
+      - name
+      - description
+      - listName
+      - folderName
+      - createdBy
+      - createdDate
+      - modifiedBy
+      - modifiedDate
+    field:
+      title: Field
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the field
+        alias:
+          type: string
+          description: Alias for the field name
+        lookUpKey:
+          type: boolean
+          description: whether the field is a lookup key or not
+        defaultValue:
+          type: string
+          description: default value of the field
+      required:
+      - name
+      - alias
+      - lookUpKey
+      - defaultValue

@@ -1,0 +1,325 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Events API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Events
+  description: Raise Events for Cross-channel Marketing Programs.
+paths:
+  /rest/api/v1.3/events/{eventName}:
+    post:
+      summary: Trigger Custom Event
+      operationId: post /rest/api/v1.3/events/{eventName}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/triggerEvent-response'
+      parameters:
+      - name: eventName
+        in: path
+        description: Event Name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - triggerCustomEvent
+      tags:
+      - Events
+      x-internal-id: rest-api-v1.3-events-{eventName}-post
+      x-filename-id: rest-api-v1.3-events-eventname-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/triggerCustomEvent'
+        description: Request Body
+  '/rest/api/v1.3/events ':
+    get:
+      summary: Fetch All the Custom Events
+      operationId: get /rest/api/v1.3/events
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/events-collection'
+      x-relation:
+      - instances
+      tags:
+      - Events
+      x-internal-id: rest-api-v1.3-events -get
+      x-filename-id: rest-api-v1.3-events-get
+  /rest/api/v1.3/events/rei/{eventName}:
+    post:
+      summary: Trigger REI Event
+      description: Triggers a REI Event for Profile List, App Channel List, and Web Push recipients. Enables developers to trigger REI events for users across email, print, and mobile app channels to begin Program Orchestration. This feature is only available if it is enabled for your account. To access this feature for existing accounts, please log in to <a href='https://support.oracle.com/portal/'>My Oracle Support</a> and create a service request.
+      operationId: post /rest/api/v1.3/events/rei/{eventName}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/triggerEvent-response'
+      parameters:
+      - name: eventName
+        in: path
+        description: Event Name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - triggerReiEvent
+      tags:
+      - Events
+      x-internal-id: rest-api-v1.3-events-rei-{eventName}-post
+      x-filename-id: rest-api-v1.3-events-rei-eventname-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/triggerReiEvent'
+        description: Request Body
+components:
+  schemas:
+    triggerCustomEvent:
+      title: Trigger Custom Event
+      type: object
+      properties:
+        customEvent:
+          description: customEvent.
+          type: object
+          properties:
+            eventNumberDataMapping:
+              type: string
+              description: custom eventNumberDataMapping.
+            eventDateDataMapping:
+              type: string
+              description: custom eventDateDataMapping.
+            eventStringDataMapping:
+              type: string
+              description: custom eventStringDataMapping.
+        recipientData:
+          description: Array of Recipients with Optional Data
+          type: array
+          items:
+            type: object
+            properties:
+              recipient:
+                type: object
+                description: Information about the Recipient.
+                properties:
+                  customerId:
+                    type: string
+                    description: Recipient's Customer ID.
+                  emailAddress:
+                    type: string
+                    description: Recipient's Email Address.
+                  emailSHA256Hash:
+                    type: string
+                    description: Recipient's Email SHA256 Hash.
+                  emailMD5Hash:
+                    type: string
+                    description: Recipient's Email MD5 Hash.
+                  listName:
+                    type: object
+                    description: Profile List to which the Recipient belongs.
+                    properties:
+                      folderName:
+                        type: string
+                        description: Folder Name
+                      objectName:
+                        type: string
+                        description: Profile List Name.
+                  recipientId:
+                    type: number
+                    description: Recipient's RIID.
+                  mobileNumber:
+                    type: string
+                    description: Recipient's Mobile Number.
+                  emailFormat:
+                    enum:
+                    - HTML_FORMAT
+                    - TEXT_FORMAT
+                    type: string
+                    description: Email Format.
+                required:
+                - customerId
+                - emailAddress
+                - listName
+                - recipientId
+                - mobileNumber
+                - emailFormat
+                - emailMD5Hash
+                - emailSHA256Hash
+              optionalData:
+                type: array
+                description: Array of optional data containing name value pairs.
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+            required:
+            - recipient
+            - optionalData
+      required:
+      - customEvent
+      - recipientData
+    triggerReiEvent:
+      title: Trigger Rei Event
+      type: object
+      properties:
+        reiEvent:
+          description: reiEvent.
+          type: object
+          properties:
+            eventNumberDataMapping:
+              type: string
+              description: rei eventNumberDataMapping.
+            eventDateDataMapping:
+              type: string
+              description: rei eventDateDataMapping.
+            eventStringDataMapping:
+              type: string
+              description: rei eventStringDataMapping.
+        recipientData:
+          description: Array of Recipients with Optional Data
+          type: array
+          items:
+            type: object
+            properties:
+              recipient:
+                type: object
+                description: Information about the Recipient.
+                properties:
+                  customerId:
+                    type: string
+                    description: Recipient's Customer ID.
+                  emailAddress:
+                    type: string
+                    description: Recipient's Email Address.
+                  emailSHA256Hash:
+                    type: string
+                    description: Recipient's Email SHA256 Hash.
+                  emailMD5Hash:
+                    type: string
+                    description: Recipient's Email MD5 Hash.
+                  listName:
+                    type: object
+                    description: Profile List to which the Recipient belongs.
+                    properties:
+                      folderName:
+                        type: string
+                        description: Folder Name
+                      objectName:
+                        type: string
+                        description: Profile List Name.
+                  mobileAppRecipient:
+                    type: object
+                    description: Data for push channel recipient
+                    properties:
+                      deviceId:
+                        type: string
+                        description: Device Id of the mobile device
+                      apiKey:
+                        type: string
+                        description: API key for the mobile application
+                  webPushAppRecipient:
+                    type: object
+                    description: Data for web push channel recipient
+                    properties:
+                      visitorId:
+                        type: string
+                        description: Visitor Id of the web push recipient
+                      apiKey:
+                        type: string
+                        description: API key for the web push recipient
+                  recipientId:
+                    type: number
+                    description: Recipient's RIID.
+                  mobileNumber:
+                    type: string
+                    description: Recipient's Mobile Number.
+                  emailFormat:
+                    enum:
+                    - HTML_FORMAT
+                    - TEXT_FORMAT
+                    type: string
+                    description: Email Format.
+                required:
+                - customerId
+                - emailAddress
+                - listName
+                - recipientId
+                - mobileNumber
+                - emailFormat
+              optionalData:
+                type: array
+                description: Array of optional data containing name value pairs.
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+            required:
+            - recipient
+      required:
+      - reiEvent
+      - recipientData
+    triggerEvent-response:
+      title: Trigger Custom Event Response
+      type: array
+      description: Array of Recipient Results.
+      items:
+        type: object
+        description: Response for individual recipient.
+        properties:
+          errorMessage:
+            type: string
+            description: Error Message, if any, that occurred during the merge or trigger operations.
+          success:
+            type: boolean
+            description: Indicates success or failure.
+          recipientId:
+            type: number
+            description: The Responsys ID (RIID) of the recipient.
+    events:
+      title: Custom Events
+      type: object
+      properties:
+        eventName:
+          description: The name of the custom event
+          type: string
+        description:
+          description: The description of the custom event
+          type: string
+        eventType:
+          description: The type of the custom event
+          type: string
+      required:
+      - eventName
+      - description
+      - eventType
+    events-collection:
+      title: Custom Events
+      type: array
+      items:
+        $ref: '#/components/schemas/events'

@@ -1,0 +1,319 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Supplemental Table Members API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Supplemental Table Members
+  description: Members of a Supplemental Data Table in the Responsys Interact Suite.
+paths:
+  /rest/api/v1.3/folders/{folderName}/suppData/{tableName}/members:
+    post:
+      summary: Merge Supplemental Table members with PK
+      operationId: post /rest/api/v1.3/folders/{folderName}/suppData/{tableName}/members
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplementalTableMemberswithpk'
+      parameters:
+      - name: folderName
+        in: path
+        description: Folder name
+        required: true
+        schema:
+          type: string
+      - name: tableName
+        in: path
+        description: Table Name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - mergeTableMembers
+      tags:
+      - Supplemental Table Members
+      x-internal-id: rest-api-v1.3-folders-{folderName}-suppData-{tableName}-members-post
+      x-filename-id: rest-api-v1.3-folders-foldername-suppdata-tablename-members-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/supplementalTableMemberswithpk'
+        description: Request body
+    get:
+      summary: Retrieve Supplemental Table member based on a query attribute
+      operationId: get /rest/api/v1.3/folders/{folderName}/suppData/{tableName}/members
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplementalTableRecords'
+      parameters:
+      - name: folderName
+        in: path
+        description: Folder name
+        required: true
+        schema:
+          type: string
+      - name: tableName
+        in: path
+        description: Table name
+        required: true
+        schema:
+          type: string
+      - name: qa
+        in: query
+        description: Query attribute. All of the primary key values of the Supplemental Table must be specified by repeating this parameter.
+        schema:
+          type: string
+      - name: fs
+        in: query
+        description: Comma separated list of fields to retrieve or 'all'
+        schema:
+          type: string
+      - name: id
+        in: query
+        description: IDs corresponding to the query attribute. All the primary key values of the Supplemental Table must be specified by repeating this parameter. The order of the values must match the order of the Primary Keys specified in the 'qa' parameter.
+        schema:
+          type: string
+      x-relation:
+      - retrieveTableMembers
+      tags:
+      - Supplemental Table Members
+      x-internal-id: rest-api-v1.3-folders-{folderName}-suppData-{tableName}-members-get
+      x-filename-id: rest-api-v1.3-folders-foldername-suppdata-tablename-members-get
+    delete:
+      summary: Delete Supplemental Table member based on a query attribute
+      description: Deletes a Supplemental Table member based on a query attribute. A maximum of <b>one</b> record is deleted per request.
+      operationId: delete /rest/api/v1.3/folders/{folderName}/suppData/{tableName}/members
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplementalTableMemberswithpk'
+      parameters:
+      - name: folderName
+        in: path
+        description: Folder name
+        required: true
+        schema:
+          type: string
+      - name: tableName
+        in: path
+        description: Table name
+        required: true
+        schema:
+          type: string
+      - name: qa
+        in: query
+        description: Query attribute. All of the primary key fields of the Supplemental Table must be specified by repeating this parameter. Do not include other fields.
+        schema:
+          type: string
+      - name: id
+        in: query
+        description: IDs corresponding to the query attribute. All the primary key values of the Supplemental Table must be specified by repeating this parameter. The order of the values must match the order of the primary keys specified in the 'qa' parameter.
+        schema:
+          type: string
+      x-relation:
+      - deleteTableMembers
+      tags:
+      - Supplemental Table Members
+      x-internal-id: rest-api-v1.3-folders-{folderName}-suppData-{tableName}-members-delete
+      x-filename-id: rest-api-v1.3-folders-foldername-suppdata-tablename-members-delete
+  '/rest/api/v1.3/folders/{folderName}/suppData/{tableName}/members ':
+    post:
+      summary: Merge Table Records
+      description: This operation is used to merge (update) Supplemental Table records.
+      operationId: post /rest/api/v1.3/folders/{folderNam}/suppData/{tableName}/members
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supplementalTableRecords'
+      parameters:
+      - name: folderName
+        in: path
+        description: Folder name
+        required: true
+        schema:
+          type: string
+      - name: tableName
+        in: path
+        description: Table name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - mergeTableMembers
+      tags:
+      - Supplemental Table Members
+      x-internal-id: rest-api-v1.3-folders-{folderName}-suppData-{tableName}-members -post
+      x-filename-id: rest-api-v1.3-folders-foldername-suppdata-tablename-members-post-2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/supplementalTableRecords'
+        description: Request body
+  /rest/api/v1.3/folder/{folderName}/suppData/{suppTableName}:
+    get:
+      summary: Fetch all the fields or the primary key fields of the Supplemental Table
+      operationId: get /rest/api/v1.3/folder/{folderName}/suppData/{suppTableName}
+      responses:
+        default:
+          description: Supplemental Data Tables
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retrieveSuppFieldsResponse'
+      parameters:
+      - name: folderName
+        in: path
+        description: Folder name
+        required: true
+        schema:
+          type: string
+      - name: suppTableName
+        in: path
+        description: Supplemental Table name
+        required: true
+        schema:
+          type: string
+      - name: ft
+        in: query
+        description: '**ft=pk** returns only the primary key fields. **ft=all** returns all the fields. By default ''ft'' is set to ''all'''
+        required: false
+        schema:
+          type: string
+      tags:
+      - Supplemental Table Members
+      x-internal-id: rest-api-v1.3-folder-{folderName}-suppData-{suppTableName}-get
+      x-filename-id: rest-api-v1.3-folder-foldername-suppdata-supptablename-get
+components:
+  schemas:
+    retrieveSuppFieldsResponse:
+      title: Supplemental Data Table fields
+      type: object
+      properties:
+        fields:
+          description: The Supplemental Data Table fields
+          type: array
+          items:
+            type: object
+            properties:
+              fieldName:
+                type: string
+                description: The supplemental data field name
+              fieldType:
+                type: string
+                description: The supplemental data field type
+        suppData:
+          description: Metadata about the Supplemental Table
+          type: object
+          properties:
+            objectName:
+              description: The name of the Supplemental Data Table
+              type: string
+            folderName:
+              description: The name of the folder in which the Supplemental Data Table exists
+              type: string
+    supplementalTableRecords:
+      title: Supplemental Table records
+      type: object
+      properties:
+        recordData:
+          description: Record data that represents field names and corresponding values for the member.
+          required:
+          - fieldNames
+          - records
+          type: object
+          properties:
+            fieldNames:
+              type: array
+              description: Field names in the Supplemental Table
+              items:
+                type: string
+            records:
+              type: array
+              description: Array of values corresponding to the fieldNames. Each element in the array represents a single member.
+              items:
+                type: array
+                description: Field values for the member in the Supplemental Table
+                items:
+                  type: string
+            mapTemplateName:
+              type: string
+              description: The map template in Responsys that can be used to map field names of the Supplemental Table to column names.
+        insertOnNoMatch:
+          description: Specifies whether a member record should be inserted into the Supplemental Table if it does not already exist.
+          type: boolean
+        updateOnMatch:
+          description: Specifies whether a member record should be updated in the Supplemental Table if it already exists.
+          enum:
+          - REPLACE_ALL
+          - NO_UPDATE
+          type: string
+        matchColumnNames:
+          description: The column names to be used to match the member record to the Supplemental Table records. Only used during the merge operation.
+          type: array
+          items:
+            type: string
+      required:
+      - recordData
+      - insertOnNoMatch
+      - updateOnMatch
+      - matchColumnNames
+    supplementalTableMemberswithpk:
+      title: Supplemental Table members with PK
+      type: object
+      properties:
+        recordData:
+          description: Record data that represents field names and corresponding values for the member.
+          required:
+          - fieldNames
+          - records
+          type: object
+          properties:
+            fieldNames:
+              type: array
+              description: Field names in the Supplemental Table
+              items:
+                type: string
+            records:
+              type: array
+              description: Array of values corresponding to the fieldNames. Each element in the array represents a single member.
+              items:
+                type: array
+                description: Field values for the member in the Supplemental Table
+                items:
+                  type: string
+            mapTemplateName:
+              type: string
+              description: The map template in Responsys that can be used to map field names of the Supplemental Table to column names.
+        insertOnNoMatch:
+          description: Specifies whether a member record should be inserted into the Supplemental Table if it does not already exist.
+          type: boolean
+        updateOnMatch:
+          description: Specifies whether a member record should be updated in the Supplemental Table if it already exists.
+          enum:
+          - REPLACE_ALL
+          - NO_UPDATE
+          type: string
+        required: {}

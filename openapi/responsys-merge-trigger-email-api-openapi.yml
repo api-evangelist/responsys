@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Merge Trigger Email API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Merge Trigger Email
+  description: Merge Members to a Profile List and Send Responsys Email Campaigns to them.
+paths:
+  /rest/api/v1.3/campaigns/{campaignName}/email:
+    post:
+      summary: Merge Trigger Email
+      operationId: post /rest/api/v1.3/campaigns/{campaignName}/email
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/triggerEmailResponse'
+      parameters:
+      - name: campaignName
+        in: path
+        description: Campaign Name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - mergeTriggerEmail
+      tags:
+      - Merge Trigger Email
+      x-internal-id: rest-api-v1.3-campaigns-{campaignName}-email-post
+      x-filename-id: rest-api-v1.3-campaigns-campaignname-email-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/mergeTriggerEmail'
+        description: Request Body
+components:
+  schemas:
+    mergeTriggerEmail:
+      title: Merge Trigger Email
+      type: object
+      properties:
+        mergeTriggerRecordData:
+          description: Record data that represents Field Names and corresponding values for the recipient.
+          required:
+          - mergeTriggerRecords
+          - fieldNames
+          type: object
+          properties:
+            mergeTriggerRecords:
+              type: array
+              description: Array of values corresponding to the fieldNames. Each element in the array represents a single recipient.
+              items:
+                type: object
+                properties:
+                  fieldValues:
+                    type: array
+                    description: Values corresponding to the fieldNames.
+                    items:
+                      type: string
+                  optionalData:
+                    type: array
+                    description: Optional data containing array of name value pairs.
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+            fieldNames:
+              type: array
+              description: Field Names in the Profile List
+              items:
+                type: string
+        mergeRule:
+          description: Merge rule used to merge recipient records in a Profile List. Only used during the merge operation.
+          type: object
+          properties:
+            rejectRecordIfChannelEmpty:
+              type: string
+              description: String containing comma-separated channel codes that if specified will result in record rejection when the channel address field is null. Channel codes are 'E' (Email), 'M' (Mobile), 'P' (Postal Code). For example 'E,M' would indicate that a record that has a null for Email or Mobile Number value should be rejected. This parameter can also be set to null or to an empty string, which will cause the validation to not be performed for any channel, except if the matchColumnName1 parameter is set to EMAIL_ADDRESS_ or MOBILE_NUMBER_. When matchColumnName1 is set to EMAIL_ADDRESS_ or MOBILE_NUMBER_, then the null or empty string setting is effectively ignored for that channel.
+            htmlValue:
+              type: string
+              description: Value of incoming preferred email format data. For example, 'H' may represent a preference for HTML formatted email.
+            textValue:
+              type: string
+              description: Value of incoming preferred email format data. For example, 'T' may represent a preference for Text formatted email.
+            matchColumnName1:
+              enum:
+              - RIID_
+              - CUSTOMER_ID_
+              - EMAIL_ADDRESS_
+              - MOBILE_NUMBER_
+              - EMAIL_MD5_HASH_
+              - EMAIL_SHA256_HASH_
+              type: string
+              description: First match column for determining whether an insert or update should occur.
+            insertOnNoMatch:
+              type: boolean
+              description: Indicates what should be done for records where a match is not found (true = insert / false = no insert).
+            optinValue:
+              type: string
+              description: Value of incoming opt-in status data that represents an opt-in status. For example, 'I' may represent an opt-in status.
+            defaultPermissionStatus:
+              enum:
+              - OPTIN
+              - OPTOUT
+              type: string
+              description: This value must be specified as either OPTIN or OPTOUT and would be applied to all of the records contained in the API call. If this value is not explicitly specified, then it is set to OPTOUT.
+            optoutValue:
+              type: string
+              description: Value of incoming opt-out status data that represents an optout status. For example, '0' may represent an opt-out status.
+            matchColumnName2:
+              enum:
+              - RIID_
+              - CUSTOMER_ID_
+              - EMAIL_ADDRESS_
+              - MOBILE_NUMBER_
+              - EMAIL_MD5_HASH_
+              - EMAIL_SHA256_HASH_
+              type: string
+              description: Second match column for determining whether an insert or update should occur. (optional).
+            updateOnMatch:
+              enum:
+              - REPLACE_ALL
+              - NO_UPDATE
+              type: string
+              description: Controls how the existing record should be updated.
+            matchOperator:
+              enum:
+              - NONE
+              - AND
+              type: string
+              description: Operator to join match column names
+      required:
+      - mergeTriggerRecordData
+      - mergeRule
+    triggerEmailResponse:
+      title: Trigger Email Response
+      type: array
+      description: Array of Recipient Results.
+      items:
+        type: object
+        description: Response for individual recipient.
+        properties:
+          errorMessage:
+            type: string
+            description: Error Message, if any, that occurred during the merge or trigger operations.
+          success:
+            type: boolean
+            description: Indicates success or failure.
+          recipientId:
+            type: number
+            description: The Responsys ID (RIID) of the recipient.

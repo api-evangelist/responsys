@@ -1,0 +1,228 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Organizations API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Organizations
+  description: Responsys Organizations
+paths:
+  /rest/api/v1.3/attributes/organizations:
+    get:
+      summary: Fetch all organizations
+      description: Fetch a list of all organizations within the account.
+      operationId: get /rest/api/v1.3/attributes/organizations
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/get-organizations-response'
+      x-relation:
+      - instances
+      tags:
+      - Organizations
+      x-internal-id: rest-api-v1.3-attributes-organizations-get
+      x-filename-id: rest-api-v1.3-attributes-organizations-get
+  /rest/api/v1.3/attributes/programs/{programName}:
+    get:
+      summary: Fetch a program's organization hierarchy
+      description: Fetch a list of organizations that can access a program.
+      operationId: get /rest/api/v1.3/attributes/programs/{programName}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/get-assigned-attributes-response'
+      parameters:
+      - name: programName
+        in: path
+        description: The Program name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - instances
+      tags:
+      - Organizations
+      x-internal-id: rest-api-v1.3-attributes-programs-{programName}-get
+      x-filename-id: rest-api-v1.3-attributes-programs-programname-get
+    post:
+      summary: Update a program's organizational access
+      description: Update the organizations that can access a program.
+      operationId: post /rest/api/v1.3/attributes/programs/{programName}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/get-assigned-attributes-response'
+      parameters:
+      - name: programName
+        in: path
+        description: The Program name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - instances
+      tags:
+      - Organizations
+      x-internal-id: rest-api-v1.3-attributes-programs-{programName}-post
+      x-filename-id: rest-api-v1.3-attributes-programs-programname-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/edit-access-attributes-request'
+        description: Request Body
+  /rest/api/v1.3/attributes/campaigns/{campaignName}:
+    get:
+      summary: Fetch a campaign's organization hierarchy
+      description: Fetch a list of organizations that can access a campaign.
+      operationId: get /rest/api/v1.3/attributes/campaigns/{campaignName}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/get-assigned-attributes-response'
+      parameters:
+      - name: campaignName
+        in: path
+        description: The Campaign name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - instances
+      tags:
+      - Organizations
+      x-internal-id: rest-api-v1.3-attributes-campaigns-{campaignName}-get
+      x-filename-id: rest-api-v1.3-attributes-campaigns-campaignname-get
+    post:
+      summary: Update a campaign's organizational access
+      description: Update the organizations that can access a campaign.
+      operationId: post /rest/api/v1.3/attributes/campaigns/{campaignName}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/get-assigned-attributes-response'
+      parameters:
+      - name: campaignName
+        in: path
+        description: The Campaign name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - instances
+      tags:
+      - Organizations
+      x-internal-id: rest-api-v1.3-attributes-campaigns-{campaignName}-post
+      x-filename-id: rest-api-v1.3-attributes-campaigns-campaignname-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/edit-access-attributes-request'
+        description: Request Body
+components:
+  schemas:
+    edit-access-attributes-request:
+      title: Edit Access Attributes Request
+      type: object
+      properties:
+        attributes:
+          type: object
+          properties:
+            organizations:
+              type: object
+              properties:
+                attributeValues:
+                  description: List of Attributes to be assigned
+                  type: array
+                  items:
+                    type: object
+                    description: Attribute name
+                    properties:
+                      name:
+                        type: string
+                        description: Name of the Attribute to be assigned
+    assigned-attribute:
+      type: object
+      title: assigned attribute
+      properties:
+        id:
+          description: ID of the attribute
+          type: string
+        name:
+          description: Name of the attribute
+          type: string
+        lineage:
+          description: Description of the attribute's heirarchy
+          type: string
+    attribute:
+      type: object
+      title: attribute
+      properties:
+        id:
+          description: ID of the attribute
+          type: string
+        name:
+          description: Name of the attribute
+          type: string
+        lineage:
+          description: Description of the attribute's heirarchy
+          type: string
+        children:
+          description: Children of the Attribute
+          type: array
+          items:
+            $ref: '#/components/schemas/attribute'
+    get-assigned-attributes-response:
+      title: Get Assigned Organizations
+      type: object
+      properties:
+        attributes:
+          type: object
+          properties:
+            organizations:
+              type: object
+              properties:
+                attributeValues:
+                  description: Value of the Assigned Attributes
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/assigned-attribute'
+    get-organizations-response:
+      title: Get Organizations
+      type: object
+      properties:
+        attributes:
+          type: object
+          properties:
+            organizations:
+              type: object
+              properties:
+                attributeValues:
+                  description: Value of the Attribute
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/attribute'

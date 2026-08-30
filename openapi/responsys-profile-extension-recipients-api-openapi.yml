@@ -1,0 +1,359 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service Profile Extension Recipients API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: Profile Extension Recipients
+  description: One or more Recipients within a Profile Extension Table in the Responsys Interact Suite.
+paths:
+  /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members:
+    post:
+      summary: Merge Profile Extension Recipients
+      description: Merge recipient data into a Profile Extension Table (PET)
+      operationId: post /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileExtensionRecipients'
+      parameters:
+      - name: listName
+        in: path
+        description: List name
+        required: true
+        schema:
+          type: string
+      - name: petName
+        in: path
+        description: Profile Extension Table (PET) name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - mergeProfileExtensionRecipients
+      tags:
+      - Profile Extension Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-listExtensions-{petName}-members-post
+      x-filename-id: rest-api-v1.3-lists-listname-listextensions-petname-members-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/profileExtensionRecipients'
+        description: Request body
+    get:
+      summary: Retrieve Profile Extension Recipient using a query attribute
+      description: Retrieve Profile Extension Table (PET) recipient data using a query attribute
+      operationId: get /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileExtensionRecipients'
+      parameters:
+      - name: listName
+        in: path
+        description: List name
+        required: true
+        schema:
+          type: string
+      - name: petName
+        in: path
+        description: Profile Extension Table (PET) name
+        required: true
+        schema:
+          type: string
+      - name: qa
+        in: query
+        description: Query attribute can be either 'r' (RIID_), 'e' (EMAIL_ADDRESS_), 'c' (CUSTOMER_ID_), 'm' (MOBILE_NUMBER_), or 'd' (MODIFIED_DATE_). The corresponding value passed must match what is in the parent Profile List. Note when using 'd' (MODIFIED_DATE_) the corresponding value passed as sdate and edate should match what is in the Profile Extension table.
+        schema:
+          type: string
+      - name: fs
+        in: query
+        description: Comma separated list of fields to retrieve or 'all'
+        schema:
+          type: string
+      - name: id
+        in: query
+        description: ID corresponding to the query attribute, used to locate the record to retrieve
+        schema:
+          type: string
+      - name: sdate
+        in: query
+        description: Start date to retrieve modified records. When qa=d, start date should be in MM-DD-YYYY format. Retrieves the PET records whose modified date is between the start and the end date. Note that the Responsys servers follow Pacific Standard Time (PST) when using this parameter.
+        schema:
+          type: string
+      - name: edate
+        in: query
+        description: End date to retrieve modified records. When qa=d, end date should be in MM-DD-YYYY format. Retrieves the PET records whose modified date is between the start and the end date. Note that the Responsys servers follow Pacific Standard Time (PST) when using this parameter.
+        schema:
+          type: string
+      x-relation:
+      - retrieveProfileExtensionRecipients
+      tags:
+      - Profile Extension Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-listExtensions-{petName}-members-get
+      x-filename-id: rest-api-v1.3-lists-listname-listextensions-petname-members-get
+  /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members/{riid}:
+    get:
+      summary: Retrieve Profile Extension Recipient using an RIID
+      description: Retrieve Profile Extension Table (PET) recipient data using the RIID of the parent Profile List record
+      operationId: get /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members/{riid}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileExtensionRecipients'
+      parameters:
+      - name: listName
+        in: path
+        description: List name
+        required: true
+        schema:
+          type: string
+      - name: petName
+        in: path
+        description: Profile Extension Table (PET) name
+        required: true
+        schema:
+          type: string
+      - name: riid
+        in: path
+        description: RIID of the parent Profile List record, which is used to locate the corresponding PET record
+        required: true
+        schema:
+          type: string
+      - name: fs
+        in: query
+        description: Comma separated list of fields to retrieve or 'all'
+        schema:
+          type: string
+      x-relation:
+      - retrieveProfileExtensionRecipientsRIID
+      tags:
+      - Profile Extension Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-listExtensions-{petName}-members-{riid}-get
+      x-filename-id: rest-api-v1.3-lists-listname-listextensions-petname-members-riid-get
+    delete:
+      summary: Delete Profile Extension Recipient using an RIID
+      description: Delete Profile Extension Table (PET) recipient record using the RIID of the parent Profile List record
+      operationId: delete /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members/{riid}
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileExtensionRecipients'
+      parameters:
+      - name: listName
+        in: path
+        description: List name
+        required: true
+        schema:
+          type: string
+      - name: petName
+        in: path
+        description: Profile Extension Table (PET) name
+        required: true
+        schema:
+          type: string
+      - name: riid
+        in: path
+        description: RIID of the parent Profile List record, which is used to locate the corresponding PET record
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - deleteProfileExtensionRecipientsRIID
+      tags:
+      - Profile Extension Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-listExtensions-{petName}-members-{riid}-delete
+      x-filename-id: rest-api-v1.3-lists-listname-listextensions-petname-members-riid-delete
+  '/rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members ':
+    post:
+      summary: Delete multiple Profile Extension Recipients
+      description: Delete multiple Profile Extension Table (PET) recipient records
+      operationId: post /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members?action=delete
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileExtensionRecipients'
+      parameters:
+      - name: listName
+        in: path
+        description: List name
+        required: true
+        schema:
+          type: string
+      - name: petName
+        in: path
+        description: Profile Extension Table (PET) name
+        required: true
+        schema:
+          type: string
+      - name: action
+        in: query
+        description: '**action** must have the value **delete**(action=delete).'
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - deleteListRecipients
+      tags:
+      - Profile Extension Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-listExtensions-{petName}-members -post
+      x-filename-id: rest-api-v1.3-lists-listname-listextensions-petname-members-post-2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteListRecipientsRequest'
+        description: Request body
+  '/rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members  ':
+    post:
+      summary: Retrieve Multiple Profile Extension Recipients
+      description: This endpoint is used to retrieve multiple profile extension recipients in an existing profile extension table. By supplying an ID for a recipient (for example email address) you can retrieve up to 200 recipients in a single request.<br>The request method for this API is <code>POST</code>, because the query parameters are passed in the request body. The ids array contains the identifier values for the recipients. Values passed in the <code>ids</code> array must correspond to the <code>queryAttribute</code> specified. For example, if you specify <code>e</code> for your <code>queryAttribute</code>, the system expects the ids array to contain email address values for the records you want to retrieve. By specifying field names in the <code>fieldList</code>, you can determine which fields are returned for recipients.
+      operationId: /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members?action=get
+      responses:
+        default:
+          description: Bulk Retrieve Profile Extension Recipients
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/profileExtensionRecipients'
+      parameters:
+      - name: listName
+        in: path
+        description: The name of the parent profile list for the profile extension table.
+        required: true
+        schema:
+          type: string
+      - name: petName
+        in: path
+        description: The name of the profile extension table to retrieve recipients.
+        required: true
+        schema:
+          type: string
+      - name: action
+        in: query
+        description: '<b>Required</b>. Must have the value get. For example: <code>?action=get</code>'
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - deleteListRecipients
+      tags:
+      - Profile Extension Recipients
+      x-internal-id: rest-api-v1.3-lists-{listName}-listExtensions-{petName}-members  -post
+      x-filename-id: rest-api-v1.3-lists-listname-listextensions-petname-members-post-3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bulkProfileExtensionRecipients'
+        description: Request body
+components:
+  schemas:
+    bulkProfileExtensionRecipients:
+      title: bulk profile Extension Recipients
+      type: object
+      properties:
+        fieldList:
+          type: array
+          description: field names list
+          items:
+            type: string
+        queryAttribute:
+          type: string
+          description: query attribute
+        ids:
+          type: array
+          description: email ids list
+          items:
+            type: string
+    deleteListRecipientsRequest:
+      title: Delete List Recipients
+      type: object
+      properties:
+        queryAttribute:
+          description: Query Attribute based on which records will be deleted. Can have the values r(RIID),e(email address),m(mobile number),c(customer id)
+          type: string
+        ids:
+          type: array
+          description: Array of values corresponding to the fieldNames.
+          items:
+            type: array
+            description: Field Values for the recipient in the Profile List
+            items:
+              type: string
+      required:
+      - queryAttribute
+      - ids
+    profileExtensionRecipients:
+      title: Profile Extension Recipients
+      type: object
+      properties:
+        recordData:
+          description: Record data that represents field names and corresponding values for the recipient.
+          required:
+          - fieldNames
+          - records
+          type: object
+          properties:
+            fieldNames:
+              type: array
+              description: Field names of the Profile List. Must contain contain at least one of the merge key fields from the Profile List.
+              items:
+                type: string
+            records:
+              type: array
+              description: Array of values corresponding to the fieldNames. Each element in the array represents a single recipient.
+              items:
+                type: array
+                description: Field values for the recipient in the Profile List
+                items:
+                  type: string
+            mapTemplateName:
+              type: string
+              description: The map template in Responsys that can be used to map field names of the Profile List to column names.
+        insertOnNoMatch:
+          description: Specifies whether a recipient record should be inserted into the Profile Extension if it does not already exist. Only used during the merge operation.
+          type: boolean
+        updateOnMatch:
+          description: Specifies whether a recipient record should be updated in the Profile Extension if it already exists. Only used during the merge operation.
+          enum:
+          - REPLACE_ALL
+          - NO_UPDATE
+        matchColumn:
+          description: The column name to be used to match the recipient record to the Profile Extension records. Only used during the merge operation.
+          enum:
+          - RIID
+          - CUSTOMER_ID
+          - EMAIL_ADDRESS
+          - MOBILE_NUMBER
+          - EMAIL_MD5_HASH
+          - EMAIL_SHA256_HASH
+      required:
+      - recordData
+      - insertOnNoMatch
+      - updateOnMatch
+      - matchColumn

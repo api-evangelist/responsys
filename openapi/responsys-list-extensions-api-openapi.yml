@@ -1,0 +1,112 @@
+openapi: 3.2.0
+info:
+  title: REST API for Oracle Responsys Marketing Cloud Service List Extensions API
+  version: 2023.03.03
+  description: 'REST API for Oracle Responsys Marketing Cloud Service
+
+    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
+
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+  x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
+servers:
+- url: https://login5.responsys.net/rest/api/v1.3
+tags:
+- name: List Extensions
+  description: Profile Extensions for a Profile List in the Responsys Interact Suite
+paths:
+  /rest/api/v1.3/lists/{listName}/listExtensions:
+    post:
+      summary: Create Profile Extension
+      operationId: post /rest/api/v1.3/lists/{listName}/listExtensions
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listExtensions'
+      parameters:
+      - name: listName
+        in: path
+        description: List Name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - create
+      tags:
+      - List Extensions
+      x-internal-id: rest-api-v1.3-lists-{listName}-listExtensions-post
+      x-filename-id: rest-api-v1.3-lists-listname-listextensions-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/listExtensions'
+        description: Request Body
+    get:
+      summary: Fetch All Profile Extensions for a Profile List
+      operationId: get /rest/api/v1.3/lists/{listName}/listExtensions
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listExtensions-collection'
+      parameters:
+      - name: listName
+        in: path
+        description: List Name
+        required: true
+        schema:
+          type: string
+      x-relation:
+      - instances
+      tags:
+      - List Extensions
+      x-internal-id: rest-api-v1.3-lists-{listName}-listExtensions-get
+      x-filename-id: rest-api-v1.3-lists-listname-listextensions-get
+components:
+  schemas:
+    listExtensions-collection:
+      title: List Extensions
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/listExtensions'
+    listExtensions:
+      title: Profile Extension
+      type: object
+      properties:
+        profileExtension:
+          description: The Profile Extension Object
+          required:
+          - objectName
+          - folderName
+          type: object
+          properties:
+            objectName:
+              type: string
+              description: The name of the Profile Extension
+            folderName:
+              type: string
+              description: The name of the folder in which the Profile Extension exists
+        fields:
+          description: The Profile Extension Fields
+          type: array
+          items:
+            type: object
+            properties:
+              fieldName:
+                type: string
+                description: The Profile Extension Field Name
+              fieldType:
+                type: string
+                description: The Profile Extension Field Type
+      required:
+      - profileExtension
+      - fields
