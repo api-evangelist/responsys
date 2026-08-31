@@ -57,7 +57,7 @@ tags:
 - SMS
 - Webhook
 - Oracle
-- MarTech
+- Martech
 tags_raw:
 - Company
 - Marketing
@@ -356,6 +356,8 @@ apis:
   humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
   baseURL: https://login5.responsys.net/rest/api/v1.3
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -512,6 +514,8 @@ apis:
   humanURL: https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/index.html
   baseURL: https://login5.responsys.net/rest/api/v1.3
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
