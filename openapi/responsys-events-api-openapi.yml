@@ -1,16 +1,12 @@
 openapi: 3.2.0
 info:
-  title: REST API for Oracle Responsys Marketing Cloud Service Events API
+  title: REST API for Oracle Responsys Marketing Cloud Service…
   version: 2023.03.03
   description: 'REST API for Oracle Responsys Marketing Cloud Service
 
-    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
 
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+    Learn more about Responsys APIs in this video and download the Responsys API Brochure.'
   x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
-servers:
-- url: https://login5.responsys.net/rest/api/v1.3
 tags:
 - name: Events
   description: Raise Events for Cross-channel Marketing Programs.
@@ -65,7 +61,7 @@ paths:
   /rest/api/v1.3/events/rei/{eventName}:
     post:
       summary: Trigger REI Event
-      description: Triggers a REI Event for Profile List, App Channel List, and Web Push recipients. Enables developers to trigger REI events for users across email, print, and mobile app channels to begin Program Orchestration. This feature is only available if it is enabled for your account. To access this feature for existing accounts, please log in to <a href='https://support.oracle.com/portal/'>My Oracle Support</a> and create a service request.
+      description: Triggers a REI Event for Profile List, App Channel List, and Web Push recipients. Enables developers to trigger REI events for users across email, print, and mobile app channels to begin Program Orchestration. This feature is only available if it is enabled for your account. To access this feature for existing accounts, please log in to My Oracle Support and create a service request.
       operationId: post /rest/api/v1.3/events/rei/{eventName}
       responses:
         default:
@@ -95,6 +91,23 @@ paths:
         description: Request Body
 components:
   schemas:
+    events:
+      title: Custom Events
+      type: object
+      properties:
+        eventName:
+          description: The name of the custom event
+          type: string
+        description:
+          description: The description of the custom event
+          type: string
+        eventType:
+          description: The type of the custom event
+          type: string
+      required:
+      - eventName
+      - description
+      - eventType
     triggerCustomEvent:
       title: Trigger Custom Event
       type: object
@@ -301,23 +314,6 @@ components:
           recipientId:
             type: number
             description: The Responsys ID (RIID) of the recipient.
-    events:
-      title: Custom Events
-      type: object
-      properties:
-        eventName:
-          description: The name of the custom event
-          type: string
-        description:
-          description: The description of the custom event
-          type: string
-        eventType:
-          description: The type of the custom event
-          type: string
-      required:
-      - eventName
-      - description
-      - eventType
     events-collection:
       title: Custom Events
       type: array

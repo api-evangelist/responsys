@@ -1,16 +1,12 @@
 openapi: 3.2.0
 info:
-  title: REST API for Oracle Responsys Marketing Cloud Service Filters API
+  title: REST API for Oracle Responsys Marketing Cloud Service…
   version: 2023.03.03
   description: 'REST API for Oracle Responsys Marketing Cloud Service
 
-    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
 
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+    Learn more about Responsys APIs in this video and download the Responsys API Brochure.'
   x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
-servers:
-- url: https://login5.responsys.net/rest/api/v1.3
 tags:
 - name: Filters
   description: Filters in the Responsys Interact Suite
@@ -18,7 +14,10 @@ paths:
   /rest/api/v1.3/filters:
     get:
       summary: Retrieve All Filters
-      description: Use this endpoint to retrieve all filters for an account. Both simple and classic filters are returned in the response.<br><br>For more information on filters, see the <a href='https://docs.oracle.com/en/cloud/saas/marketing/responsys-user/index.html#CSHID=FiltersAndSegmentGroupsLP'>Oracle Responsys Help Center</a>.
+      description: 'Use this endpoint to retrieve all filters for an account. Both simple and classic filters are returned in the response.
+
+
+        For more information on filters, see the Oracle Responsys Help Center.'
       operationId: get /rest/api/v1.3/filters
       responses:
         default:
@@ -46,6 +45,14 @@ paths:
       x-filename-id: rest-api-v1.3-filters-get
 components:
   schemas:
+    filters-collection:
+      title: filters
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/retrieve-filters-response'
     retrieve-filters-response:
       type: object
       title: filter
@@ -90,11 +97,3 @@ components:
           - AppChannel
           - Enactment
           type: string
-    filters-collection:
-      title: filters
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/retrieve-filters-response'

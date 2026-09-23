@@ -1,16 +1,12 @@
 openapi: 3.2.0
 info:
-  title: REST API for Oracle Responsys Marketing Cloud Service List Extensions API
+  title: REST API for Oracle Responsys Marketing Cloud Service List…
   version: 2023.03.03
   description: 'REST API for Oracle Responsys Marketing Cloud Service
 
-    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
 
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+    Learn more about Responsys APIs in this video and download the Responsys API Brochure.'
   x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
-servers:
-- url: https://login5.responsys.net/rest/api/v1.3
 tags:
 - name: List Extensions
   description: Profile Extensions for a Profile List in the Responsys Interact Suite
@@ -70,14 +66,6 @@ paths:
       x-filename-id: rest-api-v1.3-lists-listname-listextensions-get
 components:
   schemas:
-    listExtensions-collection:
-      title: List Extensions
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/listExtensions'
     listExtensions:
       title: Profile Extension
       type: object
@@ -110,3 +98,11 @@ components:
       required:
       - profileExtension
       - fields
+    listExtensions-collection:
+      title: List Extensions
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/listExtensions'

@@ -1,16 +1,12 @@
 openapi: 3.2.0
 info:
-  title: REST API for Oracle Responsys Marketing Cloud Service Profile List Recipients API
+  title: REST API for Oracle Responsys Marketing Cloud Service…
   version: 2023.03.03
   description: 'REST API for Oracle Responsys Marketing Cloud Service
 
-    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
 
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+    Learn more about Responsys APIs in this video and download the Responsys API Brochure.'
   x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
-servers:
-- url: https://login5.responsys.net/rest/api/v1.3
 tags:
 - name: Profile List Recipients
   description: One or more Recipients within a Profile List in the Responsys Interact Suite.
@@ -47,7 +43,10 @@ paths:
         description: Request Body
     get:
       summary: Retrieve List Recipient using query attribute
-      description: This endpoint retrieves a count of profile list recipients in a profile list. You can use query attributes to filter the results by specifying a query attribute type and values. If no query attributes are specified, the total count of profile list recipients is returned. <br><br> The <code>count</code> property in the response determines the amount of matching profile list recipients.
+      description: 'This endpoint retrieves a count of profile list recipients in a profile list. You can use query attributes to filter the results by specifying a query attribute type and values. If no query attributes are specified, the total count of profile list recipients is returned.
+
+
+        The count property in the response determines the amount of matching profile list recipients.'
       operationId: get /rest/api/v1.3/lists/{listName}/members
       responses:
         default:
@@ -86,7 +85,9 @@ paths:
       x-filename-id: rest-api-v1.3-lists-listname-members-get
     delete:
       summary: Delete Profile List Recipients using query attribute
-      description: Deletes profile list recipients for a profile list using query attributes. Using the query parameters specify a query attribute type to identify recipients, and the corresponding value. The response indicates how many matching records were deleted. <br> Up to 10 profile list recipients can be deleted in a single request.
+      description: 'Deletes profile list recipients for a profile list using query attributes. Using the query parameters specify a query attribute type to identify recipients, and the corresponding value. The response indicates how many matching records were deleted.
+
+        Up to 10 profile list recipients can be deleted in a single request.'
       operationId: delete /rest/api/v1.3/lists/{listName}/members
       responses:
         default:
@@ -288,6 +289,51 @@ paths:
       x-filename-id: rest-api-v1.3-lists-listname-members-count-get
 components:
   schemas:
+    deleteListRecipientsRequest:
+      title: Delete List Recipients
+      type: object
+      properties:
+        queryAttribute:
+          description: Query Attribute based on which records will be deleted. Can have the values r(RIID),e(email address),m(mobile number),c(customer id)
+          type: string
+        ids:
+          type: array
+          description: Array of values corresponding to the fieldNames.
+          items:
+            type: array
+            description: Field Values for the recipient in the Profile List
+            items:
+              type: string
+      required:
+      - queryAttribute
+      - ids
+    retrieveListRecipientsRequest:
+      title: Retrieve List Recipients
+      type: object
+      properties:
+        queryAttribute:
+          description: Query Attribute based on which records will be retrieved. Can have the values r(RIID),e(email address),m(mobile number),c(customer id), e_md5(EMAIL_MD5_HASH_), e_sha256(EMAIL_SHA256_HASH_)
+          type: string
+        fieldList:
+          type: array
+          description: Array of field names to be retrieved
+          items:
+            type: array
+            description: Field Name in the Profile List
+            items:
+              type: string
+        ids:
+          type: array
+          description: Array of values corresponding to the fieldNames.
+          items:
+            type: array
+            description: Field Values for the recipient in the Profile List
+            items:
+              type: string
+      required:
+      - queryAttribute
+      - fieldList
+      - ids
     profileListRecipients:
       title: Profile List Recipients
       type: object
@@ -378,33 +424,6 @@ components:
       required:
       - recordData
       - mergeRule
-    retrieveListRecipientsRequest:
-      title: Retrieve List Recipients
-      type: object
-      properties:
-        queryAttribute:
-          description: Query Attribute based on which records will be retrieved. Can have the values r(RIID),e(email address),m(mobile number),c(customer id), e_md5(EMAIL_MD5_HASH_), e_sha256(EMAIL_SHA256_HASH_)
-          type: string
-        fieldList:
-          type: array
-          description: Array of field names to be retrieved
-          items:
-            type: array
-            description: Field Name in the Profile List
-            items:
-              type: string
-        ids:
-          type: array
-          description: Array of values corresponding to the fieldNames.
-          items:
-            type: array
-            description: Field Values for the recipient in the Profile List
-            items:
-              type: string
-      required:
-      - queryAttribute
-      - fieldList
-      - ids
     retrieveListRecipientCount:
       title: Retrieve List Recipients Count
       type: object
@@ -483,21 +502,3 @@ components:
       - totalMatchedRecords
       - remainingRecordCount
       - hasMoreRecords
-    deleteListRecipientsRequest:
-      title: Delete List Recipients
-      type: object
-      properties:
-        queryAttribute:
-          description: Query Attribute based on which records will be deleted. Can have the values r(RIID),e(email address),m(mobile number),c(customer id)
-          type: string
-        ids:
-          type: array
-          description: Array of values corresponding to the fieldNames.
-          items:
-            type: array
-            description: Field Values for the recipient in the Profile List
-            items:
-              type: string
-      required:
-      - queryAttribute
-      - ids

@@ -1,16 +1,12 @@
 openapi: 3.2.0
 info:
-  title: REST API for Oracle Responsys Marketing Cloud Service Profile Extension Recipients API
+  title: REST API for Oracle Responsys Marketing Cloud Service…
   version: 2023.03.03
   description: 'REST API for Oracle Responsys Marketing Cloud Service
 
-    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
 
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+    Learn more about Responsys APIs in this video and download the Responsys API Brochure.'
   x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
-servers:
-- url: https://login5.responsys.net/rest/api/v1.3
 tags:
 - name: Profile Extension Recipients
   description: One or more Recipients within a Profile Extension Table in the Responsys Interact Suite.
@@ -231,7 +227,9 @@ paths:
   '/rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members  ':
     post:
       summary: Retrieve Multiple Profile Extension Recipients
-      description: This endpoint is used to retrieve multiple profile extension recipients in an existing profile extension table. By supplying an ID for a recipient (for example email address) you can retrieve up to 200 recipients in a single request.<br>The request method for this API is <code>POST</code>, because the query parameters are passed in the request body. The ids array contains the identifier values for the recipients. Values passed in the <code>ids</code> array must correspond to the <code>queryAttribute</code> specified. For example, if you specify <code>e</code> for your <code>queryAttribute</code>, the system expects the ids array to contain email address values for the records you want to retrieve. By specifying field names in the <code>fieldList</code>, you can determine which fields are returned for recipients.
+      description: 'This endpoint is used to retrieve multiple profile extension recipients in an existing profile extension table. By supplying an ID for a recipient (for example email address) you can retrieve up to 200 recipients in a single request.
+
+        The request method for this API is POST, because the query parameters are passed in the request body. The ids array contains the identifier values for the recipients. Values passed in the ids array must correspond to the queryAttribute specified. For example, if you specify e for your queryAttribute, the system expects the ids array to contain email address values for the records you want to retrieve. By specifying field names in the fieldList, you can determine which fields are returned for recipients.'
       operationId: /rest/api/v1.3/lists/{listName}/listExtensions/{petName}/members?action=get
       responses:
         default:
@@ -273,23 +271,6 @@ paths:
         description: Request body
 components:
   schemas:
-    bulkProfileExtensionRecipients:
-      title: bulk profile Extension Recipients
-      type: object
-      properties:
-        fieldList:
-          type: array
-          description: field names list
-          items:
-            type: string
-        queryAttribute:
-          type: string
-          description: query attribute
-        ids:
-          type: array
-          description: email ids list
-          items:
-            type: string
     deleteListRecipientsRequest:
       title: Delete List Recipients
       type: object
@@ -308,6 +289,23 @@ components:
       required:
       - queryAttribute
       - ids
+    bulkProfileExtensionRecipients:
+      title: bulk profile Extension Recipients
+      type: object
+      properties:
+        fieldList:
+          type: array
+          description: field names list
+          items:
+            type: string
+        queryAttribute:
+          type: string
+          description: query attribute
+        ids:
+          type: array
+          description: email ids list
+          items:
+            type: string
     profileExtensionRecipients:
       title: Profile Extension Recipients
       type: object

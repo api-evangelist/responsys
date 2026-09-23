@@ -1,16 +1,12 @@
 openapi: 3.2.0
 info:
-  title: REST API for Oracle Responsys Marketing Cloud Service Programs API
+  title: REST API for Oracle Responsys Marketing Cloud Service…
   version: 2023.03.03
   description: 'REST API for Oracle Responsys Marketing Cloud Service
 
-    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
 
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+    Learn more about Responsys APIs in this video and download the Responsys API Brochure.'
   x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
-servers:
-- url: https://login5.responsys.net/rest/api/v1.3
 tags:
 - name: Programs
   description: Responsys Program API Endpoints
@@ -105,7 +101,12 @@ paths:
   /rest/api/v1.3/programs/enactments:
     post:
       summary: Exit Enactments
-      description: Moves the enactments at a blocked stage out of a program. In the request body, specify the name of the program and the program action (exit).<br><br> In the case of a successful request, a success message is returned in the response body. Programs must be currently unpublished, but have been published at least once. If these requirements are not met, a 400 Bad Request error will be returned. <br> See the <a href='https://docs.oracle.com/en/cloud/saas/marketing/responsys-user/index.html#CSHID=Programs_Analyze'>Oracle Responsys Help Center</a> for more information about resolving blocked program stages.
+      description: 'Moves the enactments at a blocked stage out of a program. In the request body, specify the name of the program and the program action (exit).
+
+
+        In the case of a successful request, a success message is returned in the response body. Programs must be currently unpublished, but have been published at least once. If these requirements are not met, a 400 Bad Request error will be returned.
+
+        See the Oracle Responsys Help Center for more information about resolving blocked program stages.'
       operationId: post /rest/api/v1.3/programs/enactments
       responses:
         default:
@@ -162,6 +163,47 @@ paths:
       x-filename-id: rest-api-v1.3-programs-lists-listname-get
 components:
   schemas:
+    exit-program-enactments-response:
+      title: exit-program-enactments-response
+      type: object
+      properties:
+        status:
+          description: SUCCESS if operation is successful otherwise FAILURE
+          enum:
+          - SUCCESS
+          - FAILURE
+          type: string
+        errorMsg:
+          description: Error messages when operation fails
+          type: string
+    update-program-request:
+      title: update-program-request
+      type: object
+      properties:
+        action:
+          description: Action to be performed on a given program
+          enum:
+          - publish
+          - unpublish
+          type: string
+        saveDraft:
+          description: Indicates whether to save the draft version or published version
+          enum:
+          - Y
+          - N
+          type: string
+    exit-program-enactments-request:
+      title: exit-program-enactments-request
+      type: object
+      properties:
+        action:
+          description: Action to perform on program enactments. Must be exit.
+          enum:
+          - exit
+          type: string
+        programName:
+          description: Name of the program to exit enactments
+          type: string
     retrieve-program-response:
       type: object
       title: program
@@ -207,68 +249,6 @@ components:
           - NOT_RUNNING
           - RUNNING
           - RUNNING_WITH_ERRORS
-          type: string
-    exit-program-enactments-request:
-      title: exit-program-enactments-request
-      type: object
-      properties:
-        action:
-          description: Action to perform on program enactments. Must be exit.
-          enum:
-          - exit
-          type: string
-        programName:
-          description: Name of the program to exit enactments
-          type: string
-    exit-program-enactments-response:
-      title: exit-program-enactments-response
-      type: object
-      properties:
-        status:
-          description: SUCCESS if operation is successful otherwise FAILURE
-          enum:
-          - SUCCESS
-          - FAILURE
-          type: string
-        errorMsg:
-          description: Error messages when operation fails
-          type: string
-    programs-collection:
-      title: Programs
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/retrieve-program-response'
-    update-program-response:
-      title: update-program-response
-      type: object
-      properties:
-        status:
-          description: Returns SUCCESS if the publish or unpublish is successful. Returns FAILURE if action is not successful.
-          enum:
-          - SUCCESS
-          - FAILURE
-          type: string
-        errorMsg:
-          description: Error messages when publish or unpublish fails
-          type: string
-    update-program-request:
-      title: update-program-request
-      type: object
-      properties:
-        action:
-          description: Action to be performed on a given program
-          enum:
-          - publish
-          - unpublish
-          type: string
-        saveDraft:
-          description: Indicates whether to save the draft version or published version
-          enum:
-          - Y
-          - N
           type: string
     programByName-response:
       type: object
@@ -352,3 +332,24 @@ components:
       - modifiedOn
       - modifiedBy
       - publishDate
+    programs-collection:
+      title: Programs
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/retrieve-program-response'
+    update-program-response:
+      title: update-program-response
+      type: object
+      properties:
+        status:
+          description: Returns SUCCESS if the publish or unpublish is successful. Returns FAILURE if action is not successful.
+          enum:
+          - SUCCESS
+          - FAILURE
+          type: string
+        errorMsg:
+          description: Error messages when publish or unpublish fails
+          type: string

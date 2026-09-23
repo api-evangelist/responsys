@@ -1,16 +1,12 @@
 openapi: 3.2.0
 info:
-  title: REST API for Oracle Responsys Marketing Cloud Service Attachments API
+  title: REST API for Oracle Responsys Marketing Cloud Service…
   version: 2023.03.03
   description: 'REST API for Oracle Responsys Marketing Cloud Service
 
-    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
 
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+    Learn more about Responsys APIs in this video and download the Responsys API Brochure.'
   x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
-servers:
-- url: https://login5.responsys.net/rest/api/v1.3
 tags:
 - name: Attachments
   description: Send Responsys Email Campaigns with Attachments
@@ -148,6 +144,23 @@ components:
             - attachmentData
       required:
       - recipientData
+    triggerEmailWithAttachmentsResponse:
+      title: Trigger Email With Attachments Response
+      type: array
+      description: Array of Recipient Results.
+      items:
+        type: object
+        description: Response for individual recipient.
+        properties:
+          errorMessage:
+            type: string
+            description: Error Message, if any, that occurred during the merge or trigger operations.
+          success:
+            type: boolean
+            description: Indicates success or failure.
+          recipientId:
+            type: number
+            description: The Responsys ID (RIID) of the recipient.
     mergeTriggerEmailWithAttachments:
       title: Merge Trigger Email With Attachments
       type: object
@@ -258,23 +271,6 @@ components:
       required:
       - mergeTriggerRecordDataWithAttachments
       - mergeRule
-    triggerEmailWithAttachmentsResponse:
-      title: Trigger Email With Attachments Response
-      type: array
-      description: Array of Recipient Results.
-      items:
-        type: object
-        description: Response for individual recipient.
-        properties:
-          errorMessage:
-            type: string
-            description: Error Message, if any, that occurred during the merge or trigger operations.
-          success:
-            type: boolean
-            description: Indicates success or failure.
-          recipientId:
-            type: number
-            description: The Responsys ID (RIID) of the recipient.
     triggerEmailWithAttachments-response:
       title: Trigger Email With Attachments Response
       type: array

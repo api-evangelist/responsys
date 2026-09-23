@@ -1,16 +1,12 @@
 openapi: 3.2.0
 info:
-  title: REST API for Oracle Responsys Marketing Cloud Service Account API
+  title: REST API for Oracle Responsys Marketing Cloud Service…
   version: 2023.03.03
   description: 'REST API for Oracle Responsys Marketing Cloud Service
 
-    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
 
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+    Learn more about Responsys APIs in this video and download the Responsys API Brochure.'
   x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
-servers:
-- url: https://login5.responsys.net/rest/api/v1.3
 tags:
 - name: Account
   description: API endpoints to enable managing your Responsys account.
@@ -66,7 +62,9 @@ paths:
   /rest/api/v1.3/settings/account/footer:
     get:
       summary: Get Email Footer
-      description: Retrieves the account's Email Footer content. The response returns the footer's text and HTML content. <br> See the <a href='https://docs.oracle.com/en/cloud/saas/marketing/responsys-user/index.html#CSHID=SubAccountFooterFiles'>Oracle Responsys Help Center</a> for more information.
+      description: 'Retrieves the account''s Email Footer content. The response returns the footer''s text and HTML content.
+
+        See the Oracle Responsys Help Center for more information.'
       operationId: get /rest/api/v1.3/settings/account/footer
       responses:
         default:
@@ -82,7 +80,21 @@ paths:
   /rest/api/v1.3/settings/account/domains/email:
     get:
       summary: Get Email Domain Rules
-      description: 'Retrieves a list of Email domain rules for the account. Email domain rules are used when campaign messages are being sent out. <br> The response returns: <ul> <li>The domains to which campaign messages must not be sent at all</li><li>Domains to which HTML-format campaign mssages can be sent with confidence to recipients that will be able to read them</li><li>Domains to which only plain-text campaign messages should be sent because recipients cannot read messages in any other format</li></ul><br> See the <a href=''https://docs.oracle.com/en/cloud/saas/marketing/responsys-user/index.html#CSHID=EMailDomains''>Oracle Responsys Help Center</a> for more information.'
+      description: 'Retrieves a list of Email domain rules for the account. Email domain rules are used when campaign messages are being sent out.
+
+        The response returns:
+
+
+        The domains to which campaign messages must not be sent at all
+
+
+        Domains to which HTML-format campaign mssages can be sent with confidence to recipients that will be able to read them
+
+
+        Domains to which only plain-text campaign messages should be sent because recipients cannot read messages in any other format
+
+
+        See the Oracle Responsys Help Center for more information.'
       operationId: get /rest/api/v1.3/settings/account/domains/email
       responses:
         default:
@@ -151,35 +163,6 @@ paths:
       x-filename-id: rest-api-v1.3-settings-account-domains-email-domainruletype-domainname-delete
 components:
   schemas:
-    endpoint:
-      title: Account Endpoints
-      type: object
-      properties:
-        apiType:
-          description: The API type to which the endpoint sends the API requests.
-          type: string
-          enum:
-          - rest
-          - soap
-        endPoint:
-          description: The endpoint URL associated with the Auth Token which is used to send API requests to the API type.
-          type: string
-      required:
-      - apiType
-      - endPoint
-    deleteEmailDomainResponse:
-      title: Delete email domain
-      type: object
-      properties:
-        message:
-          description: Message regarding delete operation.
-          type: string
-        status:
-          description: Status of the operation.
-          type: boolean
-      required:
-      - message
-      - status
     userInfo:
       title: User Information
       type: object
@@ -213,6 +196,19 @@ components:
       - accountDisplayName
       - accountTimeZone
       - createdDate
+    deleteEmailDomainResponse:
+      title: Delete email domain
+      type: object
+      properties:
+        message:
+          description: Message regarding delete operation.
+          type: string
+        status:
+          description: Status of the operation.
+          type: boolean
+      required:
+      - message
+      - status
     footer:
       title: Email Footer
       type: object
@@ -226,6 +222,34 @@ components:
       required:
       - text
       - html
+    settings:
+      title: Account Settings
+      type: object
+      properties:
+        name:
+          description: Username
+          type: string
+        endpoint:
+          description: The endpoint URL assciated with Auth Token.
+          type: string
+        fileSystemLocation:
+          description: Path to the file system location associated with the account.
+          type: string
+        includedImages:
+          description: List of URLs to included images.
+          type: array
+          items:
+            type: string
+            description: URL path to included image.
+        unsubscribeHandler:
+          description: URL to Unsubscribe Handler
+          type: string
+      required:
+      - name
+      - endpoint
+      - fileSystemLocation
+      - includedImages
+      - unsubscribeHandler
     addEmailDomainRequest:
       title: Add Email Domain Rules Request
       type: object
@@ -266,31 +290,19 @@ components:
       - avoidDomains
       - htmlDomains
       - txtDomains
-    settings:
-      title: Account Settings
+    endpoint:
+      title: Account Endpoints
       type: object
       properties:
-        name:
-          description: Username
+        apiType:
+          description: The API type to which the endpoint sends the API requests.
           type: string
-        endpoint:
-          description: The endpoint URL assciated with Auth Token.
-          type: string
-        fileSystemLocation:
-          description: Path to the file system location associated with the account.
-          type: string
-        includedImages:
-          description: List of URLs to included images.
-          type: array
-          items:
-            type: string
-            description: URL path to included image.
-        unsubscribeHandler:
-          description: URL to Unsubscribe Handler
+          enum:
+          - rest
+          - soap
+        endPoint:
+          description: The endpoint URL associated with the Auth Token which is used to send API requests to the API type.
           type: string
       required:
-      - name
-      - endpoint
-      - fileSystemLocation
-      - includedImages
-      - unsubscribeHandler
+      - apiType
+      - endPoint

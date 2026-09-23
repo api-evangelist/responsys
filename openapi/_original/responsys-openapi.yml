@@ -12,6 +12,10 @@ info:
     frameborder="0" allowfullscreen="1"></iframe>'
   x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in
     this video and download the Responsys API Brochure.
+host: login5.responsys.net
+basePath: /rest/api/v1.3
+schemes:
+- https
 paths:
   '/rest/api/v1.3/campaigns/{campaignName}/sms/trigger ':
     post:

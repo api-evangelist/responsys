@@ -1,16 +1,12 @@
 openapi: 3.2.0
 info:
-  title: REST API for Oracle Responsys Marketing Cloud Service Folders API
+  title: REST API for Oracle Responsys Marketing Cloud Service…
   version: 2023.03.03
   description: 'REST API for Oracle Responsys Marketing Cloud Service
 
-    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
 
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+    Learn more about Responsys APIs in this video and download the Responsys API Brochure.'
   x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
-servers:
-- url: https://login5.responsys.net/rest/api/v1.3
 tags:
 - name: Folders
   description: Responsys Account Folder API Endpoints
@@ -104,44 +100,13 @@ paths:
       x-filename-id: rest-api-v1.3-folders-foldername-content-get
 components:
   schemas:
-    createFolderResponse:
-      title: Create Folder Response
+    createFolderRequest:
+      title: Create Folder Request
       type: object
       properties:
-        folderId:
+        folderName:
+          description: Name of the folder to create.
           type: string
-          description: ID of the new folder.
-        errorMessage:
-          type: string
-          description: Error message if folder creation fails.
-        success:
-          type: boolean
-          description: Returns <code>true</code> if folder created successfully, <code>false</code> otherwise
-    getFolderContent-response:
-      title: Retrieve Folder Content
-      type: object
-      properties:
-        riObjects:
-          description: Array of Objects in the given folder
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: ID of the Object.
-              name:
-                type: string
-                description: Name of the Object.
-              type:
-                type: string
-                description: Type of the Object.
-              subType:
-                type: string
-                description: SubType of the Object.
-              folderId:
-                type: string
-                description: Id of the Folder containing the object.
     getFolders-response:
       title: Retrieve Folders
       type: object
@@ -188,10 +153,41 @@ components:
               new:
                 type: boolean
                 description: Is the Folder a new Folder.
-    createFolderRequest:
-      title: Create Folder Request
+    createFolderResponse:
+      title: Create Folder Response
       type: object
       properties:
-        folderName:
-          description: Name of the folder to create.
+        folderId:
           type: string
+          description: ID of the new folder.
+        errorMessage:
+          type: string
+          description: Error message if folder creation fails.
+        success:
+          type: boolean
+          description: Returns <code>true</code> if folder created successfully, <code>false</code> otherwise
+    getFolderContent-response:
+      title: Retrieve Folder Content
+      type: object
+      properties:
+        riObjects:
+          description: Array of Objects in the given folder
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: ID of the Object.
+              name:
+                type: string
+                description: Name of the Object.
+              type:
+                type: string
+                description: Type of the Object.
+              subType:
+                type: string
+                description: SubType of the Object.
+              folderId:
+                type: string
+                description: Id of the Folder containing the object.

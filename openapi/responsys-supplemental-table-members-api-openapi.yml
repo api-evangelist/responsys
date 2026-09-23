@@ -1,16 +1,12 @@
 openapi: 3.2.0
 info:
-  title: REST API for Oracle Responsys Marketing Cloud Service Supplemental Table Members API
+  title: REST API for Oracle Responsys Marketing Cloud Service…
   version: 2023.03.03
   description: 'REST API for Oracle Responsys Marketing Cloud Service
 
-    <br /><br /><b> Learn more about Responsys APIs in this video and download the <a href= "https://docs.oracle.com/en/cloud/saas/marketing/responsys-develop/Resources/Responsys_API.pdf">Responsys API Brochure</a>.</b><br />
 
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLw7GyH-Hj8cOUEctIQIrl3wIdwsTYqFEx" frameborder="0" allowfullscreen="1"></iframe>'
+    Learn more about Responsys APIs in this video and download the Responsys API Brochure.'
   x-summary: REST API for Oracle Responsys Marketing Cloud Service Learn more about Responsys APIs in this video and download the Responsys API Brochure.
-servers:
-- url: https://login5.responsys.net/rest/api/v1.3
 tags:
 - name: Supplemental Table Members
   description: Members of a Supplemental Data Table in the Responsys Interact Suite.
@@ -97,7 +93,7 @@ paths:
       x-filename-id: rest-api-v1.3-folders-foldername-suppdata-tablename-members-get
     delete:
       summary: Delete Supplemental Table member based on a query attribute
-      description: Deletes a Supplemental Table member based on a query attribute. A maximum of <b>one</b> record is deleted per request.
+      description: Deletes a Supplemental Table member based on a query attribute. A maximum of one record is deleted per request.
       operationId: delete /rest/api/v1.3/folders/{folderName}/suppData/{tableName}/members
       responses:
         default:
@@ -208,6 +204,43 @@ paths:
       x-filename-id: rest-api-v1.3-folder-foldername-suppdata-supptablename-get
 components:
   schemas:
+    supplementalTableMemberswithpk:
+      title: Supplemental Table members with PK
+      type: object
+      properties:
+        recordData:
+          description: Record data that represents field names and corresponding values for the member.
+          required:
+          - fieldNames
+          - records
+          type: object
+          properties:
+            fieldNames:
+              type: array
+              description: Field names in the Supplemental Table
+              items:
+                type: string
+            records:
+              type: array
+              description: Array of values corresponding to the fieldNames. Each element in the array represents a single member.
+              items:
+                type: array
+                description: Field values for the member in the Supplemental Table
+                items:
+                  type: string
+            mapTemplateName:
+              type: string
+              description: The map template in Responsys that can be used to map field names of the Supplemental Table to column names.
+        insertOnNoMatch:
+          description: Specifies whether a member record should be inserted into the Supplemental Table if it does not already exist.
+          type: boolean
+        updateOnMatch:
+          description: Specifies whether a member record should be updated in the Supplemental Table if it already exists.
+          enum:
+          - REPLACE_ALL
+          - NO_UPDATE
+          type: string
+        required: {}
     retrieveSuppFieldsResponse:
       title: Supplemental Data Table fields
       type: object
@@ -280,40 +313,3 @@ components:
       - insertOnNoMatch
       - updateOnMatch
       - matchColumnNames
-    supplementalTableMemberswithpk:
-      title: Supplemental Table members with PK
-      type: object
-      properties:
-        recordData:
-          description: Record data that represents field names and corresponding values for the member.
-          required:
-          - fieldNames
-          - records
-          type: object
-          properties:
-            fieldNames:
-              type: array
-              description: Field names in the Supplemental Table
-              items:
-                type: string
-            records:
-              type: array
-              description: Array of values corresponding to the fieldNames. Each element in the array represents a single member.
-              items:
-                type: array
-                description: Field values for the member in the Supplemental Table
-                items:
-                  type: string
-            mapTemplateName:
-              type: string
-              description: The map template in Responsys that can be used to map field names of the Supplemental Table to column names.
-        insertOnNoMatch:
-          description: Specifies whether a member record should be inserted into the Supplemental Table if it does not already exist.
-          type: boolean
-        updateOnMatch:
-          description: Specifies whether a member record should be updated in the Supplemental Table if it already exists.
-          enum:
-          - REPLACE_ALL
-          - NO_UPDATE
-          type: string
-        required: {}
