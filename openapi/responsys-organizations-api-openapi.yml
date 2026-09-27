@@ -15,7 +15,7 @@ paths:
     get:
       summary: Fetch all organizations
       description: Fetch a list of all organizations within the account.
-      operationId: get /rest/api/v1.3/attributes/organizations
+      operationId: get/rest/api/v1.3/attributes/organizations
       responses:
         default:
           description: ''
@@ -29,11 +29,13 @@ paths:
       - Organizations
       x-internal-id: rest-api-v1.3-attributes-organizations-get
       x-filename-id: rest-api-v1.3-attributes-organizations-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/attributes/organizations
   /rest/api/v1.3/attributes/programs/{programName}:
     get:
       summary: Fetch a program's organization hierarchy
       description: Fetch a list of organizations that can access a program.
-      operationId: get /rest/api/v1.3/attributes/programs/{programName}
+      operationId: get/rest/api/v1.3/attributes/programs/{programName}
       responses:
         default:
           description: ''
@@ -54,10 +56,12 @@ paths:
       - Organizations
       x-internal-id: rest-api-v1.3-attributes-programs-{programName}-get
       x-filename-id: rest-api-v1.3-attributes-programs-programname-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/attributes/programs/{programName}
     post:
       summary: Update a program's organizational access
       description: Update the organizations that can access a program.
-      operationId: post /rest/api/v1.3/attributes/programs/{programName}
+      operationId: post/rest/api/v1.3/attributes/programs/{programName}
       responses:
         default:
           description: ''
@@ -84,11 +88,13 @@ paths:
             schema:
               $ref: '#/components/schemas/edit-access-attributes-request'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/attributes/programs/{programName}
   /rest/api/v1.3/attributes/campaigns/{campaignName}:
     get:
       summary: Fetch a campaign's organization hierarchy
       description: Fetch a list of organizations that can access a campaign.
-      operationId: get /rest/api/v1.3/attributes/campaigns/{campaignName}
+      operationId: get/rest/api/v1.3/attributes/campaigns/{campaignName}
       responses:
         default:
           description: ''
@@ -109,10 +115,12 @@ paths:
       - Organizations
       x-internal-id: rest-api-v1.3-attributes-campaigns-{campaignName}-get
       x-filename-id: rest-api-v1.3-attributes-campaigns-campaignname-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/attributes/campaigns/{campaignName}
     post:
       summary: Update a campaign's organizational access
       description: Update the organizations that can access a campaign.
-      operationId: post /rest/api/v1.3/attributes/campaigns/{campaignName}
+      operationId: post/rest/api/v1.3/attributes/campaigns/{campaignName}
       responses:
         default:
           description: ''
@@ -139,8 +147,40 @@ paths:
             schema:
               $ref: '#/components/schemas/edit-access-attributes-request'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/attributes/campaigns/{campaignName}
 components:
   schemas:
+    get-organizations-response:
+      title: Get Organizations
+      type: object
+      properties:
+        attributes:
+          type: object
+          properties:
+            organizations:
+              type: object
+              properties:
+                attributeValues:
+                  description: Value of the Attribute
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/attribute'
+    get-assigned-attributes-response:
+      title: Get Assigned Organizations
+      type: object
+      properties:
+        attributes:
+          type: object
+          properties:
+            organizations:
+              type: object
+              properties:
+                attributeValues:
+                  description: Value of the Assigned Attributes
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/assigned-attribute'
     assigned-attribute:
       type: object
       title: assigned attribute
@@ -154,6 +194,24 @@ components:
         lineage:
           description: Description of the attribute's heirarchy
           type: string
+    attribute:
+      type: object
+      title: attribute
+      properties:
+        id:
+          description: ID of the attribute
+          type: string
+        name:
+          description: Name of the attribute
+          type: string
+        lineage:
+          description: Description of the attribute's heirarchy
+          type: string
+        children:
+          description: Children of the Attribute
+          type: array
+          items:
+            $ref: '#/components/schemas/attribute'
     edit-access-attributes-request:
       title: Edit Access Attributes Request
       type: object
@@ -174,51 +232,3 @@ components:
                       name:
                         type: string
                         description: Name of the Attribute to be assigned
-    get-assigned-attributes-response:
-      title: Get Assigned Organizations
-      type: object
-      properties:
-        attributes:
-          type: object
-          properties:
-            organizations:
-              type: object
-              properties:
-                attributeValues:
-                  description: Value of the Assigned Attributes
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/assigned-attribute'
-    attribute:
-      type: object
-      title: attribute
-      properties:
-        id:
-          description: ID of the attribute
-          type: string
-        name:
-          description: Name of the attribute
-          type: string
-        lineage:
-          description: Description of the attribute's heirarchy
-          type: string
-        children:
-          description: Children of the Attribute
-          type: array
-          items:
-            $ref: '#/components/schemas/attribute'
-    get-organizations-response:
-      title: Get Organizations
-      type: object
-      properties:
-        attributes:
-          type: object
-          properties:
-            organizations:
-              type: object
-              properties:
-                attributeValues:
-                  description: Value of the Attribute
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/attribute'

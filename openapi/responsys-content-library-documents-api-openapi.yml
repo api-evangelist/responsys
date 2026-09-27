@@ -14,7 +14,7 @@ paths:
   /rest/api/v1.3/clDocs:
     post:
       summary: Create a Content Library Document
-      operationId: post /rest/api/v1.3/clDocs
+      operationId: post/rest/api/v1.3/clDocs
       responses:
         default:
           description: ''
@@ -34,10 +34,12 @@ paths:
             schema:
               $ref: '#/components/schemas/clDocs'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/clDocs
   /rest/api/v1.3/clDocs/{docPath}:
     post:
       summary: Update Contents of a Content Library Document
-      operationId: post /rest/api/v1.3/clDocs/{docPath}
+      operationId: post/rest/api/v1.3/clDocs/{docPath}
       responses:
         default:
           description: ''
@@ -64,9 +66,11 @@ paths:
             schema:
               $ref: '#/components/schemas/clDocs'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/clDocs/{docPath}
     put:
       summary: Create a copy of a Content Library Document
-      operationId: put /rest/api/v1.3/clDocs/{docPath}
+      operationId: put/rest/api/v1.3/clDocs/{docPath}
       responses:
         default:
           description: ''
@@ -93,9 +97,11 @@ paths:
             schema:
               $ref: '#/components/schemas/copy-content-request'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: put /rest/api/v1.3/clDocs/{docPath}
     delete:
       summary: Delete a Content Library Document
-      operationId: delete /rest/api/v1.3/clDocs/{docPath}
+      operationId: delete/rest/api/v1.3/clDocs/{docPath}
       responses:
         default:
           description: ''
@@ -116,9 +122,11 @@ paths:
       - Content Library Documents
       x-internal-id: rest-api-v1.3-clDocs-{docPath}-delete
       x-filename-id: rest-api-v1.3-cldocs-docpath-delete
+      x-operation-id-source: normalized
+      x-operation-id-original: delete /rest/api/v1.3/clDocs/{docPath}
     get:
       summary: Retrieve contents of a Content Library Document
-      operationId: get /rest/api/v1.3/clDocs/{docPath}
+      operationId: get/rest/api/v1.3/clDocs/{docPath}
       responses:
         default:
           description: ''
@@ -139,6 +147,8 @@ paths:
       - Content Library Documents
       x-internal-id: rest-api-v1.3-clDocs-{docPath}-get
       x-filename-id: rest-api-v1.3-cldocs-docpath-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/clDocs/{docPath}
 components:
   schemas:
     copy-content-request:

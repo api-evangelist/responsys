@@ -14,7 +14,7 @@ paths:
   /rest/api/v1.3/events/{eventName}:
     post:
       summary: Trigger Custom Event
-      operationId: post /rest/api/v1.3/events/{eventName}
+      operationId: post/rest/api/v1.3/events/{eventName}
       responses:
         default:
           description: ''
@@ -41,10 +41,12 @@ paths:
             schema:
               $ref: '#/components/schemas/triggerCustomEvent'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/events/{eventName}
   '/rest/api/v1.3/events ':
     get:
       summary: Fetch All the Custom Events
-      operationId: get /rest/api/v1.3/events
+      operationId: get/rest/api/v1.3/events
       responses:
         default:
           description: ''
@@ -58,11 +60,13 @@ paths:
       - Events
       x-internal-id: rest-api-v1.3-events -get
       x-filename-id: rest-api-v1.3-events-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/events
   /rest/api/v1.3/events/rei/{eventName}:
     post:
       summary: Trigger REI Event
       description: Triggers a REI Event for Profile List, App Channel List, and Web Push recipients. Enables developers to trigger REI events for users across email, print, and mobile app channels to begin Program Orchestration. This feature is only available if it is enabled for your account. To access this feature for existing accounts, please log in to My Oracle Support and create a service request.
-      operationId: post /rest/api/v1.3/events/rei/{eventName}
+      operationId: post/rest/api/v1.3/events/rei/{eventName}
       responses:
         default:
           description: ''
@@ -89,25 +93,10 @@ paths:
             schema:
               $ref: '#/components/schemas/triggerReiEvent'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/events/rei/{eventName}
 components:
   schemas:
-    events:
-      title: Custom Events
-      type: object
-      properties:
-        eventName:
-          description: The name of the custom event
-          type: string
-        description:
-          description: The description of the custom event
-          type: string
-        eventType:
-          description: The type of the custom event
-          type: string
-      required:
-      - eventName
-      - description
-      - eventType
     triggerCustomEvent:
       title: Trigger Custom Event
       type: object
@@ -194,6 +183,28 @@ components:
       required:
       - customEvent
       - recipientData
+    events-collection:
+      title: Custom Events
+      type: array
+      items:
+        $ref: '#/components/schemas/events'
+    events:
+      title: Custom Events
+      type: object
+      properties:
+        eventName:
+          description: The name of the custom event
+          type: string
+        description:
+          description: The description of the custom event
+          type: string
+        eventType:
+          description: The type of the custom event
+          type: string
+      required:
+      - eventName
+      - description
+      - eventType
     triggerReiEvent:
       title: Trigger Rei Event
       type: object
@@ -314,8 +325,3 @@ components:
           recipientId:
             type: number
             description: The Responsys ID (RIID) of the recipient.
-    events-collection:
-      title: Custom Events
-      type: array
-      items:
-        $ref: '#/components/schemas/events'

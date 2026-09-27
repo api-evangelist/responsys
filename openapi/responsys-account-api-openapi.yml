@@ -15,7 +15,7 @@ paths:
     get:
       summary: Get User Information
       description: Retrieves information for the user's account sending the request.
-      operationId: get /rest/api/v1.3/user/info
+      operationId: get/rest/api/v1.3/user/info
       responses:
         default:
           description: ''
@@ -27,11 +27,13 @@ paths:
       - Account
       x-internal-id: rest-api-v1.3-user-info-get
       x-filename-id: rest-api-v1.3-user-info-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/user/info
   /rest/api/v1.3/settings/account:
     get:
       summary: Get Account Settings for a User
       description: Retrieves account settings for the user sending the request.
-      operationId: get /rest/api/v1.3/settings/account
+      operationId: get/rest/api/v1.3/settings/account
       responses:
         default:
           description: ''
@@ -43,11 +45,13 @@ paths:
       - Account
       x-internal-id: rest-api-v1.3-settings-account-get
       x-filename-id: rest-api-v1.3-settings-account-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/settings/account
   /rest/api/v1.3/settings/account/endpoint:
     get:
       summary: Get Endpoint URL for a User
       description: Retrieves the endpoint URL for the user sending the request. The response returns the API type and the endpoint URL used to send API requests.
-      operationId: get /rest/api/v1.3/settings/account/endpoint
+      operationId: get/rest/api/v1.3/settings/account/endpoint
       responses:
         default:
           description: ''
@@ -59,13 +63,15 @@ paths:
       - Account
       x-internal-id: rest-api-v1.3-settings-account-endpoint-get
       x-filename-id: rest-api-v1.3-settings-account-endpoint-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/settings/account/endpoint
   /rest/api/v1.3/settings/account/footer:
     get:
       summary: Get Email Footer
       description: 'Retrieves the account''s Email Footer content. The response returns the footer''s text and HTML content.
 
         See the Oracle Responsys Help Center for more information.'
-      operationId: get /rest/api/v1.3/settings/account/footer
+      operationId: get/rest/api/v1.3/settings/account/footer
       responses:
         default:
           description: ''
@@ -77,6 +83,8 @@ paths:
       - Account
       x-internal-id: rest-api-v1.3-settings-account-footer-get
       x-filename-id: rest-api-v1.3-settings-account-footer-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/settings/account/footer
   /rest/api/v1.3/settings/account/domains/email:
     get:
       summary: Get Email Domain Rules
@@ -95,7 +103,7 @@ paths:
 
 
         See the Oracle Responsys Help Center for more information.'
-      operationId: get /rest/api/v1.3/settings/account/domains/email
+      operationId: get/rest/api/v1.3/settings/account/domains/email
       responses:
         default:
           description: ''
@@ -107,10 +115,12 @@ paths:
       - Account
       x-internal-id: rest-api-v1.3-settings-account-domains-email-get
       x-filename-id: rest-api-v1.3-settings-account-domains-email-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/settings/account/domains/email
     put:
       summary: Add Email Domain Rules
       description: Adds new email domain rules to existing Email Domain Rules. Email Domain Rules are used during Campaign launch.
-      operationId: put /rest/api/v1.3/settings/account/domains/email
+      operationId: put/rest/api/v1.3/settings/account/domains/email
       responses:
         default:
           description: The response includes a list of email domain rules that exist in the system after addition
@@ -128,11 +138,13 @@ paths:
             schema:
               $ref: '#/components/schemas/addEmailDomainRequest'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: put /rest/api/v1.3/settings/account/domains/email
   /rest/api/v1.3/settings/account/domains/email/{domainRuleType}/{domainName}:
     delete:
       summary: Delete Email Domain Rules
       description: Deletes Email Domain Rules.
-      operationId: delete /rest/api/v1.3/settings/account/domains/email
+      operationId: delete/rest/api/v1.3/settings/account/domains/email
       responses:
         default:
           description: ''
@@ -161,8 +173,38 @@ paths:
       - Account
       x-internal-id: rest-api-v1.3-settings-account-domains-email-{domainRuleType}-{domainName}-delete
       x-filename-id: rest-api-v1.3-settings-account-domains-email-domainruletype-domainname-delete
+      x-operation-id-source: normalized
+      x-operation-id-original: delete /rest/api/v1.3/settings/account/domains/email
 components:
   schemas:
+    settings:
+      title: Account Settings
+      type: object
+      properties:
+        name:
+          description: Username
+          type: string
+        endpoint:
+          description: The endpoint URL assciated with Auth Token.
+          type: string
+        fileSystemLocation:
+          description: Path to the file system location associated with the account.
+          type: string
+        includedImages:
+          description: List of URLs to included images.
+          type: array
+          items:
+            type: string
+            description: URL path to included image.
+        unsubscribeHandler:
+          description: URL to Unsubscribe Handler
+          type: string
+      required:
+      - name
+      - endpoint
+      - fileSystemLocation
+      - includedImages
+      - unsubscribeHandler
     userInfo:
       title: User Information
       type: object
@@ -196,19 +238,6 @@ components:
       - accountDisplayName
       - accountTimeZone
       - createdDate
-    deleteEmailDomainResponse:
-      title: Delete email domain
-      type: object
-      properties:
-        message:
-          description: Message regarding delete operation.
-          type: string
-        status:
-          description: Status of the operation.
-          type: boolean
-      required:
-      - message
-      - status
     footer:
       title: Email Footer
       type: object
@@ -222,34 +251,6 @@ components:
       required:
       - text
       - html
-    settings:
-      title: Account Settings
-      type: object
-      properties:
-        name:
-          description: Username
-          type: string
-        endpoint:
-          description: The endpoint URL assciated with Auth Token.
-          type: string
-        fileSystemLocation:
-          description: Path to the file system location associated with the account.
-          type: string
-        includedImages:
-          description: List of URLs to included images.
-          type: array
-          items:
-            type: string
-            description: URL path to included image.
-        unsubscribeHandler:
-          description: URL to Unsubscribe Handler
-          type: string
-      required:
-      - name
-      - endpoint
-      - fileSystemLocation
-      - includedImages
-      - unsubscribeHandler
     addEmailDomainRequest:
       title: Add Email Domain Rules Request
       type: object
@@ -273,6 +274,35 @@ components:
       - avoidDomains
       - htmlDomains
       - txtDomains
+    deleteEmailDomainResponse:
+      title: Delete email domain
+      type: object
+      properties:
+        message:
+          description: Message regarding delete operation.
+          type: string
+        status:
+          description: Status of the operation.
+          type: boolean
+      required:
+      - message
+      - status
+    endpoint:
+      title: Account Endpoints
+      type: object
+      properties:
+        apiType:
+          description: The API type to which the endpoint sends the API requests.
+          type: string
+          enum:
+          - rest
+          - soap
+        endPoint:
+          description: The endpoint URL associated with the Auth Token which is used to send API requests to the API type.
+          type: string
+      required:
+      - apiType
+      - endPoint
     domains:
       title: Email Domain Rules
       type: object
@@ -290,19 +320,3 @@ components:
       - avoidDomains
       - htmlDomains
       - txtDomains
-    endpoint:
-      title: Account Endpoints
-      type: object
-      properties:
-        apiType:
-          description: The API type to which the endpoint sends the API requests.
-          type: string
-          enum:
-          - rest
-          - soap
-        endPoint:
-          description: The endpoint URL associated with the Auth Token which is used to send API requests to the API type.
-          type: string
-      required:
-      - apiType
-      - endPoint

@@ -14,7 +14,7 @@ paths:
   /rest/api/v1.3/lists:
     get:
       summary: Fetch All Profile Lists
-      operationId: get /rest/api/v1.3/lists
+      operationId: get/rest/api/v1.3/lists
       responses:
         default:
           description: ''
@@ -28,9 +28,11 @@ paths:
       - Profile Lists
       x-internal-id: rest-api-v1.3-lists-get
       x-filename-id: rest-api-v1.3-lists-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/lists
     post:
       summary: Create a Profile List with or without brand Context
-      operationId: post /rest/api/v1.3/lists
+      operationId: post/rest/api/v1.3/lists
       responses:
         default:
           description: ''
@@ -50,6 +52,8 @@ paths:
             schema:
               $ref: '#/components/schemas/createProfileListRequest'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/lists
   /rest/api/v1.3/lists/{listName}/fields:
     get:
       summary: Retrieve Profile List Fields
@@ -57,7 +61,7 @@ paths:
 
 
         Refer to the Oracle Responsys Help Center for more information about the profile list fields returned in the response.'
-      operationId: get /rest/api/v1.3/lists/{listName}/fields
+      operationId: get/rest/api/v1.3/lists/{listName}/fields
       responses:
         default:
           description: List Response
@@ -76,11 +80,13 @@ paths:
       - Profile Lists
       x-internal-id: rest-api-v1.3-lists-{listName}-fields-get
       x-filename-id: rest-api-v1.3-lists-listname-fields-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/lists/{listName}/fields
   /rest/api/v1.3/lists/{listName}/orgListExtensions/members:
     put:
       summary: Add or Update RIID in the Organizational Scope Mapping
       description: Adds or Updates profile list recipient's RIID in the Organizational Scope Mapping
-      operationId: put /rest/api/v1.3/lists/{listName}/orgListExtensions/members
+      operationId: put/rest/api/v1.3/lists/{listName}/orgListExtensions/members
       responses:
         default:
           description: ''
@@ -107,11 +113,13 @@ paths:
             schema:
               $ref: '#/components/schemas/mergeOrgListRecipients'
         description: Request body
+      x-operation-id-source: normalized
+      x-operation-id-original: put /rest/api/v1.3/lists/{listName}/orgListExtensions/members
   /rest/api/v1.3/lists/proofLists/records:
     get:
       summary: Retrieve Proof Lists
       description: Retrieves all Proof Lists for an account.
-      operationId: get /rest/api/v1.3/lists/proofLists/records
+      operationId: get/rest/api/v1.3/lists/proofLists/records
       responses:
         default:
           description: A list of all Proof Lists with their metadata.
@@ -136,11 +144,13 @@ paths:
       - Profile Lists
       x-internal-id: rest-api-v1.3-lists-proofLists-records-get
       x-filename-id: rest-api-v1.3-lists-prooflists-records-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/lists/proofLists/records
   /rest/api/v1.3/lists/segmentGroups/records:
     get:
       summary: Retrieve Segment Groups
       description: Retrieves all Segment Groups for an Account
-      operationId: get /rest/api/v1.3/lists/segmentGroups/records
+      operationId: get/rest/api/v1.3/lists/segmentGroups/records
       responses:
         default:
           description: A list of all Segment Groups with their metadata.
@@ -165,54 +175,36 @@ paths:
       - Profile Lists
       x-internal-id: rest-api-v1.3-lists-segmentGroups-records-get
       x-filename-id: rest-api-v1.3-lists-segmentgroups-records-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/lists/segmentGroups/records
 components:
   schemas:
-    mergeOrgListRecipients:
-      title: Merge Org List Recipients
+    profileListFieldsResponse:
+      title: Profile List Fields Response Model
       type: object
       properties:
-        recordData:
-          description: Record data that represents field names and corresponding values for the recipient.
-          required:
-          - fieldNames
-          - records
-          type: object
-          properties:
-            fieldNames:
-              type: array
-              description: Field names in the Profile List
-              items:
+        name:
+          description: The name of the Profile List
+          type: string
+        folderName:
+          description: The name of the folder in which the Profile List exists
+          type: string
+        fields:
+          description: The Profile List Fields
+          type: array
+          items:
+            type: object
+            properties:
+              fieldName:
                 type: string
-            records:
-              type: array
-              description: Array of values corresponding to the fieldNames. Each element in the array represents a single recipient.
-              items:
-                type: array
-                description: Field Values for the recipient in the Profile List
-                items:
-                  type: string
-        matchColumnName1:
-          enum:
-          - RIID_
-          - CUSTOMER_ID_
-          - EMAIL_ADDRESS_
-          - MOBILE_NUMBER_
-          - EMAIL_MD5_HASH_
-          - EMAIL_SHA256_HASH_
-          type: string
-          description: First match column for determining whether an insert or update should occur.
-        insertOnNoMatch:
-          type: boolean
-          description: Indicates what should be done for records where a match is not found (true = insert / false = no insert).
-        updateOnMatch:
-          enum:
-          - REPLACE_ALL
-          - NO_UPDATE
-          type: string
-          description: Controls how the existing record should be updated.
+                description: The Profile List Field Name
+              fieldType:
+                type: string
+                description: The Profile List Field Type
       required:
-      - recordData
-      - matchColumnName1
+      - name
+      - folderName
+      - fields
     proofListArray:
       title: Proof List Array
       type: object
@@ -274,40 +266,77 @@ components:
       - createdDate
       - modifiedBy
       - modifiedDate
-    createProfileListRequest:
-      title: Create Profile List Request model
+    segmentGroupArray:
+      title: Segment Group Array
       type: object
       properties:
-        listName:
-          description: The name of the Profile List
-          type: string
-        listFolderName:
-          description: The name of the folder in which the Profile List is to be created
-          type: string
-        description:
-          description: Description about the Profile list
-          type: string
-        brandName:
-          description: The name of the brand with which the profile list is associated. Required if account is brand-enabled.
-          type: string
-        fields:
-          description: The Profile List Fields
+        segmentGroups:
           type: array
           items:
-            type: object
-            properties:
-              fieldName:
-                type: string
-                description: The Profile List Field Name
-              fieldType:
-                type: string
-                description: The Profile List Field Type
-            required:
-            - fieldName
-            - fieldType
+            $ref: '#/components/schemas/segmentGroup'
       required:
-      - listName
-      - listFolderName
+      - segmentGroups
+    mergeOrgListRecipients:
+      title: Merge Org List Recipients
+      type: object
+      properties:
+        recordData:
+          description: Record data that represents field names and corresponding values for the recipient.
+          required:
+          - fieldNames
+          - records
+          type: object
+          properties:
+            fieldNames:
+              type: array
+              description: Field names in the Profile List
+              items:
+                type: string
+            records:
+              type: array
+              description: Array of values corresponding to the fieldNames. Each element in the array represents a single recipient.
+              items:
+                type: array
+                description: Field Values for the recipient in the Profile List
+                items:
+                  type: string
+        matchColumnName1:
+          enum:
+          - RIID_
+          - CUSTOMER_ID_
+          - EMAIL_ADDRESS_
+          - MOBILE_NUMBER_
+          - EMAIL_MD5_HASH_
+          - EMAIL_SHA256_HASH_
+          type: string
+          description: First match column for determining whether an insert or update should occur.
+        insertOnNoMatch:
+          type: boolean
+          description: Indicates what should be done for records where a match is not found (true = insert / false = no insert).
+        updateOnMatch:
+          enum:
+          - REPLACE_ALL
+          - NO_UPDATE
+          type: string
+          description: Controls how the existing record should be updated.
+      required:
+      - recordData
+      - matchColumnName1
+    createProfileListResponse:
+      title: Create Profile List Response model
+      type: object
+      properties:
+        message:
+          type: string
+          enum:
+          - List has been created.
+          description: The List has been created
+        name:
+          type: string
+          description: The Profile list Name.
+      required:
+      - message
+      - name
     proofList:
       title: Proof List
       type: object
@@ -347,47 +376,6 @@ components:
       - createdDate
       - modifiedBy
       - modifiedDate
-    profileListFieldsResponse:
-      title: Profile List Fields Response Model
-      type: object
-      properties:
-        name:
-          description: The name of the Profile List
-          type: string
-        folderName:
-          description: The name of the folder in which the Profile List exists
-          type: string
-        fields:
-          description: The Profile List Fields
-          type: array
-          items:
-            type: object
-            properties:
-              fieldName:
-                type: string
-                description: The Profile List Field Name
-              fieldType:
-                type: string
-                description: The Profile List Field Type
-      required:
-      - name
-      - folderName
-      - fields
-    createProfileListResponse:
-      title: Create Profile List Response model
-      type: object
-      properties:
-        message:
-          type: string
-          enum:
-          - List has been created.
-          description: The List has been created
-        name:
-          type: string
-          description: The Profile list Name.
-      required:
-      - message
-      - name
     lists:
       title: Profile Lists
       type: object
@@ -414,13 +402,37 @@ components:
       - name
       - folderName
       - fields
-    segmentGroupArray:
-      title: Segment Group Array
+    createProfileListRequest:
+      title: Create Profile List Request model
       type: object
       properties:
-        segmentGroups:
+        listName:
+          description: The name of the Profile List
+          type: string
+        listFolderName:
+          description: The name of the folder in which the Profile List is to be created
+          type: string
+        description:
+          description: Description about the Profile list
+          type: string
+        brandName:
+          description: The name of the brand with which the profile list is associated. Required if account is brand-enabled.
+          type: string
+        fields:
+          description: The Profile List Fields
           type: array
           items:
-            $ref: '#/components/schemas/segmentGroup'
+            type: object
+            properties:
+              fieldName:
+                type: string
+                description: The Profile List Field Name
+              fieldType:
+                type: string
+                description: The Profile List Field Type
+            required:
+            - fieldName
+            - fieldType
       required:
-      - segmentGroups
+      - listName
+      - listFolderName

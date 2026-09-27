@@ -14,7 +14,7 @@ paths:
   /rest/api/v1.3/clItems/{itemPath}:
     post:
       summary: Update a Content Library Media File
-      operationId: post /rest/api/v1.3/clItems/{itemPath}
+      operationId: post/rest/api/v1.3/clItems/{itemPath}
       responses:
         default:
           description: ''
@@ -41,9 +41,11 @@ paths:
             schema:
               $ref: '#/components/schemas/clItems'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/clItems/{itemPath}
     delete:
       summary: Delete a Content Library Media File
-      operationId: delete /rest/api/v1.3/clItems/{itemPath}
+      operationId: delete/rest/api/v1.3/clItems/{itemPath}
       responses:
         default:
           description: ''
@@ -64,9 +66,11 @@ paths:
       - Content Library Media Items
       x-internal-id: rest-api-v1.3-clItems-{itemPath}-delete
       x-filename-id: rest-api-v1.3-clitems-itempath-delete
+      x-operation-id-source: normalized
+      x-operation-id-original: delete /rest/api/v1.3/clItems/{itemPath}
     get:
       summary: Retrieve contents of a Content Library Media File
-      operationId: get /rest/api/v1.3/clItems/{itemPath}
+      operationId: get/rest/api/v1.3/clItems/{itemPath}
       responses:
         default:
           description: ''
@@ -87,11 +91,13 @@ paths:
       - Content Library Media Items
       x-internal-id: rest-api-v1.3-clItems-{itemPath}-get
       x-filename-id: rest-api-v1.3-clitems-itempath-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/clItems/{itemPath}
   /rest/api/v1.3/clItems:
     post:
       summary: Create a Content Library Media File
       description: This operation is used to create a content library media file.
-      operationId: post /rest/api/v1.3/clItems
+      operationId: post/rest/api/v1.3/clItems
       responses:
         default:
           description: ''
@@ -111,11 +117,13 @@ paths:
             schema:
               $ref: '#/components/schemas/clItems'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/clItems
   '/rest/api/v1.3/clItems/{destinationItemPath} ':
     put:
       summary: Create a copy of a Content Library Media file
       description: This operation is used to create a copy of a Content Library Media file.
-      operationId: post /rest/api/v1.3/clItems/{destinationItemPath}
+      operationId: post/rest/api/v1.3/clItems/{destinationItemPath}
       responses:
         default:
           description: ''
@@ -142,15 +150,10 @@ paths:
             schema:
               $ref: '#/components/schemas/copy-contentItem-request'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/clItems/{destinationItemPath}
 components:
   schemas:
-    copy-contentItem-request:
-      type: object
-      title: copy content document Request
-      properties:
-        itemPath:
-          description: Path of source item
-          type: string
     clItems:
       title: Content Library Media Files
       type: object
@@ -164,3 +167,10 @@ components:
       required:
       - itemPath
       - itemData
+    copy-contentItem-request:
+      type: object
+      title: copy content document Request
+      properties:
+        itemPath:
+          description: Path of source item
+          type: string

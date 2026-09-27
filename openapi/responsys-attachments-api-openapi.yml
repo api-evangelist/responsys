@@ -14,7 +14,7 @@ paths:
   /rest/api/v1.3/campaigns/{campaignName}/emailAttachments:
     post:
       summary: Merge Trigger Email With Attachments
-      operationId: post /rest/api/v1.3/campaigns/{campaignName}/emailAttachments
+      operationId: post/rest/api/v1.3/campaigns/{campaignName}/emailAttachments
       responses:
         default:
           description: ''
@@ -41,11 +41,13 @@ paths:
             schema:
               $ref: '#/components/schemas/mergeTriggerEmailWithAttachments'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/campaigns/{campaignName}/emailAttachments
   /rest/api/v1.3/campaigns/{campaignName}/emailAttachments/actions/trigger:
     post:
       summary: Trigger Email Message with Attachments
       description: Trigger Email Message with attachment data.
-      operationId: 'post /rest/api/v1.3/campaigns/{campaignName/emailAttachments/actions/trigger '
+      operationId: post/rest/api/v1.3/campaigns/{campaignName/emailAttachments/actions/trigger
       responses:
         default:
           description: ''
@@ -71,8 +73,31 @@ paths:
               $ref: '#/components/schemas/triggerEmailMessageWithAttachments'
         description: Request Body
         required: true
+      x-operation-id-source: normalized
+      x-operation-id-original: 'post /rest/api/v1.3/campaigns/{campaignName/emailAttachments/actions/trigger '
 components:
   schemas:
+    triggerEmailWithAttachments-response:
+      title: Trigger Email With Attachments Response
+      type: array
+      description: Array of Recipient Results.
+      items:
+        type: object
+        description: Response for individual recipient.
+        properties:
+          errorMessage:
+            type: string
+            description: Error Message, if any, that occurred during the trigger operation.
+          success:
+            type: boolean
+            description: Indicates success or failure.
+          recipientId:
+            type: number
+            description: The Responsys ID (RIID) of the recipient.
+        required:
+        - errorMessage
+        - success
+        - recipientId
     triggerEmailMessageWithAttachments:
       title: Trigger Email Message With Attachments
       type: object
@@ -144,23 +169,6 @@ components:
             - attachmentData
       required:
       - recipientData
-    triggerEmailWithAttachmentsResponse:
-      title: Trigger Email With Attachments Response
-      type: array
-      description: Array of Recipient Results.
-      items:
-        type: object
-        description: Response for individual recipient.
-        properties:
-          errorMessage:
-            type: string
-            description: Error Message, if any, that occurred during the merge or trigger operations.
-          success:
-            type: boolean
-            description: Indicates success or failure.
-          recipientId:
-            type: number
-            description: The Responsys ID (RIID) of the recipient.
     mergeTriggerEmailWithAttachments:
       title: Merge Trigger Email With Attachments
       type: object
@@ -271,7 +279,7 @@ components:
       required:
       - mergeTriggerRecordDataWithAttachments
       - mergeRule
-    triggerEmailWithAttachments-response:
+    triggerEmailWithAttachmentsResponse:
       title: Trigger Email With Attachments Response
       type: array
       description: Array of Recipient Results.
@@ -281,14 +289,10 @@ components:
         properties:
           errorMessage:
             type: string
-            description: Error Message, if any, that occurred during the trigger operation.
+            description: Error Message, if any, that occurred during the merge or trigger operations.
           success:
             type: boolean
             description: Indicates success or failure.
           recipientId:
             type: number
             description: The Responsys ID (RIID) of the recipient.
-        required:
-        - errorMessage
-        - success
-        - recipientId

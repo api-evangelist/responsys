@@ -14,7 +14,7 @@ paths:
   /rest/api/v1.3/lists/{listName}/members:
     post:
       summary: Merge List Recipients
-      operationId: post /rest/api/v1.3/lists/{listName}/members
+      operationId: post/rest/api/v1.3/lists/{listName}/members
       responses:
         default:
           description: ''
@@ -41,13 +41,15 @@ paths:
             schema:
               $ref: '#/components/schemas/profileListRecipients'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/lists/{listName}/members
     get:
       summary: Retrieve List Recipient using query attribute
       description: 'This endpoint retrieves a count of profile list recipients in a profile list. You can use query attributes to filter the results by specifying a query attribute type and values. If no query attributes are specified, the total count of profile list recipients is returned.
 
 
         The count property in the response determines the amount of matching profile list recipients.'
-      operationId: get /rest/api/v1.3/lists/{listName}/members
+      operationId: get/rest/api/v1.3/lists/{listName}/members
       responses:
         default:
           description: ''
@@ -83,12 +85,14 @@ paths:
       - Profile List Recipients
       x-internal-id: rest-api-v1.3-lists-{listName}-members-get
       x-filename-id: rest-api-v1.3-lists-listname-members-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/lists/{listName}/members
     delete:
       summary: Delete Profile List Recipients using query attribute
       description: 'Deletes profile list recipients for a profile list using query attributes. Using the query parameters specify a query attribute type to identify recipients, and the corresponding value. The response indicates how many matching records were deleted.
 
         Up to 10 profile list recipients can be deleted in a single request.'
-      operationId: delete /rest/api/v1.3/lists/{listName}/members
+      operationId: delete/rest/api/v1.3/lists/{listName}/members
       responses:
         default:
           description: ''
@@ -117,10 +121,12 @@ paths:
       - Profile List Recipients
       x-internal-id: rest-api-v1.3-lists-{listName}-members-delete
       x-filename-id: rest-api-v1.3-lists-listname-members-delete
+      x-operation-id-source: normalized
+      x-operation-id-original: delete /rest/api/v1.3/lists/{listName}/members
   /rest/api/v1.3/lists/{listName}/members/{riid}:
     get:
       summary: Retrieve List Recipient using RIID
-      operationId: get /rest/api/v1.3/lists/{listName}/members/{riid}
+      operationId: get/rest/api/v1.3/lists/{listName}/members/{riid}
       responses:
         default:
           description: ''
@@ -152,10 +158,12 @@ paths:
       - Profile List Recipients
       x-internal-id: rest-api-v1.3-lists-{listName}-members-{riid}-get
       x-filename-id: rest-api-v1.3-lists-listname-members-riid-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/lists/{listName}/members/{riid}
     delete:
       summary: Delete List Recipients based on RIID
       description: Deletes List Recipients based on RIID
-      operationId: delete /rest/api/v1.3/lists/{listName}/members/{riid}
+      operationId: delete/rest/api/v1.3/lists/{listName}/members/{riid}
       responses:
         default:
           description: ''
@@ -182,10 +190,12 @@ paths:
       - Profile List Recipients
       x-internal-id: rest-api-v1.3-lists-{listName}-members-{riid}-delete
       x-filename-id: rest-api-v1.3-lists-listname-members-riid-delete
+      x-operation-id-source: normalized
+      x-operation-id-original: delete /rest/api/v1.3/lists/{listName}/members/{riid}
   '/rest/api/v1.3/lists/{listName}/members ':
     post:
       summary: Delete multiple Profile List Recipients
-      operationId: post /rest/api/v1.3/lists/{listName}/members?action=delete
+      operationId: post/rest/api/v1.3/lists/{listName}/members?action=delete
       responses:
         default:
           description: ''
@@ -218,10 +228,12 @@ paths:
             schema:
               $ref: '#/components/schemas/deleteListRecipientsRequest'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/lists/{listName}/members?action=delete
   '/rest/api/v1.3/lists/{listName}/members  ':
     post:
       summary: Retrieve multiple Profile List Recipients
-      operationId: post /rest/api/v1.3/lists/{listName}/members?action=get
+      operationId: post/rest/api/v1.3/lists/{listName}/members?action=get
       responses:
         default:
           description: ''
@@ -254,11 +266,13 @@ paths:
             schema:
               $ref: '#/components/schemas/retrieveListRecipientsRequest'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/lists/{listName}/members?action=get
   /rest/api/v1.3/lists/{listName}/members/count:
     get:
       summary: Retrieve List Recipients Count using query attribute
       description: Retrieves a count of Profile List Recipients that match the query attributes. If no query attributes are specified, retrieves total count of the profile list recipients.
-      operationId: get /rest/api/v1.3/lists/{listName}/members/count
+      operationId: get/rest/api/v1.3/lists/{listName}/members/count
       responses:
         default:
           description: ''
@@ -287,26 +301,10 @@ paths:
       - Profile List Recipients
       x-internal-id: rest-api-v1.3-lists-{listName}-members-count-get
       x-filename-id: rest-api-v1.3-lists-listname-members-count-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/lists/{listName}/members/count
 components:
   schemas:
-    deleteListRecipientsRequest:
-      title: Delete List Recipients
-      type: object
-      properties:
-        queryAttribute:
-          description: Query Attribute based on which records will be deleted. Can have the values r(RIID),e(email address),m(mobile number),c(customer id)
-          type: string
-        ids:
-          type: array
-          description: Array of values corresponding to the fieldNames.
-          items:
-            type: array
-            description: Field Values for the recipient in the Profile List
-            items:
-              type: string
-      required:
-      - queryAttribute
-      - ids
     retrieveListRecipientsRequest:
       title: Retrieve List Recipients
       type: object
@@ -334,6 +332,29 @@ components:
       - queryAttribute
       - fieldList
       - ids
+    retrieveListRecipientCount:
+      title: Retrieve List Recipients Count
+      type: object
+      properties:
+        count:
+          description: Count of list recipients that matches the query attribute passed or total count of list recipients when no query attributes are passed
+          type: integer
+        links:
+          type: object
+          description: link URLs that represents next link table APIs
+          properties:
+            rel:
+              type: string
+              description: link table API name
+            href:
+              type: string
+              description: URI of link table API
+            method:
+              type: string
+              description: request method type
+      required:
+      - count
+      - links
     profileListRecipients:
       title: Profile List Recipients
       type: object
@@ -424,29 +445,6 @@ components:
       required:
       - recordData
       - mergeRule
-    retrieveListRecipientCount:
-      title: Retrieve List Recipients Count
-      type: object
-      properties:
-        count:
-          description: Count of list recipients that matches the query attribute passed or total count of list recipients when no query attributes are passed
-          type: integer
-        links:
-          type: object
-          description: link URLs that represents next link table APIs
-          properties:
-            rel:
-              type: string
-              description: link table API name
-            href:
-              type: string
-              description: URI of link table API
-            method:
-              type: string
-              description: request method type
-      required:
-      - count
-      - links
     deleteListRecipientsUsingQueryAttributes:
       title: Delete List Recipients Using Query Attributes
       type: object
@@ -502,3 +500,21 @@ components:
       - totalMatchedRecords
       - remainingRecordCount
       - hasMoreRecords
+    deleteListRecipientsRequest:
+      title: Delete List Recipients
+      type: object
+      properties:
+        queryAttribute:
+          description: Query Attribute based on which records will be deleted. Can have the values r(RIID),e(email address),m(mobile number),c(customer id)
+          type: string
+        ids:
+          type: array
+          description: Array of values corresponding to the fieldNames.
+          items:
+            type: array
+            description: Field Values for the recipient in the Profile List
+            items:
+              type: string
+      required:
+      - queryAttribute
+      - ids

@@ -14,7 +14,7 @@ paths:
   /rest/api/v1.3/campaigns/{campaignName}/email:
     post:
       summary: Merge Trigger Email
-      operationId: post /rest/api/v1.3/campaigns/{campaignName}/email
+      operationId: post/rest/api/v1.3/campaigns/{campaignName}/email
       responses:
         default:
           description: ''
@@ -41,6 +41,8 @@ paths:
             schema:
               $ref: '#/components/schemas/mergeTriggerEmail'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/campaigns/{campaignName}/email
 components:
   schemas:
     mergeTriggerEmail:

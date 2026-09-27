@@ -15,7 +15,7 @@ paths:
     get:
       summary: Retrieve a Campaign's Proof List
       description: Retrieves the Campaign Proof List associated with a specified Campaign.
-      operationId: get /rest/api/v1.3/campaigns/{campaignName}/attributes/proofList
+      operationId: get/rest/api/v1.3/campaigns/{campaignName}/attributes/proofList
       responses:
         default:
           description: ''
@@ -34,10 +34,12 @@ paths:
       - Campaign Attributes
       x-internal-id: rest-api-v1.3-campaigns-{campaignName}-attributes-proofList-get
       x-filename-id: rest-api-v1.3-campaigns-campaignname-attributes-prooflist-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/campaigns/{campaignName}/attributes/proofList
     put:
       summary: Update a Campaign's Proof List
       description: Updates the Proof List associated with a Campaign
-      operationId: put /rest/api/v1.3/campaigns/{campaignName}/attributes/proofList
+      operationId: put/rest/api/v1.3/campaigns/{campaignName}/attributes/proofList
       responses:
         default:
           description: ''
@@ -62,11 +64,13 @@ paths:
             schema:
               $ref: '#/components/schemas/campaignProofListAttributeRequest'
         required: true
+      x-operation-id-source: normalized
+      x-operation-id-original: put /rest/api/v1.3/campaigns/{campaignName}/attributes/proofList
   /rest/api/v1.3/campaigns/{campaignName}/attributes/dataSources:
     get:
       summary: Retrieve Campaign Data Sources
       description: Retrieves Data Sources associated with a Campaign
-      operationId: get /rest/api/v1.3/campaigns/{campaignName}/attributes/dataSources
+      operationId: get/rest/api/v1.3/campaigns/{campaignName}/attributes/dataSources
       responses:
         default:
           description: ''
@@ -85,82 +89,10 @@ paths:
       - Campaign Attributes
       x-internal-id: rest-api-v1.3-campaigns-{campaignName}-attributes-dataSources-get
       x-filename-id: rest-api-v1.3-campaigns-campaignname-attributes-datasources-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/campaigns/{campaignName}/attributes/dataSources
 components:
   schemas:
-    proofList:
-      title: Proof List
-      type: object
-      properties:
-        name:
-          description: Proof List Name
-          type: string
-        description:
-          description: Proof List description
-          type: string
-        listName:
-          description: Profile list name for which the Proof List is associated
-          type: string
-        folderName:
-          description: Folder containing the Proof List
-          type: string
-        createdBy:
-          description: User who created the Proof List
-          type: string
-        createdDate:
-          description: Proof List creation date
-          type: string
-          format: date
-        modifiedBy:
-          description: User who modified the Proof List
-          type: string
-        modifiedDate:
-          description: Proof List modification date
-          type: string
-          format: date
-      required:
-      - name
-      - description
-      - listName
-      - folderName
-      - createdBy
-      - createdDate
-      - modifiedBy
-      - modifiedDate
-    campaignDataSourcesAttributeResponse:
-      title: Campaign Data Sources Response
-      type: object
-      properties:
-        attributeName:
-          description: the attribute of the campaign. "dataSources" in this scenario
-          type: string
-          enum:
-          - dataSources
-        attributeData:
-          description: Campaign attribute data
-          type: object
-          properties:
-            dataSources:
-              description: Array of Data Sources associated with the Campaign
-              type: array
-              items:
-                $ref: '#/components/schemas/dataSource'
-      required:
-      - attributeName
-      - attributeData
-    campaignProofListAttributeResponse:
-      title: Campaign Proof List Response
-      type: object
-      properties:
-        attributeName:
-          description: The attribute of the campaign. "ProofList" in this scenario
-          type: string
-          enum:
-          - proofList
-        attributeData:
-          $ref: '#/components/schemas/proofList'
-      required:
-      - attributeName
-      - attributeData
     dataSource:
       title: Campaign DataSource
       type: object
@@ -188,6 +120,20 @@ components:
       - fields
       - type
       - default
+    campaignProofListAttributeResponse:
+      title: Campaign Proof List Response
+      type: object
+      properties:
+        attributeName:
+          description: The attribute of the campaign. "ProofList" in this scenario
+          type: string
+          enum:
+          - proofList
+        attributeData:
+          $ref: '#/components/schemas/proofList'
+      required:
+      - attributeName
+      - attributeData
     field:
       title: Field
       type: object
@@ -228,3 +174,63 @@ components:
       required:
       - attributeName
       - attributeData
+    campaignDataSourcesAttributeResponse:
+      title: Campaign Data Sources Response
+      type: object
+      properties:
+        attributeName:
+          description: the attribute of the campaign. "dataSources" in this scenario
+          type: string
+          enum:
+          - dataSources
+        attributeData:
+          description: Campaign attribute data
+          type: object
+          properties:
+            dataSources:
+              description: Array of Data Sources associated with the Campaign
+              type: array
+              items:
+                $ref: '#/components/schemas/dataSource'
+      required:
+      - attributeName
+      - attributeData
+    proofList:
+      title: Proof List
+      type: object
+      properties:
+        name:
+          description: Proof List Name
+          type: string
+        description:
+          description: Proof List description
+          type: string
+        listName:
+          description: Profile list name for which the Proof List is associated
+          type: string
+        folderName:
+          description: Folder containing the Proof List
+          type: string
+        createdBy:
+          description: User who created the Proof List
+          type: string
+        createdDate:
+          description: Proof List creation date
+          type: string
+          format: date
+        modifiedBy:
+          description: User who modified the Proof List
+          type: string
+        modifiedDate:
+          description: Proof List modification date
+          type: string
+          format: date
+      required:
+      - name
+      - description
+      - listName
+      - folderName
+      - createdBy
+      - createdDate
+      - modifiedBy
+      - modifiedDate

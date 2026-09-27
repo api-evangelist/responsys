@@ -18,7 +18,7 @@ paths:
 
 
         For more information on filters, see the Oracle Responsys Help Center.'
-      operationId: get /rest/api/v1.3/filters
+      operationId: get/rest/api/v1.3/filters
       responses:
         default:
           description: ''
@@ -43,6 +43,8 @@ paths:
       - Filters
       x-internal-id: rest-api-v1.3-filters-get
       x-filename-id: rest-api-v1.3-filters-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/filters
 components:
   schemas:
     filters-collection:

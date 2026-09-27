@@ -14,7 +14,7 @@ paths:
   /rest/api/v1.3/campaigns/{campaignName}/schedule:
     post:
       summary: Create an Email or Push campaign schedule
-      operationId: post /rest/api/v1.3/campaigns/{campaignName}/schedule
+      operationId: post/rest/api/v1.3/campaigns/{campaignName}/schedule
       responses:
         default:
           description: ''
@@ -41,9 +41,11 @@ paths:
             schema:
               $ref: '#/components/schemas/campaignSchedule'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/campaigns/{campaignName}/schedule
     get:
       summary: Fetch All Email or Push Campaign Schedules
-      operationId: get /rest/api/v1.3/campaigns/{campaignName}/schedule
+      operationId: get/rest/api/v1.3/campaigns/{campaignName}/schedule
       responses:
         default:
           description: ''
@@ -64,10 +66,12 @@ paths:
       - Email or Push Campaign Schedule
       x-internal-id: rest-api-v1.3-campaigns-{campaignName}-schedule-get
       x-filename-id: rest-api-v1.3-campaigns-campaignname-schedule-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/campaigns/{campaignName}/schedule
   /rest/api/v1.3/campaigns/{campaignName}/schedule/{scheduleId}:
     get:
       summary: Retrieve an Email or Push campaign schedule
-      operationId: get /rest/api/v1.3/campaigns/{campaignName}/schedule/{scheduleId}
+      operationId: get/rest/api/v1.3/campaigns/{campaignName}/schedule/{scheduleId}
       responses:
         default:
           description: ''
@@ -94,9 +98,11 @@ paths:
       - Email or Push Campaign Schedule
       x-internal-id: rest-api-v1.3-campaigns-{campaignName}-schedule-{scheduleId}-get
       x-filename-id: rest-api-v1.3-campaigns-campaignname-schedule-scheduleid-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/campaigns/{campaignName}/schedule/{scheduleId}
     put:
       summary: Update an Email or Push campaign schedule
-      operationId: put /rest/api/v1.3/campaigns/{campaignName}/schedule/{scheduleId}
+      operationId: put/rest/api/v1.3/campaigns/{campaignName}/schedule/{scheduleId}
       responses:
         default:
           description: ''
@@ -129,9 +135,11 @@ paths:
             schema:
               $ref: '#/components/schemas/update-campaignSchedule-request'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: put /rest/api/v1.3/campaigns/{campaignName}/schedule/{scheduleId}
     delete:
       summary: Delete an Email or Push campaign schedule
-      operationId: delete /rest/api/v1.3/campaigns/{campaignName}/schedule/{scheduleId}
+      operationId: delete/rest/api/v1.3/campaigns/{campaignName}/schedule/{scheduleId}
       responses:
         default:
           description: ''
@@ -158,8 +166,108 @@ paths:
       - Email or Push Campaign Schedule
       x-internal-id: rest-api-v1.3-campaigns-{campaignName}-schedule-{scheduleId}-delete
       x-filename-id: rest-api-v1.3-campaigns-campaignname-schedule-scheduleid-delete
+      x-operation-id-source: normalized
+      x-operation-id-original: delete /rest/api/v1.3/campaigns/{campaignName}/schedule/{scheduleId}
 components:
   schemas:
+    create-retrieve-campaignSchedule-response:
+      type: object
+      title: Email or Push Campaign Schedule
+      properties:
+        id:
+          description: ID of the schedule.
+          type: string
+        launchOptions:
+          description: Launch Options for the schedule.
+          type: object
+          properties:
+            progressChunk:
+              enum:
+              - CHUNK_10K
+              - CHUNK_50K
+              - CHUNK_100K
+              - CHUNK_500K
+              - CHUNK_1M
+              type: string
+              description: Progress Chunk.
+            recipientLimit:
+              type: integer
+              description: Recipient Limit.
+            proofLaunchType:
+              enum:
+              - LAUNCH_TO_ADDRESS
+              - LAUNCH_TO_PROOFLIST
+              - LAUNCH_TO_ADDRESS_USING_PROOFLIST
+              type: string
+              description: Proof Launch type.
+            progressEmailAddresses:
+              type: array
+              description: Email addresses to inform of progress.
+              items:
+                type: string
+            samplingNthOffset:
+              type: integer
+              description: Sampling offset.
+            samplingNthInterval:
+              type: integer
+              description: Sampling Interval.
+            proofLaunch:
+              type: boolean
+              description: Should a proof launch be performed.
+            samplingNthSelection:
+              type: integer
+              description: Sampling Selection.
+            proofLaunchEmail:
+              type: string
+              description: Email address for the proof launch.
+        scheduleType:
+          description: Schedule Type.
+          enum:
+          - NOW
+          - ONCE
+          type: string
+        scheduledTime:
+          description: Date in the format yyyy-mm-dd HH:mm
+          type: string
+        recurringEndTime:
+          description: Date in the format yyyy-mm-dd HH:mm
+          type: string
+    update-delete-campaignSchedule-response:
+      type: object
+      title: Update Email or Push Campaign Schedule Response
+      properties:
+        id:
+          description: ID of the schedule.
+          type: string
+        scheduleType:
+          description: Schedule Type.
+          enum:
+          - NOW
+          - ONCE
+          type: string
+        scheduledTime:
+          description: Date in the format yyyy-mm-dd HH:mm
+          type: string
+        launchOptions:
+          description: Launch Options for the schedule.
+          type: object
+          properties:
+            proofLaunch:
+              type: boolean
+              description: Should a proof launch be performed.
+    update-campaignSchedule-request:
+      type: object
+      title: Update Email or Push Campaign Schedule Request
+      properties:
+        scheduleType:
+          description: Schedule Type.
+          enum:
+          - NOW
+          - ONCE
+          type: string
+        scheduledTime:
+          description: Date in the format yyyy-mm-dd HH:mm
+          type: string
     campaignSchedule:
       title: Email or Push Campaign Schedule
       type: object
@@ -222,6 +330,14 @@ components:
       required:
       - scheduleType
       - scheduledTime
+    campaignSchedule-collection:
+      title: Email or Push Campaign Schedules
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/retrieve-campaignSchedule-response'
     retrieve-campaignSchedule-response:
       type: object
       title: Email or Push Campaign Schedule
@@ -285,109 +401,3 @@ components:
         recurringEndTime:
           description: Date in the format yyyy-mm-dd HH:mm
           type: string
-    create-retrieve-campaignSchedule-response:
-      type: object
-      title: Email or Push Campaign Schedule
-      properties:
-        id:
-          description: ID of the schedule.
-          type: string
-        launchOptions:
-          description: Launch Options for the schedule.
-          type: object
-          properties:
-            progressChunk:
-              enum:
-              - CHUNK_10K
-              - CHUNK_50K
-              - CHUNK_100K
-              - CHUNK_500K
-              - CHUNK_1M
-              type: string
-              description: Progress Chunk.
-            recipientLimit:
-              type: integer
-              description: Recipient Limit.
-            proofLaunchType:
-              enum:
-              - LAUNCH_TO_ADDRESS
-              - LAUNCH_TO_PROOFLIST
-              - LAUNCH_TO_ADDRESS_USING_PROOFLIST
-              type: string
-              description: Proof Launch type.
-            progressEmailAddresses:
-              type: array
-              description: Email addresses to inform of progress.
-              items:
-                type: string
-            samplingNthOffset:
-              type: integer
-              description: Sampling offset.
-            samplingNthInterval:
-              type: integer
-              description: Sampling Interval.
-            proofLaunch:
-              type: boolean
-              description: Should a proof launch be performed.
-            samplingNthSelection:
-              type: integer
-              description: Sampling Selection.
-            proofLaunchEmail:
-              type: string
-              description: Email address for the proof launch.
-        scheduleType:
-          description: Schedule Type.
-          enum:
-          - NOW
-          - ONCE
-          type: string
-        scheduledTime:
-          description: Date in the format yyyy-mm-dd HH:mm
-          type: string
-        recurringEndTime:
-          description: Date in the format yyyy-mm-dd HH:mm
-          type: string
-    update-campaignSchedule-request:
-      type: object
-      title: Update Email or Push Campaign Schedule Request
-      properties:
-        scheduleType:
-          description: Schedule Type.
-          enum:
-          - NOW
-          - ONCE
-          type: string
-        scheduledTime:
-          description: Date in the format yyyy-mm-dd HH:mm
-          type: string
-    update-delete-campaignSchedule-response:
-      type: object
-      title: Update Email or Push Campaign Schedule Response
-      properties:
-        id:
-          description: ID of the schedule.
-          type: string
-        scheduleType:
-          description: Schedule Type.
-          enum:
-          - NOW
-          - ONCE
-          type: string
-        scheduledTime:
-          description: Date in the format yyyy-mm-dd HH:mm
-          type: string
-        launchOptions:
-          description: Launch Options for the schedule.
-          type: object
-          properties:
-            proofLaunch:
-              type: boolean
-              description: Should a proof launch be performed.
-    campaignSchedule-collection:
-      title: Email or Push Campaign Schedules
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/retrieve-campaignSchedule-response'

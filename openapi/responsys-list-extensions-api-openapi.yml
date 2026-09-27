@@ -14,7 +14,7 @@ paths:
   /rest/api/v1.3/lists/{listName}/listExtensions:
     post:
       summary: Create Profile Extension
-      operationId: post /rest/api/v1.3/lists/{listName}/listExtensions
+      operationId: post/rest/api/v1.3/lists/{listName}/listExtensions
       responses:
         default:
           description: ''
@@ -41,9 +41,11 @@ paths:
             schema:
               $ref: '#/components/schemas/listExtensions'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/lists/{listName}/listExtensions
     get:
       summary: Fetch All Profile Extensions for a Profile List
-      operationId: get /rest/api/v1.3/lists/{listName}/listExtensions
+      operationId: get/rest/api/v1.3/lists/{listName}/listExtensions
       responses:
         default:
           description: ''
@@ -64,6 +66,8 @@ paths:
       - List Extensions
       x-internal-id: rest-api-v1.3-lists-{listName}-listExtensions-get
       x-filename-id: rest-api-v1.3-lists-listname-listextensions-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/lists/{listName}/listExtensions
 components:
   schemas:
     listExtensions:

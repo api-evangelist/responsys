@@ -14,7 +14,7 @@ paths:
   /rest/api/v1.3/programs:
     get:
       summary: Fetch All Programs
-      operationId: get /rest/api/v1.3/programs
+      operationId: get/rest/api/v1.3/programs
       responses:
         default:
           description: ''
@@ -44,11 +44,13 @@ paths:
       - Programs
       x-internal-id: rest-api-v1.3-programs-get
       x-filename-id: rest-api-v1.3-programs-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/programs
   /rest/api/v1.3/programs/{programName}:
     get:
       summary: Fetch a Program by Name
       description: Fetches a Program by program name.
-      operationId: get /rest/api/v1.3/programs/{programName}
+      operationId: get/rest/api/v1.3/programs/{programName}
       responses:
         default:
           description: Fetches details for the specified program name.
@@ -69,10 +71,12 @@ paths:
       - Programs
       x-internal-id: rest-api-v1.3-programs-{programName}-get
       x-filename-id: rest-api-v1.3-programs-programname-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/programs/{programName}
     patch:
       summary: Publish or Unpublish a Program
       description: Use this interface to publish a valid program or unpublish a program.
-      operationId: patch /rest/api/v1.3/programs/{programName}
+      operationId: patch/rest/api/v1.3/programs/{programName}
       responses:
         default:
           description: ''
@@ -98,6 +102,8 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/update-program-request'
+      x-operation-id-source: normalized
+      x-operation-id-original: patch /rest/api/v1.3/programs/{programName}
   /rest/api/v1.3/programs/enactments:
     post:
       summary: Exit Enactments
@@ -107,7 +113,7 @@ paths:
         In the case of a successful request, a success message is returned in the response body. Programs must be currently unpublished, but have been published at least once. If these requirements are not met, a 400 Bad Request error will be returned.
 
         See the Oracle Responsys Help Center for more information about resolving blocked program stages.'
-      operationId: post /rest/api/v1.3/programs/enactments
+      operationId: post/rest/api/v1.3/programs/enactments
       responses:
         default:
           description: ''
@@ -126,11 +132,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/exit-program-enactments-request'
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/programs/enactments
   /rest/api/v1.3/programs/lists/{listName}:
     get:
       summary: Fetch Programs for a Profile List
       description: Fetches all programs associated with the specified profile list. The response includes a list of all Programs associated with the Profile List, and information about the program such as the status of the program, and the program channels.
-      operationId: get /rest/api/v1.3/programs/lists/{listName}
+      operationId: get/rest/api/v1.3/programs/lists/{listName}
       responses:
         default:
           description: Fetches all programs for the specified Profile List name
@@ -161,95 +169,10 @@ paths:
       - Programs
       x-internal-id: rest-api-v1.3-programs-lists-{listName}-get
       x-filename-id: rest-api-v1.3-programs-lists-listname-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/programs/lists/{listName}
 components:
   schemas:
-    exit-program-enactments-response:
-      title: exit-program-enactments-response
-      type: object
-      properties:
-        status:
-          description: SUCCESS if operation is successful otherwise FAILURE
-          enum:
-          - SUCCESS
-          - FAILURE
-          type: string
-        errorMsg:
-          description: Error messages when operation fails
-          type: string
-    update-program-request:
-      title: update-program-request
-      type: object
-      properties:
-        action:
-          description: Action to be performed on a given program
-          enum:
-          - publish
-          - unpublish
-          type: string
-        saveDraft:
-          description: Indicates whether to save the draft version or published version
-          enum:
-          - Y
-          - N
-          type: string
-    exit-program-enactments-request:
-      title: exit-program-enactments-request
-      type: object
-      properties:
-        action:
-          description: Action to perform on program enactments. Must be exit.
-          enum:
-          - exit
-          type: string
-        programName:
-          description: Name of the program to exit enactments
-          type: string
-    retrieve-program-response:
-      type: object
-      title: program
-      properties:
-        id:
-          description: ID of the program.
-          type: string
-        name:
-          description: Name of the program.
-          type: string
-        folderName:
-          description: Folder name for the program.
-          type: string
-        listName:
-          description: Name of the list associated with the program
-          type: string
-        channels:
-          description: List of channels for the program
-          type: array
-          items:
-            type: string
-        createdOn:
-          description: Creation date of the program
-          type: string
-        createdBy:
-          description: User that created the program
-          type: string
-        modifiedOn:
-          description: Last Modified date of the program
-          type: string
-        modifiedBy:
-          description: User that last modified the program
-          type: string
-        publishDate:
-          description: Last Publish date of the program
-          type: string
-        unpublishDate:
-          description: Unpublish date of the program. It is empty for a program in running state
-          type: string
-        status:
-          description: Status of the program
-          enum:
-          - NOT_RUNNING
-          - RUNNING
-          - RUNNING_WITH_ERRORS
-          type: string
     programByName-response:
       type: object
       title: programByName-response
@@ -332,14 +255,52 @@ components:
       - modifiedOn
       - modifiedBy
       - publishDate
-    programs-collection:
-      title: Programs
+    retrieve-program-response:
       type: object
+      title: program
       properties:
-        items:
+        id:
+          description: ID of the program.
+          type: string
+        name:
+          description: Name of the program.
+          type: string
+        folderName:
+          description: Folder name for the program.
+          type: string
+        listName:
+          description: Name of the list associated with the program
+          type: string
+        channels:
+          description: List of channels for the program
           type: array
           items:
-            $ref: '#/components/schemas/retrieve-program-response'
+            type: string
+        createdOn:
+          description: Creation date of the program
+          type: string
+        createdBy:
+          description: User that created the program
+          type: string
+        modifiedOn:
+          description: Last Modified date of the program
+          type: string
+        modifiedBy:
+          description: User that last modified the program
+          type: string
+        publishDate:
+          description: Last Publish date of the program
+          type: string
+        unpublishDate:
+          description: Unpublish date of the program. It is empty for a program in running state
+          type: string
+        status:
+          description: Status of the program
+          enum:
+          - NOT_RUNNING
+          - RUNNING
+          - RUNNING_WITH_ERRORS
+          type: string
     update-program-response:
       title: update-program-response
       type: object
@@ -352,4 +313,53 @@ components:
           type: string
         errorMsg:
           description: Error messages when publish or unpublish fails
+          type: string
+    update-program-request:
+      title: update-program-request
+      type: object
+      properties:
+        action:
+          description: Action to be performed on a given program
+          enum:
+          - publish
+          - unpublish
+          type: string
+        saveDraft:
+          description: Indicates whether to save the draft version or published version
+          enum:
+          - Y
+          - N
+          type: string
+    exit-program-enactments-response:
+      title: exit-program-enactments-response
+      type: object
+      properties:
+        status:
+          description: SUCCESS if operation is successful otherwise FAILURE
+          enum:
+          - SUCCESS
+          - FAILURE
+          type: string
+        errorMsg:
+          description: Error messages when operation fails
+          type: string
+    programs-collection:
+      title: Programs
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/retrieve-program-response'
+    exit-program-enactments-request:
+      title: exit-program-enactments-request
+      type: object
+      properties:
+        action:
+          description: Action to perform on program enactments. Must be exit.
+          enum:
+          - exit
+          type: string
+        programName:
+          description: Name of the program to exit enactments
           type: string

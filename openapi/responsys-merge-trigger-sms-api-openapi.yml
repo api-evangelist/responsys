@@ -14,7 +14,7 @@ paths:
   /rest/api/v1.3/campaigns/{campaignName}/sms:
     post:
       summary: Merge Trigger SMS
-      operationId: post /rest/api/v1.3/campaigns/{campaignName}/sms
+      operationId: post/rest/api/v1.3/campaigns/{campaignName}/sms
       responses:
         default:
           description: ''
@@ -41,6 +41,8 @@ paths:
             schema:
               $ref: '#/components/schemas/mergeTriggerSMS'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/campaigns/{campaignName}/sms
 components:
   schemas:
     mergeTriggerSMS:

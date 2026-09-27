@@ -14,7 +14,7 @@ paths:
   '/rest/api/v1.3/campaigns/{campaignName}/sms/trigger ':
     post:
       summary: Trigger SMS Message
-      operationId: 'post /rest/api/v1.3/campaigns/{campaignName}/sms/trigger '
+      operationId: post/rest/api/v1.3/campaigns/{campaignName}/sms/trigger
       responses:
         default:
           description: ''
@@ -41,6 +41,8 @@ paths:
             schema:
               $ref: '#/components/schemas/triggerSmsMessage'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: 'post /rest/api/v1.3/campaigns/{campaignName}/sms/trigger '
 components:
   schemas:
     triggerSmsMessage:

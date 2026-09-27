@@ -14,7 +14,7 @@ paths:
   /rest/api/v1.3/clFolders:
     post:
       summary: Create Content Library Folder
-      operationId: post /rest/api/v1.3/clFolders
+      operationId: post/rest/api/v1.3/clFolders
       responses:
         default:
           description: ''
@@ -34,10 +34,12 @@ paths:
             schema:
               $ref: '#/components/schemas/clFolders'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/clFolders
   /rest/api/v1.3/clFolders/{folderPath}:
     delete:
       summary: Delete Content Library Folder
-      operationId: delete /rest/api/v1.3/clFolders/{folderPath}
+      operationId: delete/rest/api/v1.3/clFolders/{folderPath}
       responses:
         default:
           description: ''
@@ -58,9 +60,11 @@ paths:
       - Content Library Folders
       x-internal-id: rest-api-v1.3-clFolders-{folderPath}-delete
       x-filename-id: rest-api-v1.3-clfolders-folderpath-delete
+      x-operation-id-source: normalized
+      x-operation-id-original: delete /rest/api/v1.3/clFolders/{folderPath}
     get:
       summary: List contents of a Content Library Folder
-      operationId: get /rest/api/v1.3/clFolders/{folderPath}
+      operationId: get/rest/api/v1.3/clFolders/{folderPath}
       responses:
         default:
           description: ''
@@ -86,8 +90,19 @@ paths:
       - Content Library Folders
       x-internal-id: rest-api-v1.3-clFolders-{folderPath}-get
       x-filename-id: rest-api-v1.3-clfolders-folderpath-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/clFolders/{folderPath}
 components:
   schemas:
+    clFolders:
+      title: Content Library Folders
+      type: object
+      properties:
+        folderPath:
+          description: The complete path of the folder starting with /contentlibrary.
+          type: string
+      required:
+      - folderPath
     listClFoldersResponse:
       title: List Content Library Folders Response
       type: object
@@ -126,12 +141,3 @@ components:
                 type: string
                 format: byte
                 description: Base64 encoded binary string of the media file content.
-    clFolders:
-      title: Content Library Folders
-      type: object
-      properties:
-        folderPath:
-          description: The complete path of the folder starting with /contentlibrary.
-          type: string
-      required:
-      - folderPath

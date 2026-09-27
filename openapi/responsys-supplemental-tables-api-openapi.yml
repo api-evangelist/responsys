@@ -15,7 +15,7 @@ paths:
     get:
       summary: Fetch All Supplemental Tables
       description: Use this endpoint to get all Supplemental Tables for your account.
-      operationId: get /rest/api/v1.3/suppData
+      operationId: get/rest/api/v1.3/suppData
       responses:
         default:
           description: Supplemental Data Tables
@@ -27,11 +27,13 @@ paths:
       - Supplemental Tables
       x-internal-id: rest-api-v1.3-suppData-get
       x-filename-id: rest-api-v1.3-suppdata-get
+      x-operation-id-source: normalized
+      x-operation-id-original: get /rest/api/v1.3/suppData
   /rest/api/v1.3/folders/{folderName}/suppData:
     post:
       summary: Create Supplemental Table
       description: Use this endpoint to create a new supplemental table by providing its schema.
-      operationId: post /rest/api/v1.3/folders/{folderName}/suppData
+      operationId: post/rest/api/v1.3/folders/{folderName}/suppData
       responses:
         default:
           description: true/false indicating success or failure.
@@ -58,11 +60,13 @@ paths:
             schema:
               $ref: '#/components/schemas/supplementalTable'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: post /rest/api/v1.3/folders/{folderName}/suppData
   /rest/api/v1.3/folders/{folderName}/suppData/{suppTableName}:
     put:
       summary: Update Supplemental Table
       description: Use this endpoint to update a supplemental table by providing the properties to update.
-      operationId: PUT /rest/api/v1.3/folders/{folderName}/suppData/{suppTableName}
+      operationId: PUT/rest/api/v1.3/folders/{folderName}/suppData/{suppTableName}
       responses:
         default:
           description: Update Supplemental Data Table
@@ -93,21 +97,18 @@ paths:
             schema:
               $ref: '#/components/schemas/update-supp-request'
         description: Request Body
+      x-operation-id-source: normalized
+      x-operation-id-original: PUT /rest/api/v1.3/folders/{folderName}/suppData/{suppTableName}
 components:
   schemas:
-    update-supp-request:
-      title: Update Supplemental Data Table Request
+    supp-tables:
+      title: Supplemental Data Tables
       type: object
       properties:
-        folderName:
-          description: The name of the folder where the supplemental table is located.
-          type: string
-        tableName:
-          description: The name of the supplemental table to update.
-          type: string
-      required:
-      - folderName
-      - tableName
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/sup-table'
     supplementalTable:
       title: create supplemental table Request
       type: object
@@ -139,6 +140,36 @@ components:
           type: array
           items:
             type: string
+    supplementalTableResponse:
+      title: create supplemental table Response
+      type: boolean
+      description: true/false indicating success or failure.
+    update-supp-request:
+      title: Update Supplemental Data Table Request
+      type: object
+      properties:
+        folderName:
+          description: The name of the folder where the supplemental table is located.
+          type: string
+        tableName:
+          description: The name of the supplemental table to update.
+          type: string
+      required:
+      - folderName
+      - tableName
+    update-supp-table:
+      title: Update Supplemental Data Table Response
+      type: object
+      properties:
+        message:
+          description: 'Message: Supplemental Table has been updated will be displayed'
+          type: string
+        status:
+          description: true or false
+          type: boolean
+      required:
+      - message
+      - status
     sup-table:
       title: Supplemental Data table
       type: object
@@ -165,28 +196,3 @@ components:
       - name
       - folderName
       - fields
-    supp-tables:
-      title: Supplemental Data Tables
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/sup-table'
-    update-supp-table:
-      title: Update Supplemental Data Table Response
-      type: object
-      properties:
-        message:
-          description: 'Message: Supplemental Table has been updated will be displayed'
-          type: string
-        status:
-          description: true or false
-          type: boolean
-      required:
-      - message
-      - status
-    supplementalTableResponse:
-      title: create supplemental table Response
-      type: boolean
-      description: true/false indicating success or failure.
