@@ -106,31 +106,26 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/folders/{folderName}/content
 components:
   schemas:
-    getFolderContent-response:
-      title: Retrieve Folder Content
+    createFolderRequest:
+      title: Create Folder Request
       type: object
       properties:
-        riObjects:
-          description: Array of Objects in the given folder
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: ID of the Object.
-              name:
-                type: string
-                description: Name of the Object.
-              type:
-                type: string
-                description: Type of the Object.
-              subType:
-                type: string
-                description: SubType of the Object.
-              folderId:
-                type: string
-                description: Id of the Folder containing the object.
+        folderName:
+          description: Name of the folder to create.
+          type: string
+    createFolderResponse:
+      title: Create Folder Response
+      type: object
+      properties:
+        folderId:
+          type: string
+          description: ID of the new folder.
+        errorMessage:
+          type: string
+          description: Error message if folder creation fails.
+        success:
+          type: boolean
+          description: Returns <code>true</code> if folder created successfully, <code>false</code> otherwise
     getFolders-response:
       title: Retrieve Folders
       type: object
@@ -177,23 +172,28 @@ components:
               new:
                 type: boolean
                 description: Is the Folder a new Folder.
-    createFolderRequest:
-      title: Create Folder Request
+    getFolderContent-response:
+      title: Retrieve Folder Content
       type: object
       properties:
-        folderName:
-          description: Name of the folder to create.
-          type: string
-    createFolderResponse:
-      title: Create Folder Response
-      type: object
-      properties:
-        folderId:
-          type: string
-          description: ID of the new folder.
-        errorMessage:
-          type: string
-          description: Error message if folder creation fails.
-        success:
-          type: boolean
-          description: Returns <code>true</code> if folder created successfully, <code>false</code> otherwise
+        riObjects:
+          description: Array of Objects in the given folder
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: ID of the Object.
+              name:
+                type: string
+                description: Name of the Object.
+              type:
+                type: string
+                description: Type of the Object.
+              subType:
+                type: string
+                description: SubType of the Object.
+              folderId:
+                type: string
+                description: Id of the Folder containing the object.

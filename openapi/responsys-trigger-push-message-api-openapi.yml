@@ -45,23 +45,6 @@ paths:
       x-operation-id-original: 'post /rest/api/v1.3/campaigns/{campaignName}/push '
 components:
   schemas:
-    triggerPush-response:
-      title: Trigger Push Response
-      type: array
-      description: Array of Recipient Results.
-      items:
-        type: object
-        description: Response for individual recipient.
-        properties:
-          errorMessage:
-            type: string
-            description: Error Message, if any, that occurred during the trigger operation.
-          success:
-            type: boolean
-            description: Indicates success or failure.
-          recipientId:
-            type: number
-            description: The Responsys ID (RIID) of the recipient.
     triggerPushMessage:
       title: Trigger Push Message
       type: object
@@ -114,3 +97,20 @@ components:
                 description: Recipient's RIID.
       required:
       - recipientData
+    triggerPush-response:
+      title: Trigger Push Response
+      type: array
+      description: Array of Recipient Results.
+      items:
+        type: object
+        description: Response for individual recipient.
+        properties:
+          errorMessage:
+            type: string
+            description: Error Message, if any, that occurred during the trigger operation.
+          success:
+            type: boolean
+            description: Indicates success or failure.
+          recipientId:
+            type: number
+            description: The Responsys ID (RIID) of the recipient.

@@ -154,6 +154,13 @@ paths:
       x-operation-id-original: post /rest/api/v1.3/clItems/{destinationItemPath}
 components:
   schemas:
+    copy-contentItem-request:
+      type: object
+      title: copy content document Request
+      properties:
+        itemPath:
+          description: Path of source item
+          type: string
     clItems:
       title: Content Library Media Files
       type: object
@@ -167,10 +174,3 @@ components:
       required:
       - itemPath
       - itemData
-    copy-contentItem-request:
-      type: object
-      title: copy content document Request
-      properties:
-        itemPath:
-          description: Path of source item
-          type: string

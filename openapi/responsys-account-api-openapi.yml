@@ -177,6 +177,36 @@ paths:
       x-operation-id-original: delete /rest/api/v1.3/settings/account/domains/email
 components:
   schemas:
+    domains:
+      title: Email Domain Rules
+      type: object
+      properties:
+        avoidDomains:
+          description: List of email domains to which campaign messages must not be sent at all
+          type: string
+        htmlDomains:
+          description: List of domains that support only HTML based emails
+          type: string
+        txtDomains:
+          description: List of domains that support only text based emails
+          type: string
+      required:
+      - avoidDomains
+      - htmlDomains
+      - txtDomains
+    deleteEmailDomainResponse:
+      title: Delete email domain
+      type: object
+      properties:
+        message:
+          description: Message regarding delete operation.
+          type: string
+        status:
+          description: Status of the operation.
+          type: boolean
+      required:
+      - message
+      - status
     settings:
       title: Account Settings
       type: object
@@ -205,6 +235,19 @@ components:
       - fileSystemLocation
       - includedImages
       - unsubscribeHandler
+    footer:
+      title: Email Footer
+      type: object
+      properties:
+        text:
+          description: Contents of the Text Footer
+          type: string
+        html:
+          description: Contents of the HTML Footer
+          type: string
+      required:
+      - text
+      - html
     userInfo:
       title: User Information
       type: object
@@ -238,19 +281,22 @@ components:
       - accountDisplayName
       - accountTimeZone
       - createdDate
-    footer:
-      title: Email Footer
+    endpoint:
+      title: Account Endpoints
       type: object
       properties:
-        text:
-          description: Contents of the Text Footer
+        apiType:
+          description: The API type to which the endpoint sends the API requests.
           type: string
-        html:
-          description: Contents of the HTML Footer
+          enum:
+          - rest
+          - soap
+        endPoint:
+          description: The endpoint URL associated with the Auth Token which is used to send API requests to the API type.
           type: string
       required:
-      - text
-      - html
+      - apiType
+      - endPoint
     addEmailDomainRequest:
       title: Add Email Domain Rules Request
       type: object
@@ -270,52 +316,6 @@ components:
           type: array
           items:
             type: string
-      required:
-      - avoidDomains
-      - htmlDomains
-      - txtDomains
-    deleteEmailDomainResponse:
-      title: Delete email domain
-      type: object
-      properties:
-        message:
-          description: Message regarding delete operation.
-          type: string
-        status:
-          description: Status of the operation.
-          type: boolean
-      required:
-      - message
-      - status
-    endpoint:
-      title: Account Endpoints
-      type: object
-      properties:
-        apiType:
-          description: The API type to which the endpoint sends the API requests.
-          type: string
-          enum:
-          - rest
-          - soap
-        endPoint:
-          description: The endpoint URL associated with the Auth Token which is used to send API requests to the API type.
-          type: string
-      required:
-      - apiType
-      - endPoint
-    domains:
-      title: Email Domain Rules
-      type: object
-      properties:
-        avoidDomains:
-          description: List of email domains to which campaign messages must not be sent at all
-          type: string
-        htmlDomains:
-          description: List of domains that support only HTML based emails
-          type: string
-        txtDomains:
-          description: List of domains that support only text based emails
-          type: string
       required:
       - avoidDomains
       - htmlDomains

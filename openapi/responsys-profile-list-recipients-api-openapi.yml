@@ -305,33 +305,6 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/lists/{listName}/members/count
 components:
   schemas:
-    retrieveListRecipientsRequest:
-      title: Retrieve List Recipients
-      type: object
-      properties:
-        queryAttribute:
-          description: Query Attribute based on which records will be retrieved. Can have the values r(RIID),e(email address),m(mobile number),c(customer id), e_md5(EMAIL_MD5_HASH_), e_sha256(EMAIL_SHA256_HASH_)
-          type: string
-        fieldList:
-          type: array
-          description: Array of field names to be retrieved
-          items:
-            type: array
-            description: Field Name in the Profile List
-            items:
-              type: string
-        ids:
-          type: array
-          description: Array of values corresponding to the fieldNames.
-          items:
-            type: array
-            description: Field Values for the recipient in the Profile List
-            items:
-              type: string
-      required:
-      - queryAttribute
-      - fieldList
-      - ids
     retrieveListRecipientCount:
       title: Retrieve List Recipients Count
       type: object
@@ -355,6 +328,24 @@ components:
       required:
       - count
       - links
+    deleteListRecipientsRequest:
+      title: Delete List Recipients
+      type: object
+      properties:
+        queryAttribute:
+          description: Query Attribute based on which records will be deleted. Can have the values r(RIID),e(email address),m(mobile number),c(customer id)
+          type: string
+        ids:
+          type: array
+          description: Array of values corresponding to the fieldNames.
+          items:
+            type: array
+            description: Field Values for the recipient in the Profile List
+            items:
+              type: string
+      required:
+      - queryAttribute
+      - ids
     profileListRecipients:
       title: Profile List Recipients
       type: object
@@ -445,6 +436,33 @@ components:
       required:
       - recordData
       - mergeRule
+    retrieveListRecipientsRequest:
+      title: Retrieve List Recipients
+      type: object
+      properties:
+        queryAttribute:
+          description: Query Attribute based on which records will be retrieved. Can have the values r(RIID),e(email address),m(mobile number),c(customer id), e_md5(EMAIL_MD5_HASH_), e_sha256(EMAIL_SHA256_HASH_)
+          type: string
+        fieldList:
+          type: array
+          description: Array of field names to be retrieved
+          items:
+            type: array
+            description: Field Name in the Profile List
+            items:
+              type: string
+        ids:
+          type: array
+          description: Array of values corresponding to the fieldNames.
+          items:
+            type: array
+            description: Field Values for the recipient in the Profile List
+            items:
+              type: string
+      required:
+      - queryAttribute
+      - fieldList
+      - ids
     deleteListRecipientsUsingQueryAttributes:
       title: Delete List Recipients Using Query Attributes
       type: object
@@ -500,21 +518,3 @@ components:
       - totalMatchedRecords
       - remainingRecordCount
       - hasMoreRecords
-    deleteListRecipientsRequest:
-      title: Delete List Recipients
-      type: object
-      properties:
-        queryAttribute:
-          description: Query Attribute based on which records will be deleted. Can have the values r(RIID),e(email address),m(mobile number),c(customer id)
-          type: string
-        ids:
-          type: array
-          description: Array of values corresponding to the fieldNames.
-          items:
-            type: array
-            description: Field Values for the recipient in the Profile List
-            items:
-              type: string
-      required:
-      - queryAttribute
-      - ids

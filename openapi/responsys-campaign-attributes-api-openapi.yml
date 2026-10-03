@@ -93,6 +93,27 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/campaigns/{campaignName}/attributes/dataSources
 components:
   schemas:
+    field:
+      title: Field
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the field
+        alias:
+          type: string
+          description: Alias for the field name
+        lookUpKey:
+          type: boolean
+          description: whether the field is a lookup key or not
+        defaultValue:
+          type: string
+          description: default value of the field
+      required:
+      - name
+      - alias
+      - lookUpKey
+      - defaultValue
     dataSource:
       title: Campaign DataSource
       type: object
@@ -120,41 +141,45 @@ components:
       - fields
       - type
       - default
-    campaignProofListAttributeResponse:
-      title: Campaign Proof List Response
-      type: object
-      properties:
-        attributeName:
-          description: The attribute of the campaign. "ProofList" in this scenario
-          type: string
-          enum:
-          - proofList
-        attributeData:
-          $ref: '#/components/schemas/proofList'
-      required:
-      - attributeName
-      - attributeData
-    field:
-      title: Field
+    proofList:
+      title: Proof List
       type: object
       properties:
         name:
+          description: Proof List Name
           type: string
-          description: Name of the field
-        alias:
+        description:
+          description: Proof List description
           type: string
-          description: Alias for the field name
-        lookUpKey:
-          type: boolean
-          description: whether the field is a lookup key or not
-        defaultValue:
+        listName:
+          description: Profile list name for which the Proof List is associated
           type: string
-          description: default value of the field
+        folderName:
+          description: Folder containing the Proof List
+          type: string
+        createdBy:
+          description: User who created the Proof List
+          type: string
+        createdDate:
+          description: Proof List creation date
+          type: string
+          format: date
+        modifiedBy:
+          description: User who modified the Proof List
+          type: string
+        modifiedDate:
+          description: Proof List modification date
+          type: string
+          format: date
       required:
       - name
-      - alias
-      - lookUpKey
-      - defaultValue
+      - description
+      - listName
+      - folderName
+      - createdBy
+      - createdDate
+      - modifiedBy
+      - modifiedDate
     campaignProofListAttributeRequest:
       title: Campaign Proof List Request
       type: object
@@ -195,42 +220,17 @@ components:
       required:
       - attributeName
       - attributeData
-    proofList:
-      title: Proof List
+    campaignProofListAttributeResponse:
+      title: Campaign Proof List Response
       type: object
       properties:
-        name:
-          description: Proof List Name
+        attributeName:
+          description: The attribute of the campaign. "ProofList" in this scenario
           type: string
-        description:
-          description: Proof List description
-          type: string
-        listName:
-          description: Profile list name for which the Proof List is associated
-          type: string
-        folderName:
-          description: Folder containing the Proof List
-          type: string
-        createdBy:
-          description: User who created the Proof List
-          type: string
-        createdDate:
-          description: Proof List creation date
-          type: string
-          format: date
-        modifiedBy:
-          description: User who modified the Proof List
-          type: string
-        modifiedDate:
-          description: Proof List modification date
-          type: string
-          format: date
+          enum:
+          - proofList
+        attributeData:
+          $ref: '#/components/schemas/proofList'
       required:
-      - name
-      - description
-      - listName
-      - folderName
-      - createdBy
-      - createdDate
-      - modifiedBy
-      - modifiedDate
+      - attributeName
+      - attributeData

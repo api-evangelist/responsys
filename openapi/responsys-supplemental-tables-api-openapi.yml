@@ -101,6 +101,32 @@ paths:
       x-operation-id-original: PUT /rest/api/v1.3/folders/{folderName}/suppData/{suppTableName}
 components:
   schemas:
+    update-supp-table:
+      title: Update Supplemental Data Table Response
+      type: object
+      properties:
+        message:
+          description: 'Message: Supplemental Table has been updated will be displayed'
+          type: string
+        status:
+          description: true or false
+          type: boolean
+      required:
+      - message
+      - status
+    update-supp-request:
+      title: Update Supplemental Data Table Request
+      type: object
+      properties:
+        folderName:
+          description: The name of the folder where the supplemental table is located.
+          type: string
+        tableName:
+          description: The name of the supplemental table to update.
+          type: string
+      required:
+      - folderName
+      - tableName
     supp-tables:
       title: Supplemental Data Tables
       type: object
@@ -140,36 +166,6 @@ components:
           type: array
           items:
             type: string
-    supplementalTableResponse:
-      title: create supplemental table Response
-      type: boolean
-      description: true/false indicating success or failure.
-    update-supp-request:
-      title: Update Supplemental Data Table Request
-      type: object
-      properties:
-        folderName:
-          description: The name of the folder where the supplemental table is located.
-          type: string
-        tableName:
-          description: The name of the supplemental table to update.
-          type: string
-      required:
-      - folderName
-      - tableName
-    update-supp-table:
-      title: Update Supplemental Data Table Response
-      type: object
-      properties:
-        message:
-          description: 'Message: Supplemental Table has been updated will be displayed'
-          type: string
-        status:
-          description: true or false
-          type: boolean
-      required:
-      - message
-      - status
     sup-table:
       title: Supplemental Data table
       type: object
@@ -196,3 +192,7 @@ components:
       - name
       - folderName
       - fields
+    supplementalTableResponse:
+      title: create supplemental table Response
+      type: boolean
+      description: true/false indicating success or failure.

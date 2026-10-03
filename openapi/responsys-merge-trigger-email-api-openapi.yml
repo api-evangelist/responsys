@@ -45,6 +45,23 @@ paths:
       x-operation-id-original: post /rest/api/v1.3/campaigns/{campaignName}/email
 components:
   schemas:
+    triggerEmailResponse:
+      title: Trigger Email Response
+      type: array
+      description: Array of Recipient Results.
+      items:
+        type: object
+        description: Response for individual recipient.
+        properties:
+          errorMessage:
+            type: string
+            description: Error Message, if any, that occurred during the merge or trigger operations.
+          success:
+            type: boolean
+            description: Indicates success or failure.
+          recipientId:
+            type: number
+            description: The Responsys ID (RIID) of the recipient.
     mergeTriggerEmail:
       title: Merge Trigger Email
       type: object
@@ -145,20 +162,3 @@ components:
       required:
       - mergeTriggerRecordData
       - mergeRule
-    triggerEmailResponse:
-      title: Trigger Email Response
-      type: array
-      description: Array of Recipient Results.
-      items:
-        type: object
-        description: Response for individual recipient.
-        properties:
-          errorMessage:
-            type: string
-            description: Error Message, if any, that occurred during the merge or trigger operations.
-          success:
-            type: boolean
-            description: Indicates success or failure.
-          recipientId:
-            type: number
-            description: The Responsys ID (RIID) of the recipient.

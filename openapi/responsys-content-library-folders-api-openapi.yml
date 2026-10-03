@@ -94,15 +94,6 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/clFolders/{folderPath}
 components:
   schemas:
-    clFolders:
-      title: Content Library Folders
-      type: object
-      properties:
-        folderPath:
-          description: The complete path of the folder starting with /contentlibrary.
-          type: string
-      required:
-      - folderPath
     listClFoldersResponse:
       title: List Content Library Folders Response
       type: object
@@ -141,3 +132,12 @@ components:
                 type: string
                 format: byte
                 description: Base64 encoded binary string of the media file content.
+    clFolders:
+      title: Content Library Folders
+      type: object
+      properties:
+        folderPath:
+          description: The complete path of the folder starting with /contentlibrary.
+          type: string
+      required:
+      - folderPath

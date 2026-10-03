@@ -183,6 +183,23 @@ components:
       required:
       - customEvent
       - recipientData
+    triggerEvent-response:
+      title: Trigger Custom Event Response
+      type: array
+      description: Array of Recipient Results.
+      items:
+        type: object
+        description: Response for individual recipient.
+        properties:
+          errorMessage:
+            type: string
+            description: Error Message, if any, that occurred during the merge or trigger operations.
+          success:
+            type: boolean
+            description: Indicates success or failure.
+          recipientId:
+            type: number
+            description: The Responsys ID (RIID) of the recipient.
     events-collection:
       title: Custom Events
       type: array
@@ -308,20 +325,3 @@ components:
       required:
       - reiEvent
       - recipientData
-    triggerEvent-response:
-      title: Trigger Custom Event Response
-      type: array
-      description: Array of Recipient Results.
-      items:
-        type: object
-        description: Response for individual recipient.
-        properties:
-          errorMessage:
-            type: string
-            description: Error Message, if any, that occurred during the merge or trigger operations.
-          success:
-            type: boolean
-            description: Indicates success or failure.
-          recipientId:
-            type: number
-            description: The Responsys ID (RIID) of the recipient.

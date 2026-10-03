@@ -151,6 +151,39 @@ paths:
       x-operation-id-original: post /rest/api/v1.3/attributes/campaigns/{campaignName}
 components:
   schemas:
+    edit-access-attributes-request:
+      title: Edit Access Attributes Request
+      type: object
+      properties:
+        attributes:
+          type: object
+          properties:
+            organizations:
+              type: object
+              properties:
+                attributeValues:
+                  description: List of Attributes to be assigned
+                  type: array
+                  items:
+                    type: object
+                    description: Attribute name
+                    properties:
+                      name:
+                        type: string
+                        description: Name of the Attribute to be assigned
+    assigned-attribute:
+      type: object
+      title: assigned attribute
+      properties:
+        id:
+          description: ID of the attribute
+          type: string
+        name:
+          description: Name of the attribute
+          type: string
+        lineage:
+          description: Description of the attribute's heirarchy
+          type: string
     get-organizations-response:
       title: Get Organizations
       type: object
@@ -181,19 +214,6 @@ components:
                   type: array
                   items:
                     $ref: '#/components/schemas/assigned-attribute'
-    assigned-attribute:
-      type: object
-      title: assigned attribute
-      properties:
-        id:
-          description: ID of the attribute
-          type: string
-        name:
-          description: Name of the attribute
-          type: string
-        lineage:
-          description: Description of the attribute's heirarchy
-          type: string
     attribute:
       type: object
       title: attribute
@@ -212,23 +232,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/attribute'
-    edit-access-attributes-request:
-      title: Edit Access Attributes Request
-      type: object
-      properties:
-        attributes:
-          type: object
-          properties:
-            organizations:
-              type: object
-              properties:
-                attributeValues:
-                  description: List of Attributes to be assigned
-                  type: array
-                  items:
-                    type: object
-                    description: Attribute name
-                    properties:
-                      name:
-                        type: string
-                        description: Name of the Attribute to be assigned

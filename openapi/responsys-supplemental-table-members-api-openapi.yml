@@ -214,52 +214,6 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/folder/{folderName}/suppData/{suppTableName}
 components:
   schemas:
-    supplementalTableRecords:
-      title: Supplemental Table records
-      type: object
-      properties:
-        recordData:
-          description: Record data that represents field names and corresponding values for the member.
-          required:
-          - fieldNames
-          - records
-          type: object
-          properties:
-            fieldNames:
-              type: array
-              description: Field names in the Supplemental Table
-              items:
-                type: string
-            records:
-              type: array
-              description: Array of values corresponding to the fieldNames. Each element in the array represents a single member.
-              items:
-                type: array
-                description: Field values for the member in the Supplemental Table
-                items:
-                  type: string
-            mapTemplateName:
-              type: string
-              description: The map template in Responsys that can be used to map field names of the Supplemental Table to column names.
-        insertOnNoMatch:
-          description: Specifies whether a member record should be inserted into the Supplemental Table if it does not already exist.
-          type: boolean
-        updateOnMatch:
-          description: Specifies whether a member record should be updated in the Supplemental Table if it already exists.
-          enum:
-          - REPLACE_ALL
-          - NO_UPDATE
-          type: string
-        matchColumnNames:
-          description: The column names to be used to match the member record to the Supplemental Table records. Only used during the merge operation.
-          type: array
-          items:
-            type: string
-      required:
-      - recordData
-      - insertOnNoMatch
-      - updateOnMatch
-      - matchColumnNames
     supplementalTableMemberswithpk:
       title: Supplemental Table members with PK
       type: object
@@ -323,3 +277,49 @@ components:
             folderName:
               description: The name of the folder in which the Supplemental Data Table exists
               type: string
+    supplementalTableRecords:
+      title: Supplemental Table records
+      type: object
+      properties:
+        recordData:
+          description: Record data that represents field names and corresponding values for the member.
+          required:
+          - fieldNames
+          - records
+          type: object
+          properties:
+            fieldNames:
+              type: array
+              description: Field names in the Supplemental Table
+              items:
+                type: string
+            records:
+              type: array
+              description: Array of values corresponding to the fieldNames. Each element in the array represents a single member.
+              items:
+                type: array
+                description: Field values for the member in the Supplemental Table
+                items:
+                  type: string
+            mapTemplateName:
+              type: string
+              description: The map template in Responsys that can be used to map field names of the Supplemental Table to column names.
+        insertOnNoMatch:
+          description: Specifies whether a member record should be inserted into the Supplemental Table if it does not already exist.
+          type: boolean
+        updateOnMatch:
+          description: Specifies whether a member record should be updated in the Supplemental Table if it already exists.
+          enum:
+          - REPLACE_ALL
+          - NO_UPDATE
+          type: string
+        matchColumnNames:
+          description: The column names to be used to match the member record to the Supplemental Table records. Only used during the merge operation.
+          type: array
+          items:
+            type: string
+      required:
+      - recordData
+      - insertOnNoMatch
+      - updateOnMatch
+      - matchColumnNames

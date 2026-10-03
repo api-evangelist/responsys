@@ -47,14 +47,6 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/filters
 components:
   schemas:
-    filters-collection:
-      title: filters
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/retrieve-filters-response'
     retrieve-filters-response:
       type: object
       title: filter
@@ -99,3 +91,11 @@ components:
           - AppChannel
           - Enactment
           type: string
+    filters-collection:
+      title: filters
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/retrieve-filters-response'

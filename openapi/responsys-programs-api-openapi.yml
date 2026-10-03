@@ -173,6 +173,78 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/programs/lists/{listName}
 components:
   schemas:
+    retrieve-program-response:
+      type: object
+      title: program
+      properties:
+        id:
+          description: ID of the program.
+          type: string
+        name:
+          description: Name of the program.
+          type: string
+        folderName:
+          description: Folder name for the program.
+          type: string
+        listName:
+          description: Name of the list associated with the program
+          type: string
+        channels:
+          description: List of channels for the program
+          type: array
+          items:
+            type: string
+        createdOn:
+          description: Creation date of the program
+          type: string
+        createdBy:
+          description: User that created the program
+          type: string
+        modifiedOn:
+          description: Last Modified date of the program
+          type: string
+        modifiedBy:
+          description: User that last modified the program
+          type: string
+        publishDate:
+          description: Last Publish date of the program
+          type: string
+        unpublishDate:
+          description: Unpublish date of the program. It is empty for a program in running state
+          type: string
+        status:
+          description: Status of the program
+          enum:
+          - NOT_RUNNING
+          - RUNNING
+          - RUNNING_WITH_ERRORS
+          type: string
+    exit-program-enactments-response:
+      title: exit-program-enactments-response
+      type: object
+      properties:
+        status:
+          description: SUCCESS if operation is successful otherwise FAILURE
+          enum:
+          - SUCCESS
+          - FAILURE
+          type: string
+        errorMsg:
+          description: Error messages when operation fails
+          type: string
+    update-program-response:
+      title: update-program-response
+      type: object
+      properties:
+        status:
+          description: Returns SUCCESS if the publish or unpublish is successful. Returns FAILURE if action is not successful.
+          enum:
+          - SUCCESS
+          - FAILURE
+          type: string
+        errorMsg:
+          description: Error messages when publish or unpublish fails
+          type: string
     programByName-response:
       type: object
       title: programByName-response
@@ -255,94 +327,6 @@ components:
       - modifiedOn
       - modifiedBy
       - publishDate
-    retrieve-program-response:
-      type: object
-      title: program
-      properties:
-        id:
-          description: ID of the program.
-          type: string
-        name:
-          description: Name of the program.
-          type: string
-        folderName:
-          description: Folder name for the program.
-          type: string
-        listName:
-          description: Name of the list associated with the program
-          type: string
-        channels:
-          description: List of channels for the program
-          type: array
-          items:
-            type: string
-        createdOn:
-          description: Creation date of the program
-          type: string
-        createdBy:
-          description: User that created the program
-          type: string
-        modifiedOn:
-          description: Last Modified date of the program
-          type: string
-        modifiedBy:
-          description: User that last modified the program
-          type: string
-        publishDate:
-          description: Last Publish date of the program
-          type: string
-        unpublishDate:
-          description: Unpublish date of the program. It is empty for a program in running state
-          type: string
-        status:
-          description: Status of the program
-          enum:
-          - NOT_RUNNING
-          - RUNNING
-          - RUNNING_WITH_ERRORS
-          type: string
-    update-program-response:
-      title: update-program-response
-      type: object
-      properties:
-        status:
-          description: Returns SUCCESS if the publish or unpublish is successful. Returns FAILURE if action is not successful.
-          enum:
-          - SUCCESS
-          - FAILURE
-          type: string
-        errorMsg:
-          description: Error messages when publish or unpublish fails
-          type: string
-    update-program-request:
-      title: update-program-request
-      type: object
-      properties:
-        action:
-          description: Action to be performed on a given program
-          enum:
-          - publish
-          - unpublish
-          type: string
-        saveDraft:
-          description: Indicates whether to save the draft version or published version
-          enum:
-          - Y
-          - N
-          type: string
-    exit-program-enactments-response:
-      title: exit-program-enactments-response
-      type: object
-      properties:
-        status:
-          description: SUCCESS if operation is successful otherwise FAILURE
-          enum:
-          - SUCCESS
-          - FAILURE
-          type: string
-        errorMsg:
-          description: Error messages when operation fails
-          type: string
     programs-collection:
       title: Programs
       type: object
@@ -362,4 +346,20 @@ components:
           type: string
         programName:
           description: Name of the program to exit enactments
+          type: string
+    update-program-request:
+      title: update-program-request
+      type: object
+      properties:
+        action:
+          description: Action to be performed on a given program
+          enum:
+          - publish
+          - unpublish
+          type: string
+        saveDraft:
+          description: Indicates whether to save the draft version or published version
+          enum:
+          - Y
+          - N
           type: string
