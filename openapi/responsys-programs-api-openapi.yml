@@ -173,6 +173,68 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/programs/lists/{listName}
 components:
   schemas:
+    exit-program-enactments-response:
+      title: exit-program-enactments-response
+      type: object
+      properties:
+        status:
+          description: SUCCESS if operation is successful otherwise FAILURE
+          enum:
+          - SUCCESS
+          - FAILURE
+          type: string
+        errorMsg:
+          description: Error messages when operation fails
+          type: string
+    update-program-request:
+      title: update-program-request
+      type: object
+      properties:
+        action:
+          description: Action to be performed on a given program
+          enum:
+          - publish
+          - unpublish
+          type: string
+        saveDraft:
+          description: Indicates whether to save the draft version or published version
+          enum:
+          - Y
+          - N
+          type: string
+    exit-program-enactments-request:
+      title: exit-program-enactments-request
+      type: object
+      properties:
+        action:
+          description: Action to perform on program enactments. Must be exit.
+          enum:
+          - exit
+          type: string
+        programName:
+          description: Name of the program to exit enactments
+          type: string
+    programs-collection:
+      title: Programs
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/retrieve-program-response'
+    update-program-response:
+      title: update-program-response
+      type: object
+      properties:
+        status:
+          description: Returns SUCCESS if the publish or unpublish is successful. Returns FAILURE if action is not successful.
+          enum:
+          - SUCCESS
+          - FAILURE
+          type: string
+        errorMsg:
+          description: Error messages when publish or unpublish fails
+          type: string
     retrieve-program-response:
       type: object
       title: program
@@ -218,32 +280,6 @@ components:
           - NOT_RUNNING
           - RUNNING
           - RUNNING_WITH_ERRORS
-          type: string
-    exit-program-enactments-response:
-      title: exit-program-enactments-response
-      type: object
-      properties:
-        status:
-          description: SUCCESS if operation is successful otherwise FAILURE
-          enum:
-          - SUCCESS
-          - FAILURE
-          type: string
-        errorMsg:
-          description: Error messages when operation fails
-          type: string
-    update-program-response:
-      title: update-program-response
-      type: object
-      properties:
-        status:
-          description: Returns SUCCESS if the publish or unpublish is successful. Returns FAILURE if action is not successful.
-          enum:
-          - SUCCESS
-          - FAILURE
-          type: string
-        errorMsg:
-          description: Error messages when publish or unpublish fails
           type: string
     programByName-response:
       type: object
@@ -327,39 +363,3 @@ components:
       - modifiedOn
       - modifiedBy
       - publishDate
-    programs-collection:
-      title: Programs
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/retrieve-program-response'
-    exit-program-enactments-request:
-      title: exit-program-enactments-request
-      type: object
-      properties:
-        action:
-          description: Action to perform on program enactments. Must be exit.
-          enum:
-          - exit
-          type: string
-        programName:
-          description: Name of the program to exit enactments
-          type: string
-    update-program-request:
-      title: update-program-request
-      type: object
-      properties:
-        action:
-          description: Action to be performed on a given program
-          enum:
-          - publish
-          - unpublish
-          type: string
-        saveDraft:
-          description: Indicates whether to save the draft version or published version
-          enum:
-          - Y
-          - N
-          type: string

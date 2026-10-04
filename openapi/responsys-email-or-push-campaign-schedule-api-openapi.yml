@@ -193,27 +193,6 @@ components:
             proofLaunch:
               type: boolean
               description: Should a proof launch be performed.
-    update-campaignSchedule-request:
-      type: object
-      title: Update Email or Push Campaign Schedule Request
-      properties:
-        scheduleType:
-          description: Schedule Type.
-          enum:
-          - NOW
-          - ONCE
-          type: string
-        scheduledTime:
-          description: Date in the format yyyy-mm-dd HH:mm
-          type: string
-    campaignSchedule-collection:
-      title: Email or Push Campaign Schedules
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/retrieve-campaignSchedule-response'
     campaignSchedule:
       title: Email or Push Campaign Schedule
       type: object
@@ -276,56 +255,10 @@ components:
       required:
       - scheduleType
       - scheduledTime
-    create-retrieve-campaignSchedule-response:
+    update-campaignSchedule-request:
       type: object
-      title: Email or Push Campaign Schedule
+      title: Update Email or Push Campaign Schedule Request
       properties:
-        id:
-          description: ID of the schedule.
-          type: string
-        launchOptions:
-          description: Launch Options for the schedule.
-          type: object
-          properties:
-            progressChunk:
-              enum:
-              - CHUNK_10K
-              - CHUNK_50K
-              - CHUNK_100K
-              - CHUNK_500K
-              - CHUNK_1M
-              type: string
-              description: Progress Chunk.
-            recipientLimit:
-              type: integer
-              description: Recipient Limit.
-            proofLaunchType:
-              enum:
-              - LAUNCH_TO_ADDRESS
-              - LAUNCH_TO_PROOFLIST
-              - LAUNCH_TO_ADDRESS_USING_PROOFLIST
-              type: string
-              description: Proof Launch type.
-            progressEmailAddresses:
-              type: array
-              description: Email addresses to inform of progress.
-              items:
-                type: string
-            samplingNthOffset:
-              type: integer
-              description: Sampling offset.
-            samplingNthInterval:
-              type: integer
-              description: Sampling Interval.
-            proofLaunch:
-              type: boolean
-              description: Should a proof launch be performed.
-            samplingNthSelection:
-              type: integer
-              description: Sampling Selection.
-            proofLaunchEmail:
-              type: string
-              description: Email address for the proof launch.
         scheduleType:
           description: Schedule Type.
           enum:
@@ -333,9 +266,6 @@ components:
           - ONCE
           type: string
         scheduledTime:
-          description: Date in the format yyyy-mm-dd HH:mm
-          type: string
-        recurringEndTime:
           description: Date in the format yyyy-mm-dd HH:mm
           type: string
     retrieve-campaignSchedule-response:
@@ -394,6 +324,76 @@ components:
           - NOW
           - ONCE
           - RECURRING
+          type: string
+        scheduledTime:
+          description: Date in the format yyyy-mm-dd HH:mm
+          type: string
+        recurringEndTime:
+          description: Date in the format yyyy-mm-dd HH:mm
+          type: string
+    campaignSchedule-collection:
+      title: Email or Push Campaign Schedules
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/retrieve-campaignSchedule-response'
+    create-retrieve-campaignSchedule-response:
+      type: object
+      title: Email or Push Campaign Schedule
+      properties:
+        id:
+          description: ID of the schedule.
+          type: string
+        launchOptions:
+          description: Launch Options for the schedule.
+          type: object
+          properties:
+            progressChunk:
+              enum:
+              - CHUNK_10K
+              - CHUNK_50K
+              - CHUNK_100K
+              - CHUNK_500K
+              - CHUNK_1M
+              type: string
+              description: Progress Chunk.
+            recipientLimit:
+              type: integer
+              description: Recipient Limit.
+            proofLaunchType:
+              enum:
+              - LAUNCH_TO_ADDRESS
+              - LAUNCH_TO_PROOFLIST
+              - LAUNCH_TO_ADDRESS_USING_PROOFLIST
+              type: string
+              description: Proof Launch type.
+            progressEmailAddresses:
+              type: array
+              description: Email addresses to inform of progress.
+              items:
+                type: string
+            samplingNthOffset:
+              type: integer
+              description: Sampling offset.
+            samplingNthInterval:
+              type: integer
+              description: Sampling Interval.
+            proofLaunch:
+              type: boolean
+              description: Should a proof launch be performed.
+            samplingNthSelection:
+              type: integer
+              description: Sampling Selection.
+            proofLaunchEmail:
+              type: string
+              description: Email address for the proof launch.
+        scheduleType:
+          description: Schedule Type.
+          enum:
+          - NOW
+          - ONCE
           type: string
         scheduledTime:
           description: Date in the format yyyy-mm-dd HH:mm

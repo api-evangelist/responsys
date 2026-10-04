@@ -151,6 +151,21 @@ paths:
       x-operation-id-original: post /rest/api/v1.3/attributes/campaigns/{campaignName}
 components:
   schemas:
+    get-assigned-attributes-response:
+      title: Get Assigned Organizations
+      type: object
+      properties:
+        attributes:
+          type: object
+          properties:
+            organizations:
+              type: object
+              properties:
+                attributeValues:
+                  description: Value of the Assigned Attributes
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/assigned-attribute'
     edit-access-attributes-request:
       title: Edit Access Attributes Request
       type: object
@@ -171,19 +186,6 @@ components:
                       name:
                         type: string
                         description: Name of the Attribute to be assigned
-    assigned-attribute:
-      type: object
-      title: assigned attribute
-      properties:
-        id:
-          description: ID of the attribute
-          type: string
-        name:
-          description: Name of the attribute
-          type: string
-        lineage:
-          description: Description of the attribute's heirarchy
-          type: string
     get-organizations-response:
       title: Get Organizations
       type: object
@@ -199,21 +201,19 @@ components:
                   type: array
                   items:
                     $ref: '#/components/schemas/attribute'
-    get-assigned-attributes-response:
-      title: Get Assigned Organizations
+    assigned-attribute:
       type: object
+      title: assigned attribute
       properties:
-        attributes:
-          type: object
-          properties:
-            organizations:
-              type: object
-              properties:
-                attributeValues:
-                  description: Value of the Assigned Attributes
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/assigned-attribute'
+        id:
+          description: ID of the attribute
+          type: string
+        name:
+          description: Name of the attribute
+          type: string
+        lineage:
+          description: Description of the attribute's heirarchy
+          type: string
     attribute:
       type: object
       title: attribute

@@ -114,27 +114,32 @@ components:
       required:
       - message
       - status
-    update-supp-request:
-      title: Update Supplemental Data Table Request
+    sup-table:
+      title: Supplemental Data table
       type: object
       properties:
+        name:
+          description: The name of the Supplemental data table
+          type: string
         folderName:
-          description: The name of the folder where the supplemental table is located.
+          description: The name of the folder in which the Supplemental data table exists
           type: string
-        tableName:
-          description: The name of the supplemental table to update.
-          type: string
-      required:
-      - folderName
-      - tableName
-    supp-tables:
-      title: Supplemental Data Tables
-      type: object
-      properties:
-        items:
+        fields:
+          description: The Supplemental data table Fields
           type: array
           items:
-            $ref: '#/components/schemas/sup-table'
+            type: object
+            properties:
+              fieldName:
+                type: string
+                description: The Supplemental data Field Name
+              fieldType:
+                type: string
+                description: The Supplemental data Field Type
+      required:
+      - name
+      - folderName
+      - fields
     supplementalTable:
       title: create supplemental table Request
       type: object
@@ -166,32 +171,27 @@ components:
           type: array
           items:
             type: string
-    sup-table:
-      title: Supplemental Data table
+    supp-tables:
+      title: Supplemental Data Tables
       type: object
       properties:
-        name:
-          description: The name of the Supplemental data table
-          type: string
-        folderName:
-          description: The name of the folder in which the Supplemental data table exists
-          type: string
-        fields:
-          description: The Supplemental data table Fields
+        items:
           type: array
           items:
-            type: object
-            properties:
-              fieldName:
-                type: string
-                description: The Supplemental data Field Name
-              fieldType:
-                type: string
-                description: The Supplemental data Field Type
+            $ref: '#/components/schemas/sup-table'
+    update-supp-request:
+      title: Update Supplemental Data Table Request
+      type: object
+      properties:
+        folderName:
+          description: The name of the folder where the supplemental table is located.
+          type: string
+        tableName:
+          description: The name of the supplemental table to update.
+          type: string
       required:
-      - name
       - folderName
-      - fields
+      - tableName
     supplementalTableResponse:
       title: create supplemental table Response
       type: boolean

@@ -155,94 +155,16 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/campaigns/{campaignName}/preview
 components:
   schemas:
-    searchCampaigns-response:
-      type: object
-      title: searchCampaigns-response
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/searchCampaigns-response'
-    searchCampaigns-request-body:
-      title: searchCampaigns-request
+    preview-response:
+      title: preview-response
       type: object
       properties:
-        searchCriteria:
-          description: Search Criteria section.
-          type: object
-          properties:
-            keyword:
-              description: keyword contains the key-value pair for passing the keyword to be searched in all campaigns
-              type: object
-              properties:
-                key:
-                  description: The type of search has to be mentioned in the key. Currently the API supports campaignName.
-                  type: string
-                value:
-                  description: The keyword that needs to be matched in all campaigns and return all the campaigns whose name and description contains this keyword.
-                  type: string
-        filterCriteria:
-          description: Filter Criteria section. Maximum of 2 filter criterias can be passed per API call
-          type: object
-          properties:
-            campaignType:
-              description: Campaign Types. Allowed campaign types are email, sms, mms, inapp, push and webpush. Campaign Types will be allowed on the access to that particular account. Multiple campaigns types can be passed.
-              type: array
-              items:
-                type: string
-            campaignStatus:
-              description: Campaign Status. Allowed campaign status are active, closed, draft and scheduled. Multiple campaign types can be passed
-              type: array
-              items:
-                type: string
-            campaignPurpose:
-              description: Campaign Purpose. Allowed campaign purposed are Transactional and Promotional. Multiple campaign purposes can be passed
-              type: array
-              items:
-                type: string
-            createdBy:
-              description: Created By. A valid single user name should be passed. All the campaigns created by this user will be returned
-              type: string
-            createdOn:
-              description: Created On Date should be in MM-dd-yyyy format. Maximum limit  of 90 days. All the campaigns created from the given date till today's date range will be returned
-              type: string
-            modifiedBy:
-              description: Modified By. A valid single user name should be passed. All the campaigns modified by this user will be returned
-              type: string
-            modifiedOn:
-              description: Modified On Date should be in MM-dd-yyyy format. Maximum limit  of 90 days. All the campaigns modified from the given date till today's date range will be returned
-              type: string
-            folderName:
-              description: Folder name. A valid single folder name should be passed. All the campaigns part of this folder will be returned
-              type: string
-            profileList:
-              description: Profile List. A valid single profile list name should be passed. All the campaigns with this profile list will be returned
-              type: string
-            filter:
-              description: Filter. A valid single filter name should be passed. Filter is always associated with Profile List. So if the filter attribute is passed it is mandate to pass the profile list name as well
-              type: string
-            mobileCampaignTemplate:
-              description: Mobile Campaign Template. A valid single mobile template name should be passed. This attribute has to be passed along with the campaign Type as sms or mms. Allowed values are Broadcast, EmailAcquisition, Custom, SmsOptIn, SmsOptOut, TextForResponse, SmsNotification, TextForCustomerCare, DirectAPINotification, LMS
-              type: string
-            marketingStrategy:
-              description: Marketing Strategy. A valid single value must be passed. All the campaigns with this marketing strategy will be returned
-              type: string
-            marketingProgram:
-              description: Marketing Program. A valid single value must be passed. All the campaigns with this marketing program will be returned
-              type: string
-            shortCodeAndLongCode:
-              description: Short-Long code. A valid single value must be passed. This attribute has to be passed along with the campaign Type as sms or mms. All the campaigns with this short-long code will be returned
-              type: string
-        sortCriteria:
-          description: Sort Criteria section. This section is optional. If no sorting is provided, by default ModifiedOn and descending order will be considered
-          type: object
-          properties:
-            field:
-              description: Sorting field. Field on which sorting should be done. A single field value should be passed. Allowed values are campaignName,campaignType,campaignStatus,channelType,modifiedBy,modifiedOn,createdBy and  createdOn
-              type: string
-            order:
-              description: Sorting order. It can be asc for ascending or desc for descending
-              type: string
+        type:
+          description: Preview type (text or html)
+          type: string
+        data:
+          description: Preview data
+          type: string
     create-update-retrieve-campaign-response:
       type: object
       title: Campaign
@@ -429,6 +351,94 @@ components:
         destinationMessageCenter:
           description: Destination Message Center for the campaign. Only applicable to Message Center campaigns
           type: string
+    searchCampaigns-request-body:
+      title: searchCampaigns-request
+      type: object
+      properties:
+        searchCriteria:
+          description: Search Criteria section.
+          type: object
+          properties:
+            keyword:
+              description: keyword contains the key-value pair for passing the keyword to be searched in all campaigns
+              type: object
+              properties:
+                key:
+                  description: The type of search has to be mentioned in the key. Currently the API supports campaignName.
+                  type: string
+                value:
+                  description: The keyword that needs to be matched in all campaigns and return all the campaigns whose name and description contains this keyword.
+                  type: string
+        filterCriteria:
+          description: Filter Criteria section. Maximum of 2 filter criterias can be passed per API call
+          type: object
+          properties:
+            campaignType:
+              description: Campaign Types. Allowed campaign types are email, sms, mms, inapp, push and webpush. Campaign Types will be allowed on the access to that particular account. Multiple campaigns types can be passed.
+              type: array
+              items:
+                type: string
+            campaignStatus:
+              description: Campaign Status. Allowed campaign status are active, closed, draft and scheduled. Multiple campaign types can be passed
+              type: array
+              items:
+                type: string
+            campaignPurpose:
+              description: Campaign Purpose. Allowed campaign purposed are Transactional and Promotional. Multiple campaign purposes can be passed
+              type: array
+              items:
+                type: string
+            createdBy:
+              description: Created By. A valid single user name should be passed. All the campaigns created by this user will be returned
+              type: string
+            createdOn:
+              description: Created On Date should be in MM-dd-yyyy format. Maximum limit  of 90 days. All the campaigns created from the given date till today's date range will be returned
+              type: string
+            modifiedBy:
+              description: Modified By. A valid single user name should be passed. All the campaigns modified by this user will be returned
+              type: string
+            modifiedOn:
+              description: Modified On Date should be in MM-dd-yyyy format. Maximum limit  of 90 days. All the campaigns modified from the given date till today's date range will be returned
+              type: string
+            folderName:
+              description: Folder name. A valid single folder name should be passed. All the campaigns part of this folder will be returned
+              type: string
+            profileList:
+              description: Profile List. A valid single profile list name should be passed. All the campaigns with this profile list will be returned
+              type: string
+            filter:
+              description: Filter. A valid single filter name should be passed. Filter is always associated with Profile List. So if the filter attribute is passed it is mandate to pass the profile list name as well
+              type: string
+            mobileCampaignTemplate:
+              description: Mobile Campaign Template. A valid single mobile template name should be passed. This attribute has to be passed along with the campaign Type as sms or mms. Allowed values are Broadcast, EmailAcquisition, Custom, SmsOptIn, SmsOptOut, TextForResponse, SmsNotification, TextForCustomerCare, DirectAPINotification, LMS
+              type: string
+            marketingStrategy:
+              description: Marketing Strategy. A valid single value must be passed. All the campaigns with this marketing strategy will be returned
+              type: string
+            marketingProgram:
+              description: Marketing Program. A valid single value must be passed. All the campaigns with this marketing program will be returned
+              type: string
+            shortCodeAndLongCode:
+              description: Short-Long code. A valid single value must be passed. This attribute has to be passed along with the campaign Type as sms or mms. All the campaigns with this short-long code will be returned
+              type: string
+        sortCriteria:
+          description: Sort Criteria section. This section is optional. If no sorting is provided, by default ModifiedOn and descending order will be considered
+          type: object
+          properties:
+            field:
+              description: Sorting field. Field on which sorting should be done. A single field value should be passed. Allowed values are campaignName,campaignType,campaignStatus,channelType,modifiedBy,modifiedOn,createdBy and  createdOn
+              type: string
+            order:
+              description: Sorting order. It can be asc for ascending or desc for descending
+              type: string
+    campaigns-collection:
+      title: EMD Campaigns
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/create-update-retrieve-campaign-response'
     campaigns:
       title: Campaign
       type: object
@@ -604,16 +614,6 @@ components:
       required:
       - name
       - folderName
-    preview-response:
-      title: preview-response
-      type: object
-      properties:
-        type:
-          description: Preview type (text or html)
-          type: string
-        data:
-          description: Preview data
-          type: string
     previewCampaign-response:
       title: previewCampaign-response
       type: object
@@ -634,11 +634,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/preview-response'
-    campaigns-collection:
-      title: EMD Campaigns
+    searchCampaigns-response:
       type: object
+      title: searchCampaigns-response
       properties:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/create-update-retrieve-campaign-response'
+            $ref: '#/components/schemas/searchCampaigns-response'

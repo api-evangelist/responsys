@@ -77,27 +77,6 @@ paths:
       x-operation-id-original: 'post /rest/api/v1.3/campaigns/{campaignName/emailAttachments/actions/trigger '
 components:
   schemas:
-    triggerEmailWithAttachments-response:
-      title: Trigger Email With Attachments Response
-      type: array
-      description: Array of Recipient Results.
-      items:
-        type: object
-        description: Response for individual recipient.
-        properties:
-          errorMessage:
-            type: string
-            description: Error Message, if any, that occurred during the trigger operation.
-          success:
-            type: boolean
-            description: Indicates success or failure.
-          recipientId:
-            type: number
-            description: The Responsys ID (RIID) of the recipient.
-        required:
-        - errorMessage
-        - success
-        - recipientId
     triggerEmailWithAttachmentsResponse:
       title: Trigger Email With Attachments Response
       type: array
@@ -115,77 +94,6 @@ components:
           recipientId:
             type: number
             description: The Responsys ID (RIID) of the recipient.
-    triggerEmailMessageWithAttachments:
-      title: Trigger Email Message With Attachments
-      type: object
-      properties:
-        recipientData:
-          description: Array of Recipients with Optional Data
-          type: array
-          items:
-            type: object
-            properties:
-              recipient:
-                type: object
-                description: Information about the Recipient.
-                properties:
-                  emailAddress:
-                    type: string
-                    description: Recipient's Email Address.
-                  recipientId:
-                    type: number
-                    description: Recipient's RIID.
-                  mobileNumber:
-                    type: string
-                    description: Recipient's Mobile Number.
-                  customerId:
-                    type: string
-                    description: Recipient's Customer ID.
-                  emailMD5Hash:
-                    type: string
-                    description: Recipient's Email's MD5 Hash.
-                  emailSHA256Hash:
-                    type: string
-                    description: Recipient's Email's SHA256 Hash.
-                required:
-                - customerId
-                - emailAddress
-                - recipientId
-                - mobileNumber
-                - emailMD5Hash
-                - emailSHA256Hash
-              optionalData:
-                type: array
-                description: Array of optional data containing name value pairs.
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    value:
-                      type: string
-                  required:
-                  - name
-                  - value
-              attachmentData:
-                type: array
-                description: Attachment data containing array of pairs of file name and content value.
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    value:
-                      type: string
-                  required:
-                  - name
-                  - value
-            required:
-            - recipient
-            - optionalData
-            - attachmentData
-      required:
-      - recipientData
     mergeTriggerEmailWithAttachments:
       title: Merge Trigger Email With Attachments
       type: object
@@ -296,3 +204,95 @@ components:
       required:
       - mergeTriggerRecordDataWithAttachments
       - mergeRule
+    triggerEmailWithAttachments-response:
+      title: Trigger Email With Attachments Response
+      type: array
+      description: Array of Recipient Results.
+      items:
+        type: object
+        description: Response for individual recipient.
+        properties:
+          errorMessage:
+            type: string
+            description: Error Message, if any, that occurred during the trigger operation.
+          success:
+            type: boolean
+            description: Indicates success or failure.
+          recipientId:
+            type: number
+            description: The Responsys ID (RIID) of the recipient.
+        required:
+        - errorMessage
+        - success
+        - recipientId
+    triggerEmailMessageWithAttachments:
+      title: Trigger Email Message With Attachments
+      type: object
+      properties:
+        recipientData:
+          description: Array of Recipients with Optional Data
+          type: array
+          items:
+            type: object
+            properties:
+              recipient:
+                type: object
+                description: Information about the Recipient.
+                properties:
+                  emailAddress:
+                    type: string
+                    description: Recipient's Email Address.
+                  recipientId:
+                    type: number
+                    description: Recipient's RIID.
+                  mobileNumber:
+                    type: string
+                    description: Recipient's Mobile Number.
+                  customerId:
+                    type: string
+                    description: Recipient's Customer ID.
+                  emailMD5Hash:
+                    type: string
+                    description: Recipient's Email's MD5 Hash.
+                  emailSHA256Hash:
+                    type: string
+                    description: Recipient's Email's SHA256 Hash.
+                required:
+                - customerId
+                - emailAddress
+                - recipientId
+                - mobileNumber
+                - emailMD5Hash
+                - emailSHA256Hash
+              optionalData:
+                type: array
+                description: Array of optional data containing name value pairs.
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                  required:
+                  - name
+                  - value
+              attachmentData:
+                type: array
+                description: Attachment data containing array of pairs of file name and content value.
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                  required:
+                  - name
+                  - value
+            required:
+            - recipient
+            - optionalData
+            - attachmentData
+      required:
+      - recipientData

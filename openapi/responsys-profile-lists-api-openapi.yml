@@ -179,6 +179,109 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/lists/segmentGroups/records
 components:
   schemas:
+    createProfileListRequest:
+      title: Create Profile List Request model
+      type: object
+      properties:
+        listName:
+          description: The name of the Profile List
+          type: string
+        listFolderName:
+          description: The name of the folder in which the Profile List is to be created
+          type: string
+        description:
+          description: Description about the Profile list
+          type: string
+        brandName:
+          description: The name of the brand with which the profile list is associated. Required if account is brand-enabled.
+          type: string
+        fields:
+          description: The Profile List Fields
+          type: array
+          items:
+            type: object
+            properties:
+              fieldName:
+                type: string
+                description: The Profile List Field Name
+              fieldType:
+                type: string
+                description: The Profile List Field Type
+            required:
+            - fieldName
+            - fieldType
+      required:
+      - listName
+      - listFolderName
+    segmentGroup:
+      title: Segment Group
+      type: object
+      properties:
+        name:
+          description: Segment Group Name
+          type: string
+        description:
+          description: Segment Group description
+          type: string
+        profileExtensionName:
+          description: Profile Extension name associated with the segment group. If no Profile Extension is associated, then it is set to null.
+          type: string
+        listName:
+          description: Profile list name with which the Segment Group is associated
+          type: string
+        folderName:
+          description: Folder containing the Segment Group
+          type: string
+        createdBy:
+          description: User who created the Segment Group
+          type: string
+        createdDate:
+          description: Segment Group creation date
+          type: string
+          format: date
+        modifiedBy:
+          description: User who modified the Segment Group
+          type: string
+        modifiedDate:
+          description: Segment Group modification date
+          type: string
+          format: date
+      required:
+      - name
+      - description
+      - profileExtensionName
+      - listName
+      - folderName
+      - createdBy
+      - createdDate
+      - modifiedBy
+      - modifiedDate
+    profileListFieldsResponse:
+      title: Profile List Fields Response Model
+      type: object
+      properties:
+        name:
+          description: The name of the Profile List
+          type: string
+        folderName:
+          description: The name of the folder in which the Profile List exists
+          type: string
+        fields:
+          description: The Profile List Fields
+          type: array
+          items:
+            type: object
+            properties:
+              fieldName:
+                type: string
+                description: The Profile List Field Name
+              fieldType:
+                type: string
+                description: The Profile List Field Type
+      required:
+      - name
+      - folderName
+      - fields
     mergeOrgListRecipients:
       title: Merge Org List Recipients
       type: object
@@ -225,49 +328,14 @@ components:
       required:
       - recordData
       - matchColumnName1
-    segmentGroup:
-      title: Segment Group
+    lists-collection:
+      title: Profile Lists
       type: object
       properties:
-        name:
-          description: Segment Group Name
-          type: string
-        description:
-          description: Segment Group description
-          type: string
-        profileExtensionName:
-          description: Profile Extension name associated with the segment group. If no Profile Extension is associated, then it is set to null.
-          type: string
-        listName:
-          description: Profile list name with which the Segment Group is associated
-          type: string
-        folderName:
-          description: Folder containing the Segment Group
-          type: string
-        createdBy:
-          description: User who created the Segment Group
-          type: string
-        createdDate:
-          description: Segment Group creation date
-          type: string
-          format: date
-        modifiedBy:
-          description: User who modified the Segment Group
-          type: string
-        modifiedDate:
-          description: Segment Group modification date
-          type: string
-          format: date
-      required:
-      - name
-      - description
-      - profileExtensionName
-      - listName
-      - folderName
-      - createdBy
-      - createdDate
-      - modifiedBy
-      - modifiedDate
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/lists'
     proofList:
       title: Proof List
       type: object
@@ -307,6 +375,16 @@ components:
       - createdDate
       - modifiedBy
       - modifiedDate
+    proofListArray:
+      title: Proof List Array
+      type: object
+      properties:
+        proofLists:
+          type: array
+          items:
+            $ref: '#/components/schemas/proofList'
+      required:
+      - proofLists
     segmentGroupArray:
       title: Segment Group Array
       type: object
@@ -317,40 +395,6 @@ components:
             $ref: '#/components/schemas/segmentGroup'
       required:
       - segmentGroups
-    lists-collection:
-      title: Profile Lists
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/lists'
-    profileListFieldsResponse:
-      title: Profile List Fields Response Model
-      type: object
-      properties:
-        name:
-          description: The name of the Profile List
-          type: string
-        folderName:
-          description: The name of the folder in which the Profile List exists
-          type: string
-        fields:
-          description: The Profile List Fields
-          type: array
-          items:
-            type: object
-            properties:
-              fieldName:
-                type: string
-                description: The Profile List Field Name
-              fieldType:
-                type: string
-                description: The Profile List Field Type
-      required:
-      - name
-      - folderName
-      - fields
     lists:
       title: Profile Lists
       type: object
@@ -377,40 +421,6 @@ components:
       - name
       - folderName
       - fields
-    createProfileListRequest:
-      title: Create Profile List Request model
-      type: object
-      properties:
-        listName:
-          description: The name of the Profile List
-          type: string
-        listFolderName:
-          description: The name of the folder in which the Profile List is to be created
-          type: string
-        description:
-          description: Description about the Profile list
-          type: string
-        brandName:
-          description: The name of the brand with which the profile list is associated. Required if account is brand-enabled.
-          type: string
-        fields:
-          description: The Profile List Fields
-          type: array
-          items:
-            type: object
-            properties:
-              fieldName:
-                type: string
-                description: The Profile List Field Name
-              fieldType:
-                type: string
-                description: The Profile List Field Type
-            required:
-            - fieldName
-            - fieldType
-      required:
-      - listName
-      - listFolderName
     createProfileListResponse:
       title: Create Profile List Response model
       type: object
@@ -426,13 +436,3 @@ components:
       required:
       - message
       - name
-    proofListArray:
-      title: Proof List Array
-      type: object
-      properties:
-        proofLists:
-          type: array
-          items:
-            $ref: '#/components/schemas/proofList'
-      required:
-      - proofLists

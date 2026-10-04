@@ -97,6 +97,11 @@ paths:
       x-operation-id-original: post /rest/api/v1.3/events/rei/{eventName}
 components:
   schemas:
+    events-collection:
+      title: Custom Events
+      type: array
+      items:
+        $ref: '#/components/schemas/events'
     triggerCustomEvent:
       title: Trigger Custom Event
       type: object
@@ -183,45 +188,6 @@ components:
       required:
       - customEvent
       - recipientData
-    triggerEvent-response:
-      title: Trigger Custom Event Response
-      type: array
-      description: Array of Recipient Results.
-      items:
-        type: object
-        description: Response for individual recipient.
-        properties:
-          errorMessage:
-            type: string
-            description: Error Message, if any, that occurred during the merge or trigger operations.
-          success:
-            type: boolean
-            description: Indicates success or failure.
-          recipientId:
-            type: number
-            description: The Responsys ID (RIID) of the recipient.
-    events-collection:
-      title: Custom Events
-      type: array
-      items:
-        $ref: '#/components/schemas/events'
-    events:
-      title: Custom Events
-      type: object
-      properties:
-        eventName:
-          description: The name of the custom event
-          type: string
-        description:
-          description: The description of the custom event
-          type: string
-        eventType:
-          description: The type of the custom event
-          type: string
-      required:
-      - eventName
-      - description
-      - eventType
     triggerReiEvent:
       title: Trigger Rei Event
       type: object
@@ -325,3 +291,37 @@ components:
       required:
       - reiEvent
       - recipientData
+    triggerEvent-response:
+      title: Trigger Custom Event Response
+      type: array
+      description: Array of Recipient Results.
+      items:
+        type: object
+        description: Response for individual recipient.
+        properties:
+          errorMessage:
+            type: string
+            description: Error Message, if any, that occurred during the merge or trigger operations.
+          success:
+            type: boolean
+            description: Indicates success or failure.
+          recipientId:
+            type: number
+            description: The Responsys ID (RIID) of the recipient.
+    events:
+      title: Custom Events
+      type: object
+      properties:
+        eventName:
+          description: The name of the custom event
+          type: string
+        description:
+          description: The description of the custom event
+          type: string
+        eventType:
+          description: The type of the custom event
+          type: string
+      required:
+      - eventName
+      - description
+      - eventType

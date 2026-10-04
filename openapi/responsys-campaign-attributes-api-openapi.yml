@@ -93,27 +93,6 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/campaigns/{campaignName}/attributes/dataSources
 components:
   schemas:
-    field:
-      title: Field
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the field
-        alias:
-          type: string
-          description: Alias for the field name
-        lookUpKey:
-          type: boolean
-          description: whether the field is a lookup key or not
-        defaultValue:
-          type: string
-          description: default value of the field
-      required:
-      - name
-      - alias
-      - lookUpKey
-      - defaultValue
     dataSource:
       title: Campaign DataSource
       type: object
@@ -141,6 +120,41 @@ components:
       - fields
       - type
       - default
+    campaignDataSourcesAttributeResponse:
+      title: Campaign Data Sources Response
+      type: object
+      properties:
+        attributeName:
+          description: the attribute of the campaign. "dataSources" in this scenario
+          type: string
+          enum:
+          - dataSources
+        attributeData:
+          description: Campaign attribute data
+          type: object
+          properties:
+            dataSources:
+              description: Array of Data Sources associated with the Campaign
+              type: array
+              items:
+                $ref: '#/components/schemas/dataSource'
+      required:
+      - attributeName
+      - attributeData
+    campaignProofListAttributeResponse:
+      title: Campaign Proof List Response
+      type: object
+      properties:
+        attributeName:
+          description: The attribute of the campaign. "ProofList" in this scenario
+          type: string
+          enum:
+          - proofList
+        attributeData:
+          $ref: '#/components/schemas/proofList'
+      required:
+      - attributeName
+      - attributeData
     proofList:
       title: Proof List
       type: object
@@ -180,6 +194,27 @@ components:
       - createdDate
       - modifiedBy
       - modifiedDate
+    field:
+      title: Field
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the field
+        alias:
+          type: string
+          description: Alias for the field name
+        lookUpKey:
+          type: boolean
+          description: whether the field is a lookup key or not
+        defaultValue:
+          type: string
+          description: default value of the field
+      required:
+      - name
+      - alias
+      - lookUpKey
+      - defaultValue
     campaignProofListAttributeRequest:
       title: Campaign Proof List Request
       type: object
@@ -196,41 +231,6 @@ components:
             name:
               description: The name of the Proof List to update
               type: string
-      required:
-      - attributeName
-      - attributeData
-    campaignDataSourcesAttributeResponse:
-      title: Campaign Data Sources Response
-      type: object
-      properties:
-        attributeName:
-          description: the attribute of the campaign. "dataSources" in this scenario
-          type: string
-          enum:
-          - dataSources
-        attributeData:
-          description: Campaign attribute data
-          type: object
-          properties:
-            dataSources:
-              description: Array of Data Sources associated with the Campaign
-              type: array
-              items:
-                $ref: '#/components/schemas/dataSource'
-      required:
-      - attributeName
-      - attributeData
-    campaignProofListAttributeResponse:
-      title: Campaign Proof List Response
-      type: object
-      properties:
-        attributeName:
-          description: The attribute of the campaign. "ProofList" in this scenario
-          type: string
-          enum:
-          - proofList
-        attributeData:
-          $ref: '#/components/schemas/proofList'
       required:
       - attributeName
       - attributeData

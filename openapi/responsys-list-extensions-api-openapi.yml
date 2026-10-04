@@ -70,14 +70,6 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/lists/{listName}/listExtensions
 components:
   schemas:
-    listExtensions-collection:
-      title: List Extensions
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/listExtensions'
     listExtensions:
       title: Profile Extension
       type: object
@@ -110,3 +102,11 @@ components:
       required:
       - profileExtension
       - fields
+    listExtensions-collection:
+      title: List Extensions
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/listExtensions'

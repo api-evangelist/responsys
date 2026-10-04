@@ -151,6 +151,13 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/clDocs/{docPath}
 components:
   schemas:
+    copy-content-request:
+      type: object
+      title: copy content document Request
+      properties:
+        documentPath:
+          description: Path of source Document
+          type: string
     clDocs:
       title: Content Library Documents
       type: object
@@ -164,10 +171,3 @@ components:
       required:
       - docPath
       - content
-    copy-content-request:
-      type: object
-      title: copy content document Request
-      properties:
-        documentPath:
-          description: Path of source Document
-          type: string

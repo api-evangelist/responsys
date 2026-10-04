@@ -281,6 +281,41 @@ paths:
         description: Request body
 components:
   schemas:
+    bulkProfileExtensionRecipients:
+      title: bulk profile Extension Recipients
+      type: object
+      properties:
+        fieldList:
+          type: array
+          description: field names list
+          items:
+            type: string
+        queryAttribute:
+          type: string
+          description: query attribute
+        ids:
+          type: array
+          description: email ids list
+          items:
+            type: string
+    deleteListRecipientsRequest:
+      title: Delete List Recipients
+      type: object
+      properties:
+        queryAttribute:
+          description: Query Attribute based on which records will be deleted. Can have the values r(RIID),e(email address),m(mobile number),c(customer id)
+          type: string
+        ids:
+          type: array
+          description: Array of values corresponding to the fieldNames.
+          items:
+            type: array
+            description: Field Values for the recipient in the Profile List
+            items:
+              type: string
+      required:
+      - queryAttribute
+      - ids
     profileExtensionRecipients:
       title: Profile Extension Recipients
       type: object
@@ -330,38 +365,3 @@ components:
       - insertOnNoMatch
       - updateOnMatch
       - matchColumn
-    deleteListRecipientsRequest:
-      title: Delete List Recipients
-      type: object
-      properties:
-        queryAttribute:
-          description: Query Attribute based on which records will be deleted. Can have the values r(RIID),e(email address),m(mobile number),c(customer id)
-          type: string
-        ids:
-          type: array
-          description: Array of values corresponding to the fieldNames.
-          items:
-            type: array
-            description: Field Values for the recipient in the Profile List
-            items:
-              type: string
-      required:
-      - queryAttribute
-      - ids
-    bulkProfileExtensionRecipients:
-      title: bulk profile Extension Recipients
-      type: object
-      properties:
-        fieldList:
-          type: array
-          description: field names list
-          items:
-            type: string
-        queryAttribute:
-          type: string
-          description: query attribute
-        ids:
-          type: array
-          description: email ids list
-          items:
-            type: string
