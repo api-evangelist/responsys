@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/swagger.json",
+ "requested_url": "https://docs.oracle.com/en/cloud/saas/marketing/responsys-rest-api/swagger.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 350658,
+ "sha256": "f3eb765672d3034ba9af260bafb266f40e81289e3de02102351fbe5d2a52aebf",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
