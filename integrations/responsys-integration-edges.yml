@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/responsys/integrations
+- https://n8n.io/integrations/responsys/
+- https://composio.dev/toolkits/responsys
+- https://monid.ai/tools/responsys
+checked:
+- https://composio.dev/toolkits/responsys
+- https://monid.ai/tools/responsys
+- https://n8n.io/integrations/responsys/
+- https://zapier.com/apps/responsys/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
