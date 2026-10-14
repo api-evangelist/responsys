@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/responsys/integrations
 - https://n8n.io/integrations/responsys/
@@ -7,10 +7,57 @@ source:
 - https://monid.ai/tools/responsys
 checked:
 - https://composio.dev/toolkits/responsys
+- https://fivetran.com/docs/activations/destinations/available-destinations/oracle-responsys
+- https://hightouch.com/docs/destinations/responsys
 - https://monid.ai/tools/responsys
 - https://n8n.io/integrations/responsys/
 - https://zapier.com/apps/responsys/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: Hightouch
+  partner: hightouch
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://hightouch.com/docs/destinations/responsys
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - responsys
+      status: released
+      sync_types:
+      - Custom / REI Events
+      - Profile Extension Tables
+      - Profile Lists
+      sync_modes:
+      - insert
+      - update
+      - upsert
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Census
+  partner: getcensus
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://fivetran.com/docs/activations/destinations/available-destinations/oracle-responsys
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - oracle-responsys
+      sync_behaviours:
+      - update or create
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
 templates: []
