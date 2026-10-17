@@ -405,29 +405,6 @@ components:
       - totalMatchedRecords
       - remainingRecordCount
       - hasMoreRecords
-    retrieveListRecipientCount:
-      title: Retrieve List Recipients Count
-      type: object
-      properties:
-        count:
-          description: Count of list recipients that matches the query attribute passed or total count of list recipients when no query attributes are passed
-          type: integer
-        links:
-          type: object
-          description: link URLs that represents next link table APIs
-          properties:
-            rel:
-              type: string
-              description: link table API name
-            href:
-              type: string
-              description: URI of link table API
-            method:
-              type: string
-              description: request method type
-      required:
-      - count
-      - links
     profileListRecipients:
       title: Profile List Recipients
       type: object
@@ -518,3 +495,26 @@ components:
       required:
       - recordData
       - mergeRule
+    retrieveListRecipientCount:
+      title: Retrieve List Recipients Count
+      type: object
+      properties:
+        count:
+          description: Count of list recipients that matches the query attribute passed or total count of list recipients when no query attributes are passed
+          type: integer
+        links:
+          type: object
+          description: link URLs that represents next link table APIs
+          properties:
+            rel:
+              type: string
+              description: link table API name
+            href:
+              type: string
+              description: URI of link table API
+            method:
+              type: string
+              description: request method type
+      required:
+      - count
+      - links

@@ -93,6 +93,20 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/campaigns/{campaignName}/attributes/dataSources
 components:
   schemas:
+    campaignProofListAttributeResponse:
+      title: Campaign Proof List Response
+      type: object
+      properties:
+        attributeName:
+          description: The attribute of the campaign. "ProofList" in this scenario
+          type: string
+          enum:
+          - proofList
+        attributeData:
+          $ref: '#/components/schemas/proofList'
+      required:
+      - attributeName
+      - attributeData
     dataSource:
       title: Campaign DataSource
       type: object
@@ -120,41 +134,6 @@ components:
       - fields
       - type
       - default
-    campaignDataSourcesAttributeResponse:
-      title: Campaign Data Sources Response
-      type: object
-      properties:
-        attributeName:
-          description: the attribute of the campaign. "dataSources" in this scenario
-          type: string
-          enum:
-          - dataSources
-        attributeData:
-          description: Campaign attribute data
-          type: object
-          properties:
-            dataSources:
-              description: Array of Data Sources associated with the Campaign
-              type: array
-              items:
-                $ref: '#/components/schemas/dataSource'
-      required:
-      - attributeName
-      - attributeData
-    campaignProofListAttributeResponse:
-      title: Campaign Proof List Response
-      type: object
-      properties:
-        attributeName:
-          description: The attribute of the campaign. "ProofList" in this scenario
-          type: string
-          enum:
-          - proofList
-        attributeData:
-          $ref: '#/components/schemas/proofList'
-      required:
-      - attributeName
-      - attributeData
     proofList:
       title: Proof List
       type: object
@@ -215,6 +194,27 @@ components:
       - alias
       - lookUpKey
       - defaultValue
+    campaignDataSourcesAttributeResponse:
+      title: Campaign Data Sources Response
+      type: object
+      properties:
+        attributeName:
+          description: the attribute of the campaign. "dataSources" in this scenario
+          type: string
+          enum:
+          - dataSources
+        attributeData:
+          description: Campaign attribute data
+          type: object
+          properties:
+            dataSources:
+              description: Array of Data Sources associated with the Campaign
+              type: array
+              items:
+                $ref: '#/components/schemas/dataSource'
+      required:
+      - attributeName
+      - attributeData
     campaignProofListAttributeRequest:
       title: Campaign Proof List Request
       type: object

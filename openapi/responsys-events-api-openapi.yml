@@ -97,97 +97,6 @@ paths:
       x-operation-id-original: post /rest/api/v1.3/events/rei/{eventName}
 components:
   schemas:
-    events-collection:
-      title: Custom Events
-      type: array
-      items:
-        $ref: '#/components/schemas/events'
-    triggerCustomEvent:
-      title: Trigger Custom Event
-      type: object
-      properties:
-        customEvent:
-          description: customEvent.
-          type: object
-          properties:
-            eventNumberDataMapping:
-              type: string
-              description: custom eventNumberDataMapping.
-            eventDateDataMapping:
-              type: string
-              description: custom eventDateDataMapping.
-            eventStringDataMapping:
-              type: string
-              description: custom eventStringDataMapping.
-        recipientData:
-          description: Array of Recipients with Optional Data
-          type: array
-          items:
-            type: object
-            properties:
-              recipient:
-                type: object
-                description: Information about the Recipient.
-                properties:
-                  customerId:
-                    type: string
-                    description: Recipient's Customer ID.
-                  emailAddress:
-                    type: string
-                    description: Recipient's Email Address.
-                  emailSHA256Hash:
-                    type: string
-                    description: Recipient's Email SHA256 Hash.
-                  emailMD5Hash:
-                    type: string
-                    description: Recipient's Email MD5 Hash.
-                  listName:
-                    type: object
-                    description: Profile List to which the Recipient belongs.
-                    properties:
-                      folderName:
-                        type: string
-                        description: Folder Name
-                      objectName:
-                        type: string
-                        description: Profile List Name.
-                  recipientId:
-                    type: number
-                    description: Recipient's RIID.
-                  mobileNumber:
-                    type: string
-                    description: Recipient's Mobile Number.
-                  emailFormat:
-                    enum:
-                    - HTML_FORMAT
-                    - TEXT_FORMAT
-                    type: string
-                    description: Email Format.
-                required:
-                - customerId
-                - emailAddress
-                - listName
-                - recipientId
-                - mobileNumber
-                - emailFormat
-                - emailMD5Hash
-                - emailSHA256Hash
-              optionalData:
-                type: array
-                description: Array of optional data containing name value pairs.
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    value:
-                      type: string
-            required:
-            - recipient
-            - optionalData
-      required:
-      - customEvent
-      - recipientData
     triggerReiEvent:
       title: Trigger Rei Event
       type: object
@@ -291,6 +200,92 @@ components:
       required:
       - reiEvent
       - recipientData
+    triggerCustomEvent:
+      title: Trigger Custom Event
+      type: object
+      properties:
+        customEvent:
+          description: customEvent.
+          type: object
+          properties:
+            eventNumberDataMapping:
+              type: string
+              description: custom eventNumberDataMapping.
+            eventDateDataMapping:
+              type: string
+              description: custom eventDateDataMapping.
+            eventStringDataMapping:
+              type: string
+              description: custom eventStringDataMapping.
+        recipientData:
+          description: Array of Recipients with Optional Data
+          type: array
+          items:
+            type: object
+            properties:
+              recipient:
+                type: object
+                description: Information about the Recipient.
+                properties:
+                  customerId:
+                    type: string
+                    description: Recipient's Customer ID.
+                  emailAddress:
+                    type: string
+                    description: Recipient's Email Address.
+                  emailSHA256Hash:
+                    type: string
+                    description: Recipient's Email SHA256 Hash.
+                  emailMD5Hash:
+                    type: string
+                    description: Recipient's Email MD5 Hash.
+                  listName:
+                    type: object
+                    description: Profile List to which the Recipient belongs.
+                    properties:
+                      folderName:
+                        type: string
+                        description: Folder Name
+                      objectName:
+                        type: string
+                        description: Profile List Name.
+                  recipientId:
+                    type: number
+                    description: Recipient's RIID.
+                  mobileNumber:
+                    type: string
+                    description: Recipient's Mobile Number.
+                  emailFormat:
+                    enum:
+                    - HTML_FORMAT
+                    - TEXT_FORMAT
+                    type: string
+                    description: Email Format.
+                required:
+                - customerId
+                - emailAddress
+                - listName
+                - recipientId
+                - mobileNumber
+                - emailFormat
+                - emailMD5Hash
+                - emailSHA256Hash
+              optionalData:
+                type: array
+                description: Array of optional data containing name value pairs.
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+            required:
+            - recipient
+            - optionalData
+      required:
+      - customEvent
+      - recipientData
     triggerEvent-response:
       title: Trigger Custom Event Response
       type: array
@@ -308,6 +303,11 @@ components:
           recipientId:
             type: number
             description: The Responsys ID (RIID) of the recipient.
+    events-collection:
+      title: Custom Events
+      type: array
+      items:
+        $ref: '#/components/schemas/events'
     events:
       title: Custom Events
       type: object

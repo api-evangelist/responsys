@@ -101,6 +101,31 @@ paths:
       x-operation-id-original: PUT /rest/api/v1.3/folders/{folderName}/suppData/{suppTableName}
 components:
   schemas:
+    supplementalTableResponse:
+      title: create supplemental table Response
+      type: boolean
+      description: true/false indicating success or failure.
+    supp-tables:
+      title: Supplemental Data Tables
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/sup-table'
+    update-supp-request:
+      title: Update Supplemental Data Table Request
+      type: object
+      properties:
+        folderName:
+          description: The name of the folder where the supplemental table is located.
+          type: string
+        tableName:
+          description: The name of the supplemental table to update.
+          type: string
+      required:
+      - folderName
+      - tableName
     update-supp-table:
       title: Update Supplemental Data Table Response
       type: object
@@ -171,28 +196,3 @@ components:
           type: array
           items:
             type: string
-    supp-tables:
-      title: Supplemental Data Tables
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/sup-table'
-    update-supp-request:
-      title: Update Supplemental Data Table Request
-      type: object
-      properties:
-        folderName:
-          description: The name of the folder where the supplemental table is located.
-          type: string
-        tableName:
-          description: The name of the supplemental table to update.
-          type: string
-      required:
-      - folderName
-      - tableName
-    supplementalTableResponse:
-      title: create supplemental table Response
-      type: boolean
-      description: true/false indicating success or failure.

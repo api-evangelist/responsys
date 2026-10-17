@@ -170,29 +170,6 @@ paths:
       x-operation-id-original: delete /rest/api/v1.3/campaigns/{campaignName}/schedule/{scheduleId}
 components:
   schemas:
-    update-delete-campaignSchedule-response:
-      type: object
-      title: Update Email or Push Campaign Schedule Response
-      properties:
-        id:
-          description: ID of the schedule.
-          type: string
-        scheduleType:
-          description: Schedule Type.
-          enum:
-          - NOW
-          - ONCE
-          type: string
-        scheduledTime:
-          description: Date in the format yyyy-mm-dd HH:mm
-          type: string
-        launchOptions:
-          description: Launch Options for the schedule.
-          type: object
-          properties:
-            proofLaunch:
-              type: boolean
-              description: Should a proof launch be performed.
     campaignSchedule:
       title: Email or Push Campaign Schedule
       type: object
@@ -268,6 +245,14 @@ components:
         scheduledTime:
           description: Date in the format yyyy-mm-dd HH:mm
           type: string
+    campaignSchedule-collection:
+      title: Email or Push Campaign Schedules
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/retrieve-campaignSchedule-response'
     retrieve-campaignSchedule-response:
       type: object
       title: Email or Push Campaign Schedule
@@ -331,14 +316,29 @@ components:
         recurringEndTime:
           description: Date in the format yyyy-mm-dd HH:mm
           type: string
-    campaignSchedule-collection:
-      title: Email or Push Campaign Schedules
+    update-delete-campaignSchedule-response:
       type: object
+      title: Update Email or Push Campaign Schedule Response
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/retrieve-campaignSchedule-response'
+        id:
+          description: ID of the schedule.
+          type: string
+        scheduleType:
+          description: Schedule Type.
+          enum:
+          - NOW
+          - ONCE
+          type: string
+        scheduledTime:
+          description: Date in the format yyyy-mm-dd HH:mm
+          type: string
+        launchOptions:
+          description: Launch Options for the schedule.
+          type: object
+          properties:
+            proofLaunch:
+              type: boolean
+              description: Should a proof launch be performed.
     create-retrieve-campaignSchedule-response:
       type: object
       title: Email or Push Campaign Schedule

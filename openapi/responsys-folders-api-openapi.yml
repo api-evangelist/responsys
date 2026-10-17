@@ -106,13 +106,6 @@ paths:
       x-operation-id-original: get /rest/api/v1.3/folders/{folderName}/content
 components:
   schemas:
-    createFolderRequest:
-      title: Create Folder Request
-      type: object
-      properties:
-        folderName:
-          description: Name of the folder to create.
-          type: string
     getFolders-response:
       title: Retrieve Folders
       type: object
@@ -159,6 +152,13 @@ components:
               new:
                 type: boolean
                 description: Is the Folder a new Folder.
+    createFolderRequest:
+      title: Create Folder Request
+      type: object
+      properties:
+        folderName:
+          description: Name of the folder to create.
+          type: string
     getFolderContent-response:
       title: Retrieve Folder Content
       type: object

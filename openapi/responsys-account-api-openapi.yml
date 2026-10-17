@@ -177,29 +177,19 @@ paths:
       x-operation-id-original: delete /rest/api/v1.3/settings/account/domains/email
 components:
   schemas:
-    addEmailDomainRequest:
-      title: Add Email Domain Rules Request
+    deleteEmailDomainResponse:
+      title: Delete email domain
       type: object
       properties:
-        avoidDomains:
-          description: List of email domains to which campaign messages must not be sent at all.
-          type: array
-          items:
-            type: string
-        htmlDomains:
-          description: List of domains that support only HTML based emails.
-          type: array
-          items:
-            type: string
-        txtDomains:
-          description: List of domains that support only text based emails.
-          type: array
-          items:
-            type: string
+        message:
+          description: Message regarding delete operation.
+          type: string
+        status:
+          description: Status of the operation.
+          type: boolean
       required:
-      - avoidDomains
-      - htmlDomains
-      - txtDomains
+      - message
+      - status
     settings:
       title: Account Settings
       type: object
@@ -228,19 +218,6 @@ components:
       - fileSystemLocation
       - includedImages
       - unsubscribeHandler
-    deleteEmailDomainResponse:
-      title: Delete email domain
-      type: object
-      properties:
-        message:
-          description: Message regarding delete operation.
-          type: string
-        status:
-          description: Status of the operation.
-          type: boolean
-      required:
-      - message
-      - status
     endpoint:
       title: Account Endpoints
       type: object
@@ -257,19 +234,6 @@ components:
       required:
       - apiType
       - endPoint
-    footer:
-      title: Email Footer
-      type: object
-      properties:
-        text:
-          description: Contents of the Text Footer
-          type: string
-        html:
-          description: Contents of the HTML Footer
-          type: string
-      required:
-      - text
-      - html
     userInfo:
       title: User Information
       type: object
@@ -303,6 +267,19 @@ components:
       - accountDisplayName
       - accountTimeZone
       - createdDate
+    footer:
+      title: Email Footer
+      type: object
+      properties:
+        text:
+          description: Contents of the Text Footer
+          type: string
+        html:
+          description: Contents of the HTML Footer
+          type: string
+      required:
+      - text
+      - html
     domains:
       title: Email Domain Rules
       type: object
@@ -316,6 +293,29 @@ components:
         txtDomains:
           description: List of domains that support only text based emails
           type: string
+      required:
+      - avoidDomains
+      - htmlDomains
+      - txtDomains
+    addEmailDomainRequest:
+      title: Add Email Domain Rules Request
+      type: object
+      properties:
+        avoidDomains:
+          description: List of email domains to which campaign messages must not be sent at all.
+          type: array
+          items:
+            type: string
+        htmlDomains:
+          description: List of domains that support only HTML based emails.
+          type: array
+          items:
+            type: string
+        txtDomains:
+          description: List of domains that support only text based emails.
+          type: array
+          items:
+            type: string
       required:
       - avoidDomains
       - htmlDomains
