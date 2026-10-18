@@ -54,5 +54,5 @@
     quality:
     - bronze
     builder: 'community (Meltano Hub variant maintainers: singer-io)'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
